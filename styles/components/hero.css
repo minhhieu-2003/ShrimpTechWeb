@@ -134,14 +134,17 @@
 
 .stat-label {
     font-size: var(--font-size-sm);
-    background: linear-gradient(135deg, #ffa726 0%, #fb8c00 100%);
+    background: rgba(28, 26, 26, 0.379);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     margin-top: var(--space-1);
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.3px;
+    font-family: var(--font-family);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .hero-buttons {

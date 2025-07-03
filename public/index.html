@@ -3,11 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
+    <title>ShrimpTech - Firebase Hosting</title>
 
-    <!-- update the version number as needed -->
+    <!-- Firebase SDK -->
     <script defer src="/__/firebase/11.10.0/firebase-app-compat.js"></script>
-    <!-- include only the Firebase features as you need -->
     <script defer src="/__/firebase/11.10.0/firebase-auth-compat.js"></script>
     <script defer src="/__/firebase/11.10.0/firebase-database-compat.js"></script>
     <script defer src="/__/firebase/11.10.0/firebase-firestore-compat.js"></script>
@@ -17,11 +16,9 @@
     <script defer src="/__/firebase/11.10.0/firebase-analytics-compat.js"></script>
     <script defer src="/__/firebase/11.10.0/firebase-remote-config-compat.js"></script>
     <script defer src="/__/firebase/11.10.0/firebase-performance-compat.js"></script>
-    <!-- 
-      initialize the SDK after all desired features are loaded, set useEmulator to false
-      to avoid connecting the SDK to running emulators.
-    -->
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+    
+    <!-- Initialize Firebase -->
+    <script defer src="/__/firebase/init.js?useEmulator=false"></script>
 
     <style media="screen">
       body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
@@ -41,30 +38,27 @@
   <body>
     <div id="message">
       <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
+      <h1>ShrimpTech - Firebase Setup Complete</h1>
+      <p>Your Firebase project is successfully connected and ready to use!</p>
       <a target="_blank" rel="noopener" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
     </div>
     <p id="load">Firebase SDK Loading&hellip;</p>
 
     <script>
+      // Firebase Configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyA3XF9mhdZFPBhJINHY8JFxUPcU3XS4D5w",
+        authDomain: "shrimptech-1065f.firebaseapp.com",
+        projectId: "shrimptech-1065f",
+        storageBucket: "shrimptech-1065f.firebasestorage.app",
+        messagingSenderId: "71175599742",
+        appId: "1:71175599742:web:9a03a3d12314f570eb0a2f",
+        measurementId: "G-DZ9GXV9MJR"
+      };
+
       document.addEventListener('DOMContentLoaded', function() {
         const loadEl = document.querySelector('#load');
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.firestore().doc('/foo/bar').get().then(() => { });
-        // firebase.functions().httpsCallable('yourFunction')().then(() => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        // firebase.analytics(); // call to activate
-        // firebase.analytics().logEvent('tutorial_completed');
-        // firebase.performance(); // call to activate
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-
+        
         try {
           let app = firebase.app();
           let features = [
@@ -78,9 +72,23 @@
             'remoteConfig',
             'performance',
           ].filter(feature => typeof app[feature] === 'function');
+          
           loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
+          
+          // Initialize Analytics if available
+          if (typeof firebase.analytics === 'function') {
+            firebase.analytics();
+            console.log('Firebase Analytics initialized');
+          }
+          
+          // Initialize Performance if available
+          if (typeof firebase.performance === 'function') {
+            firebase.performance();
+            console.log('Firebase Performance initialized');
+          }
+          
         } catch (e) {
-          console.error(e);
+          console.error('Firebase initialization error:', e);
           loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
         }
       });

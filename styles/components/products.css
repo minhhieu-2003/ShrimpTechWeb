@@ -347,6 +347,39 @@
     visibility: visible !important;
 }
 
+/* CRITICAL: Force visibility for sensor kits section */
+section[style*="background: #f8fafc"] {
+    display: block !important;
+    visibility: visible !important;
+}
+
+section[style*="background: #f8fafc"] .content-grid {
+    display: grid !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+section[style*="background: #f8fafc"] .content-card {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) !important;
+    animation: none !important;
+}
+
+section[style*="background: #f8fafc"] .fade-in-up {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) !important;
+    animation: none !important;
+}
+
+/* Force all children to be visible */
+section[style*="background: #f8fafc"] * {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
 /* Force visibility for all cards */
 .page-content .product-card,
 .page-section .content-card {

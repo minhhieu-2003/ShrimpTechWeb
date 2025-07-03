@@ -1300,265 +1300,39 @@
     border: 1px solid #e2e8f0;
 }
 
-/* Fallback: Show cards after page load if JS doesn't work */
-.solution-card:nth-child(1) { animation-delay: 0.1s; }
-.solution-card:nth-child(2) { animation-delay: 0.2s; }
-.solution-card:nth-child(3) { animation-delay: 0.3s; }
-.solution-card:nth-child(4) { animation-delay: 0.4s; }
-.solution-card:nth-child(5) { animation-delay: 0.5s; }
-.solution-card:nth-child(6) { animation-delay: 0.6s; }
-
-@keyframes fadeInCard {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* FORCE VISIBILITY FOR SENSOR KITS SECTION */
+.page-section[style*="background: #f8fafc"] .content-card,
+.page-section[style*="background: #f8fafc"] .fade-in-up,
+section[style*="background: #f8fafc"] .content-card,
+section[style*="background: #f8fafc"] .fade-in-up {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) !important;
+    display: block !important;
+    animation: none !important;
 }
 
-/* Responsive Mentor Grid */
-@media (max-width: 1200px) {
-    .mentor-grid {
-        grid-template-columns: 1fr;
-        gap: 25px;
-    }
+.page-section[style*="background: #f8fafc"] .content-grid,
+section[style*="background: #f8fafc"] .content-grid {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: grid !important;
 }
 
-@media (max-width: 768px) {
-    .mentor-card {
-        padding: 20px;
-    }
-    
-    .mentor-avatar {
-        width: 60px;
-        height: 60px;
-        font-size: 1.5rem;
-    }
-    
-    .mentor-info h3 {
-        font-size: 1.3rem;
-    }
-    
-    .skills-tags {
-        gap: 5px;
-    }
-    
-    .skill-tag {
-        font-size: 0.8rem;
-        padding: 4px 8px;
-    }
+.page-section[style*="background: #f8fafc"] .stagger-animation,
+section[style*="background: #f8fafc"] .stagger-animation {
+    opacity: 1 !important;
+    visibility: visible !important;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .page-header h1 {
-        font-size: 2rem;
-    }
-    
-    .page-header p {
-        font-size: 1rem;
-    }
-    
-    .contact-content {
-        grid-template-columns: 1fr;
-        gap: 40px;
-    }
-    
-    .form-row {
-        grid-template-columns: 1fr;
-    }
-    
-    .newsletter-content {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-    
-    .subscribe-form {
-        flex-direction: column;
-    }
-    
-    .qa-categories {
-        justify-content: flex-start;
-    }
-    
-    .qa-category {
-        flex: 1;
-        text-align: center;
-        min-width: auto;
-    }
-    
-    .videos-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .qa-actions,
-    .videos-actions {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .faq-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .emergency-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* Responsive Design for Pages */
-@media (max-width: 1200px) {
-    .grid-4 {
-        grid-template-columns: repeat(3, 1fr);
-    }
-    
-    .product-card.featured {
-        transform: none;
-    }
-    
-    .product-card.featured:hover {
-        transform: translateY(-8px);
-    }
-}
-
-@media (max-width: 768px) {
-    .page-header {
-        padding: 120px 0 80px;
-    }
-    
-    .page-header h1 {
-        font-size: clamp(2rem, 6vw, 2.5rem);
-        margin-bottom: 1rem;
-    }
-    
-    .page-header p {
-        font-size: 1rem;
-    }
-    
-    .page-content {
-        padding: 2rem 0;
-    }
-    
-    .page-section {
-        padding: 2rem 0;
-    }
-    
-    .grid-2,
-    .grid-3,
-    .grid-4 {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-    
-    .content-card,
-    .product-card,
-    .solution-card {
-        padding: 1.5rem;
-    }
-    
-    .contact-form {
-        padding: 2rem;
-    }
-    
-    .container {
-        padding: 0 1rem;
-    }
-    
-    .product-card.featured {
-        transform: none;
-    }
-    
-    .card-icon,
-    .solution-icon {
-        width: 50px;
-        height: 50px;
-        font-size: 1.2rem;
-    }
-    
-    .partner-logo {
-        width: 80px;
-        height: 80px;
-        font-size: 1.5rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .page-header {
-        padding: 100px 0 60px;
-    }
-    
-    .page-header h1 {
-        font-size: 1.8rem;
-        line-height: 1.2;
-    }
-    
-    .page-header p {
-        font-size: 0.9rem;
-    }
-    
-    .content-card,
-    .product-card,
-    .solution-card {
-        padding: 1rem;
-    }
-    
-    .contact-form {
-        padding: 1.5rem;
-    }
-    
-    .container {
-        padding: 0 0.75rem;
-    }
-    
-    .product-price .price {
-        font-size: 1.5rem;
-    }
-    
-    .card-title,
-    .solution-card h3 {
-        font-size: 1.1rem;
-    }
-}
-
-/* Responsive Design for Content Cards */
-@media (max-width: 768px) {
-    .content-grid.grid-2 {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-    
-    .content-card {
-        padding: 1.5rem;
-    }
-    
-    .card-icon {
-        width: 50px;
-        height: 50px;
-        font-size: 1.25rem;
-    }
-    
-    .card-features li {
-        font-size: 0.85rem;
-    }
-    
-    .card-features li span {
-        font-size: 0.8em;
-    }
-}
-
-@media (max-width: 480px) {
-    .content-card {
-        padding: 1rem;
-    }
-    
-    .card-icon {
-        width: 45px;
-        height: 45px;
-        font-size: 1.1rem;
-    }
+/* Additional fallback for sensor kit cards */
+.content-card .card-icon,
+.content-card .card-title,
+.content-card .card-description,
+.content-card .card-features,
+.content-card .card-footer {
+    opacity: 1 !important;
+    visibility: visible !important;
 }
 
 /* Animation Utilities */

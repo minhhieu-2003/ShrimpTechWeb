@@ -15,6 +15,124 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="../styles/pages.css">
+    <!-- CRITICAL FIX FOR SOLUTIONS VISIBILITY -->
+    <style>
+        /* FORCE SOLUTIONS SECTION TO BE VISIBLE */
+        .page-content .solution-card,
+        .page-content .content-grid,
+        .page-content .stagger-animation {
+            display: block !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: translateY(0) !important;
+            animation: none !important;
+        }
+        
+        .page-content .content-grid {
+            display: grid !important;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
+            gap: 2rem !important;
+        }
+        
+        .page-content .solution-card {
+            background: white !important;
+            border-radius: 16px !important;
+            padding: 2.5rem !important;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+            border: 1px solid #e2e8f0 !important;
+            transition: all 0.3s ease !important;
+            text-align: center !important;
+        }
+        
+        .page-content .solution-card:hover {
+            transform: translateY(-6px) !important;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1) !important;
+        }
+        
+        .page-content .solution-icon {
+            width: 80px !important;
+            height: 80px !important;
+            border-radius: 20px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            margin: 0 auto 1.5rem !important;
+            font-size: 2rem !important;
+            color: white !important;
+            background: linear-gradient(135deg, #0066cc, #004499) !important;
+            box-shadow: 0 4px 6px -1px rgba(0, 102, 204, 0.3) !important;
+        }
+        
+        .page-content .solution-card h3 {
+            font-size: 1.25rem !important;
+            font-weight: 600 !important;
+            color: #1a202c !important;
+            margin-bottom: 1rem !important;
+        }
+        
+        .page-content .solution-card p {
+            color: #4a5568 !important;
+            line-height: 1.6 !important;
+            margin-bottom: 1.5rem !important;
+        }
+        
+        /* Force all children to be visible */
+        .page-content .solution-card *,
+        .page-content .solution-icon,
+        .page-content .card-features {
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+        
+        .page-content .card-features ul {
+            list-style: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            text-align: left !important;
+        }
+        
+        .page-content .card-features li {
+            display: flex !important;
+            align-items: flex-start !important;
+            gap: 0.75rem !important;
+            padding: 0.5rem 0 !important;
+            color: #4a5568 !important;
+            font-size: 0.9rem !important;
+            line-height: 1.5 !important;
+        }
+        
+        .page-content .card-features li i {
+            color: #38a169 !important;
+            font-size: 0.8rem !important;
+            width: 16px !important;
+            text-align: center !important;
+            margin-top: 0.1rem !important;
+            flex-shrink: 0 !important;
+        }
+        
+        /* Remove problematic fade animations */
+        .page-content .fade-in-up {
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: translateY(0) !important;
+            animation: none !important;
+        }
+        
+        /* Force Integration Process section to be visible */
+        .page-section .content-card {
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: translateY(0) !important;
+            animation: none !important;
+            display: block !important;
+        }
+        
+        .page-section .content-grid {
+            opacity: 1 !important;
+            visibility: visible !important;
+            display: grid !important;
+        }
+    </style>
 </head>
 <body class="page-wrapper">
     <!-- Navigation Header -->
@@ -60,59 +178,58 @@
                     </p>
                 </div>
                 
-                <div class="content-grid grid-3 stagger-animation">
+                <div class="content-grid grid-3 stagger-animation" style="display: grid !important; opacity: 1 !important; visibility: visible !important; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important; gap: 2rem !important;">
                     <!-- AI & Machine Learning -->
-                    <div class="solution-card fade-in-up">
-                        <div class="solution-icon">
+                    <div class="solution-card" style="display: block !important; opacity: 1 !important; transform: translateY(0) !important; visibility: visible !important; animation: none !important;">
+                        <div class="solution-icon" style="opacity: 1 !important; visibility: visible !important;">
                             <i class="fas fa-brain"></i>
                         </div>
-                        <h3>AI & Machine Learning</h3>
-                        <p>Trí tuệ nhân tạo phân tích dữ liệu thời gian thực để dự đoán và cảnh báo sớm các vấn đề trong ao nuôi. Học hỏi từ dữ liệu lịch sử để tối ưu hóa quy trình nuôi.</p>
-                        <div class="card-features">
+                        <h3 style="opacity: 1 !important; visibility: visible !important;">AI & Machine Learning</h3>
+                        <p style="opacity: 1 !important; visibility: visible !important;">Trí tuệ nhân tạo phân tích dữ liệu thời gian thực để dự đoán và cảnh báo sớm các vấn đề trong ao nuôi. Học hỏi từ dữ liệu lịch sử để tối ưu hóa quy trình nuôi.</p>
+                        <div class="card-features" style="opacity: 1 !important; visibility: visible !important;">
                             <ul>
                                 <li><i class="fas fa-check"></i> Dự đoán chất lượng nước với độ chính xác 95%</li>
                                 <li><i class="fas fa-check"></i> Nhận diện bệnh tật sớm qua hình ảnh AI</li>
                                 <li><i class="fas fa-check"></i> Tối ưu lịch cho ăn theo tăng trưởng tôm</li>
                                 <li><i class="fas fa-check"></i> Phân tích tăng trưởng và dự báo thu hoạch</li>
                                 <li><i class="fas fa-check"></i> Quản lý mật độ nuôi tôm cho từng ao riêng biệt</li>
-
                             </ul>
                         </div>
                     </div>
 
                     <!-- IoT Sensors Network -->
-                    <div class="solution-card fade-in-up">
-                        <div class="solution-icon">
+                    <div class="solution-card" style="display: block !important; opacity: 1 !important; transform: translateY(0) !important; visibility: visible !important; animation: none !important;">
+                        <div class="solution-icon" style="opacity: 1 !important; visibility: visible !important;">
                             <i class="fas fa-satellite-dish"></i>
                         </div>
-                        <h3>Mạng cảm biến IoT</h3>
-                        <p>Hệ thống cảm biến thông minh giám sát 24/7 các thông số quan trọng của môi trường nuôi tôm. Dữ liệu được truyền tải real-time qua mạng LoRaWAN/WiFi bảo mật.</p>
-                        <div class="card-features">
+                        <h3 style="opacity: 1 !important; visibility: visible !important;">Mạng cảm biến IoT</h3>
+                        <p style="opacity: 1 !important; visibility: visible !important;">Hệ thống cảm biến thông minh giám sát 24/7 các thông số quan trọng của môi trường nuôi tôm. Dữ liệu được truyền tải real-time qua mạng LoRaWAN/WiFi bảo mật.</p>
+                        <div class="card-features" style="opacity: 1 !important; visibility: visible !important;">
                             <ul>
-								<li><i class="fas fa-check"></i> pH, DO, nhiệt độ, độ mặn, khí độc </li>
+                                <li><i class="fas fa-check"></i> pH, DO, nhiệt độ, độ mặn, khí độc</li>
                                 <li><i class="fas fa-check"></i> Chất lượng nước đa thông số (TDS, ORP, NH3)</li>
                                 <li><i class="fas fa-check"></i> Kết nối wireless an toàn AES-256</li>
                                 <li><i class="fas fa-check"></i> Báo cáo thời gian thực và lưu trữ cloud</li>
-								<li><i class="fas fa-check"></i> Hỗ trợ pin mặt trời tiết kiệm năng lượng</li>
+                                <li><i class="fas fa-check"></i> Hỗ trợ pin mặt trời tiết kiệm năng lượng</li>
                             </ul>
                         </div>
                     </div>
 
                     <!-- Automation Control -->
-                    <div class="solution-card fade-in-up">
-                        <div class="solution-icon">
+                    <div class="solution-card" style="display: block !important; opacity: 1 !important; transform: translateY(0) !important; visibility: visible !important; animation: none !important;">
+                        <div class="solution-icon" style="opacity: 1 !important; visibility: visible !important;">
                             <i class="fas fa-cogs"></i>
                         </div>
-                        <h3>Tự động hóa thông minh</h3>
-                        <p>Điều khiển tự động tất cả thiết bị trong ao nuôi dựa trên dữ liệu cảm biến và thuật toán AI.</p>
-                        <div class="card-features">
+                        <h3 style="opacity: 1 !important; visibility: visible !important;">Tự động hóa thông minh</h3>
+                        <p style="opacity: 1 !important; visibility: visible !important;">Điều khiển tự động tất cả thiết bị trong ao nuôi dựa trên dữ liệu cảm biến và thuật toán AI.</p>
+                        <div class="card-features" style="opacity: 1 !important; visibility: visible !important;">
                             <ul>
                                 <li><i class="fas fa-check"></i> Quạt oxy tự động</li>
-								<li><i class="fas fa-check"></i> Máy bơm nước</li>
-								<li><i class="fas fa-check"></i> Đèn chiếu sáng</li>
-								<li><i class="fas fa-check"></i> Tủ điều khiển</li>
-								<li><i class="fas fa-check"></i> Tủ điện bảo vệ</li>
-								<li><i class="fas fa-check"></i> Thiết bị khác (v.v.)</li>
+                                <li><i class="fas fa-check"></i> Máy bơm nước</li>
+                                <li><i class="fas fa-check"></i> Đèn chiếu sáng</li>
+                                <li><i class="fas fa-check"></i> Tủ điều khiển</li>
+                                <li><i class="fas fa-check"></i> Tủ điện bảo vệ</li>
+                                <li><i class="fas fa-check"></i> Thiết bị khác (v.v.)</li>
                                 <li><i class="fas fa-check"></i> Hệ thống sục khí</li>
                                 <li><i class="fas fa-check"></i> Điều khiển từ xa</li>
                             </ul>
@@ -120,13 +237,13 @@
                     </div>
 
                     <!-- Computer Vision -->
-                    <div class="solution-card fade-in-up">
-                        <div class="solution-icon">
+                    <div class="solution-card" style="display: block !important; opacity: 1 !important; transform: translateY(0) !important; visibility: visible !important; animation: none !important;">
+                        <div class="solution-icon" style="opacity: 1 !important; visibility: visible !important;">
                             <i class="fas fa-eye"></i>
                         </div>
-                        <h3>Thị giác máy tính</h3>
-                        <p>Camera AI thông minh theo dõi tình trạng tôm, phát hiện bệnh tật và đánh giá tăng trưởng.</p>
-                        <div class="card-features">
+                        <h3 style="opacity: 1 !important; visibility: visible !important;">Thị giác máy tính</h3>
+                        <p style="opacity: 1 !important; visibility: visible !important;">Camera AI thông minh theo dõi tình trạng tôm, phát hiện bệnh tật và đánh giá tăng trưởng.</p>
+                        <div class="card-features" style="opacity: 1 !important; visibility: visible !important;">
                             <ul>
                                 <li><i class="fas fa-check"></i> Nhận diện bệnh tật</li>
                                 <li><i class="fas fa-check"></i> Đếm số lượng tôm</li>
@@ -137,36 +254,36 @@
                     </div>
 
                     <!-- Mobile & Web Dashboard -->
-                    <div class="solution-card fade-in-up">
-                        <div class="solution-icon">
+                    <div class="solution-card" style="display: block !important; opacity: 1 !important; transform: translateY(0) !important; visibility: visible !important; animation: none !important;">
+                        <div class="solution-icon" style="opacity: 1 !important; visibility: visible !important;">
                             <i class="fas fa-mobile-alt"></i>
                         </div>
-                        <h3>Dashboard thông minh</h3>
-                        <p>Ứng dụng mobile và web dashboard cho phép giám sát và điều khiển từ xa mọi lúc mọi nơi.</p>
-                        <div class="card-features">
+                        <h3 style="opacity: 1 !important; visibility: visible !important;">Dashboard thông minh</h3>
+                        <p style="opacity: 1 !important; visibility: visible !important;">Ứng dụng mobile và web dashboard cho phép giám sát và điều khiển từ xa mọi lúc mọi nơi.</p>
+                        <div class="card-features" style="opacity: 1 !important; visibility: visible !important;">
                             <ul>
                                 <li><i class="fas fa-check"></i> App iOS & Android</li>
                                 <li><i class="fas fa-check"></i> Web dashboard</li>
                                 <li><i class="fas fa-check"></i> Báo cáo chi tiết</li>
-                                <li><i class="fas fa-check"></i> Cảnh báo </li>
+                                <li><i class="fas fa-check"></i> Cảnh báo thông minh</li>
                             </ul>
                         </div>
                     </div>
 
                     <!-- Data Analytics -->
-                    <div class="solution-card fade-in-up">
-                        <div class="solution-icon">
+                    <div class="solution-card" style="display: block !important; opacity: 1 !important; transform: translateY(0) !important; visibility: visible !important; animation: none !important;">
+                        <div class="solution-icon" style="opacity: 1 !important; visibility: visible !important;">
                             <i class="fas fa-chart-line"></i>
                         </div>
-                        <h3>Phân tích dữ liệu</h3>
-                        <p>Phân tích sâu dữ liệu lịch sử để tối ưu hóa quy trình nuôi và tăng năng suất.</p>
-                        <div class="card-features">
+                        <h3 style="opacity: 1 !important; visibility: visible !important;">Phân tích dữ liệu</h3>
+                        <p style="opacity: 1 !important; visibility: visible !important;">Phân tích sâu dữ liệu lịch sử để tối ưu hóa quy trình nuôi và tăng năng suất.</p>
+                        <div class="card-features" style="opacity: 1 !important; visibility: visible !important;">
                             <ul>
                                 <li><i class="fas fa-check"></i> Báo cáo tăng trưởng</li>
                                 <li><i class="fas fa-check"></i> Phân tích xu hướng</li>
                                 <li><i class="fas fa-check"></i> Dự báo sản lượng</li>
                                 <li><i class="fas fa-check"></i> Tối ưu chi phí</li>
-                                 <li><i class="fas fa-check"></i> truy xuất vùng nuôi </li>
+                                <li><i class="fas fa-check"></i> Truy xuất vùng nuôi</li>
                             </ul>
                         </div>
                     </div>
@@ -184,53 +301,53 @@
                     </p>
                 </div>
                 
-                <div class="content-grid grid-3">
-                    <div class="content-card text-center">
-                        <div class="card-icon">
+                <div class="content-grid grid-3" style="display: grid !important; opacity: 1 !important; visibility: visible !important; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important; gap: 2rem !important;">
+                    <div class="content-card text-center" style="display: block !important; opacity: 1 !important; transform: translateY(0) !important; visibility: visible !important;">
+                        <div class="card-icon" style="opacity: 1 !important; visibility: visible !important;">
                             <i class="fas fa-search"></i>
                         </div>
-                        <h3 class="card-title">1. Khảo sát</h3>
-                        <p class="card-description">
+                        <h3 class="card-title" style="opacity: 1 !important; visibility: visible !important;">1. Khảo sát</h3>
+                        <p class="card-description" style="opacity: 1 !important; visibility: visible !important;">
                             Đánh giá hiện trạng ao nuôi và xác định yêu cầu cụ thể
                         </p>
                     </div>
                     
-                    <div class="content-card text-center">
-                        <div class="card-icon">
+                    <div class="content-card text-center" style="display: block !important; opacity: 1 !important; transform: translateY(0) !important; visibility: visible !important;">
+                        <div class="card-icon" style="opacity: 1 !important; visibility: visible !important;">
                             <i class="fas fa-drafting-compass"></i>
                         </div>
-                        <h3 class="card-title">2. Thiết kế</h3>
-                        <p class="card-description">
+                        <h3 class="card-title" style="opacity: 1 !important; visibility: visible !important;">2. Thiết kế</h3>
+                        <p class="card-description" style="opacity: 1 !important; visibility: visible !important;">
                             Thiết kế hệ thống phù hợp với quy mô và ngân sách
                         </p>
                     </div>
                     
-                    <div class="content-card text-center">
-                        <div class="card-icon">
+                    <div class="content-card text-center" style="display: block !important; opacity: 1 !important; transform: translateY(0) !important; visibility: visible !important;">
+                        <div class="card-icon" style="opacity: 1 !important; visibility: visible !important;">
                             <i class="fas fa-tools"></i>
                         </div>
-                        <h3 class="card-title">3. Lắp đặt</h3>
-                        <p class="card-description">
+                        <h3 class="card-title" style="opacity: 1 !important; visibility: visible !important;">3. Lắp đặt</h3>
+                        <p class="card-description" style="opacity: 1 !important; visibility: visible !important;">
                             Lắp đặt thiết bị và cấu hình hệ thống tại hiện trường
                         </p>
                     </div>
                     
-                    <div class="content-card text-center">
-                        <div class="card-icon">
+                    <div class="content-card text-center" style="display: block !important; opacity: 1 !important; transform: translateY(0) !important; visibility: visible !important;">
+                        <div class="card-icon" style="opacity: 1 !important; visibility: visible !important;">
                             <i class="fas fa-graduation-cap"></i>
                         </div>
-                        <h3 class="card-title">4. Đào tạo</h3>
-                        <p class="card-description">
+                        <h3 class="card-title" style="opacity: 1 !important; visibility: visible !important;">4. Đào tạo</h3>
+                        <p class="card-description" style="opacity: 1 !important; visibility: visible !important;">
                             Đào tạo người dùng sử dụng hệ thống hiệu quả
                         </p>
                     </div>
                     
-                    <div class="content-card text-center">
-                        <div class="card-icon">
+                    <div class="content-card text-center" style="display: block !important; opacity: 1 !important; transform: translateY(0) !important; visibility: visible !important;">
+                        <div class="card-icon" style="opacity: 1 !important; visibility: visible !important;">
                             <i class="fas fa-headset"></i>
                         </div>
-                        <h3 class="card-title">5. Hỗ trợ</h3>
-                        <p class="card-description">
+                        <h3 class="card-title" style="opacity: 1 !important; visibility: visible !important;">5. Hỗ trợ</h3>
+                        <p class="card-description" style="opacity: 1 !important; visibility: visible !important;">
                             Hỗ trợ kỹ thuật 24/7 và bảo trì định kỳ
                         </p>
                     </div>
@@ -286,5 +403,97 @@
 
     <!-- JavaScript -->
     <script src="../js/main.js"></script>
+    <!-- Enhanced JavaScript for solutions section -->
+    <script>
+        // FORCE VISIBILITY FOR SOLUTIONS - CRITICAL FIX
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🔧 FORCING SOLUTIONS VISIBILITY...');
+            
+            // Find the solutions section
+            const solutionsSection = document.querySelector('.page-content');
+            
+            if (solutionsSection) {
+                console.log('✅ Found solutions section');
+                
+                // Force section visibility
+                solutionsSection.style.display = 'block';
+                solutionsSection.style.visibility = 'visible';
+                solutionsSection.style.opacity = '1';
+                
+                // Force container visibility
+                const container = solutionsSection.querySelector('.container');
+                if (container) {
+                    container.style.display = 'block';
+                    container.style.visibility = 'visible';
+                    container.style.opacity = '1';
+                }
+                
+                // Force grid visibility
+                const grid = solutionsSection.querySelector('.content-grid');
+                if (grid) {
+                    grid.style.display = 'grid';
+                    grid.style.visibility = 'visible';
+                    grid.style.opacity = '1';
+                    grid.style.gridTemplateColumns = 'repeat(auto-fit, minmax(280px, 1fr))';
+                    grid.style.gap = '2rem';
+                }
+                
+                // Force all solution cards to be visible
+                const cards = solutionsSection.querySelectorAll('.solution-card');
+                console.log(`📦 Found ${cards.length} solution cards`);
+                
+                cards.forEach((card, index) => {
+                    card.style.display = 'block';
+                    card.style.visibility = 'visible';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                    card.classList.add('visible');
+                    card.classList.remove('fade-in-up');
+                    
+                    // Force all children to be visible
+                    const children = card.querySelectorAll('*');
+                    children.forEach(child => {
+                        child.style.visibility = 'visible';
+                        child.style.opacity = '1';
+                    });
+                    
+                    console.log(`✅ Solution card ${index + 1} forced visible`);
+                });
+                
+                // Remove animation classes that might hide content
+                const animatedElements = solutionsSection.querySelectorAll('.fade-in-up, .stagger-animation');
+                animatedElements.forEach(el => {
+                    el.classList.remove('fade-in-up');
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                    el.style.visibility = 'visible';
+                });
+                
+                console.log('✅ SOLUTIONS SECTION FORCED VISIBLE');
+            } else {
+                console.error('❌ Solutions section not found!');
+            }
+            
+            // Additional force for all solution cards on page
+            document.querySelectorAll('.solution-card').forEach((card, index) => {
+                card.style.opacity = '1';
+                card.style.visibility = 'visible';
+                card.style.transform = 'translateY(0)';
+                card.style.display = 'block';
+                console.log(`🔧 Forced solution card ${index + 1} visible`);
+            });
+        });
+        
+        // Backup force visibility after a delay
+        setTimeout(() => {
+            console.log('🔄 Backup solutions visibility force...');
+            document.querySelectorAll('.solution-card').forEach(card => {
+                card.style.opacity = '1';
+                card.style.visibility = 'visible';
+                card.style.transform = 'translateY(0)';
+                card.style.display = 'block';
+            });
+        }, 1000);
+    </script>
 </body>
 </html>
