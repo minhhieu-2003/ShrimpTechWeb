@@ -1,0 +1,38 @@
+{
+  "name": "shrimptech-website",
+  "version": "1.0.0",
+  "description": "SHRIMP TECH - Hệ thống AI-Powered quản lý ao tôm thông minh",
+  "main": "index.html",
+  "scripts": {
+    "start": "live-server --port=3000 --open=/demo.html",
+    "serve": "live-server --port=3000",
+    "dev": "live-server --port=3000 --watch=index.html,styles.css,script.js",
+    "build": "echo 'Static website - no build required'",
+    "test": "echo 'Testing website functionality...'",
+    "deploy": "echo 'Ready for deployment to static hosting'"
+  },
+  "keywords": [
+    "shrimp",
+    "aquaculture",
+    "AI",
+    "deep-learning",
+    "IoT",
+    "website",
+    "responsive"
+  ],
+  "author": "SHRIMP TECH Development Team",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shrimptech/website.git"
+  },
+  "homepage": "https://shrimptech.vn",
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
