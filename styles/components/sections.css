@@ -112,8 +112,10 @@ section {
 
 /* Stats Section */
 .stats {
-    background: var(--primary-blue);
-    color: white;
+    background: #f8fafc;
+    color: #1f2937;
+    border-top: 1px solid #e5e7eb;
+    border-bottom: 1px solid #e5e7eb;
 }
 
 .stats-grid {
@@ -123,23 +125,36 @@ section {
     text-align: center;
 }
 
+.stat-item {
+    padding: var(--space-6);
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+}
+
+.stat-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
 .stat-number {
     font-size: var(--font-size-5xl);
     font-weight: 800;
     margin-bottom: var(--space-2);
-    color: white;
+    color: #2563eb;
 }
 
 .stat-label {
     font-size: var(--font-size-lg);
     font-weight: 600;
     margin-bottom: var(--space-1);
-    color: rgba(255, 255, 255, 0.95);
+    color: #374151;
 }
 
 .stat-desc {
     font-size: var(--font-size-sm);
-    color: rgba(255, 255, 255, 0.8);
+    color: #6b7280;
 }
 
 /* CTA Section */

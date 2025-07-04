@@ -8,18 +8,8 @@ const testCases = [
     'xử lý khi tôm thiếu oxy'
 ];
 
-// Khởi tạo chatbot
-document.addEventListener('DOMContentLoaded', function() {
-    const chatbotToggle = document.getElementById('chatbot-toggle');
-    const chatbotContainer = document.getElementById('chatbot-container');
-    const chatbotClose = document.getElementById('chatbot-close');
-    const chatInput = document.getElementById('chatbot-input-field');
-    const sendButton = document.getElementById('chatbot-send');
-    const messagesContainer = document.getElementById('chatbot-messages');
-    const quickReplies = document.querySelectorAll('.quick-reply');
-
-    // Kho kiến thức và lời khuyên về nuôi tôm
-    const shrimpFarmingKnowledge = {
+// Kho kiến thức và lời khuyên về nuôi tôm
+const shrimpFarmingKnowledge = {
         'chất_lượng_nước': [
             {
                 trigger: ['ph nước', 'độ ph', 'kiểm tra ph', 'đo ph', 'nước ao', 'nước chua', 'nước kiềm'],
@@ -90,126 +80,400 @@ document.addEventListener('DOMContentLoaded', function() {
         ]
     };
 
-    // Hiển thị tin nhắn của bot
-    function displayBotMessage(message) {
-        const messageDiv = document.createElement('div');
-        messageDiv.className = 'message bot-message';
-        messageDiv.innerHTML = `
-            <div class="message-avatar">
-                <div class="bot-avatar">
-                    <img src="assets/Logo.jpg" alt="SHRIMP TECH" class="avatar-img">
-                </div>
-            </div>
-            <div class="message-content">
-                <div class="message-header">
-                    <span class="sender-name">AI Assistant</span>
-                    <span class="message-time">vừa xong</span>
-                </div>
-                <div class="message-body">
-                    ${message.replace(/\n/g, '<br>')}
-                </div>
-            </div>
-        `;
-        messagesContainer.appendChild(messageDiv);
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    }
+    /**
+     * Chatbot Class - Main chatbot functionality
+     */
+    class Chatbot {
+        constructor() {
+            this.isInitialized = false;
+            this.init();
+        }
 
-    // Hiển thị tin nhắn của người dùng
-    function displayUserMessage(message) {
-        const messageDiv = document.createElement('div');
-        messageDiv.className = 'message user-message';
-        messageDiv.innerHTML = `
-            <div class="message-content">
-                <div class="message-header">
-                    <span class="sender-name">Bạn</span>
-                    <span class="message-time">vừa xong</span>
-                </div>
-                <div class="message-body">
-                    ${message}
-                </div>
-            </div>
-        `;
-        messagesContainer.appendChild(messageDiv);
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    }
+        init() {
+            // Wait for DOM to be ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', () => this.initializeElements());
+            } else {
+                this.initializeElements();
+            }
+        }
 
-    // Xử lý tin nhắn từ người dùng
-    function processUserMessage(message) {
-        message = message.toLowerCase();
-        let foundAdvice = false;
+        initializeElements() {
+            // Get DOM elements
+            this.chatbotToggle = document.getElementById('chatbot-toggle');
+            this.chatbotContainer = document.getElementById('chatbot-container');
+            this.chatbotClose = document.getElementById('chatbot-close');
+            this.chatInput = document.getElementById('chatbot-input-field');
+            this.sendButton = document.getElementById('chatbot-send');
+            this.messagesContainer = document.getElementById('chatbot-messages');
+            this.quickReplies = document.querySelectorAll('.quick-reply');
+            this.emojiBtn = document.querySelector('.emoji-btn');
+            this.attachmentBtn = document.querySelector('.attachment-btn');
 
-        // Tìm kiếm trong kho kiến thức
-        for (const category in shrimpFarmingKnowledge) {
-            for (const item of shrimpFarmingKnowledge[category]) {
-                if (item.trigger.some(t => message.includes(t))) {
-                    displayBotMessage(item.advice);
-                    foundAdvice = true;
-                    break;
+            if (!this.chatbotToggle || !this.chatbotContainer) {
+                console.warn('⚠️ Chatbot elements not found, retrying...');
+                setTimeout(() => this.initializeElements(), 500);
+                return;
+            }
+
+            this.bindEvents();
+            this.isInitialized = true;
+            console.log('✅ Chatbot initialized successfully');
+        }
+
+        bindEvents() {
+            // Toggle chatbot
+            if (this.chatbotToggle) {
+                this.chatbotToggle.addEventListener('click', () => {
+                    this.chatbotContainer.classList.toggle('active');
+                    this.updateToggleIcon();
+                });
+            }
+
+            // Close chatbot
+            if (this.chatbotClose) {
+                this.chatbotClose.addEventListener('click', () => {
+                    this.chatbotContainer.classList.remove('active');
+                    this.updateToggleIcon();
+                });
+            }
+
+            // Send message
+            if (this.sendButton) {
+                this.sendButton.addEventListener('click', () => this.sendMessage());
+            }
+
+            // Enter key to send
+            if (this.chatInput) {
+                this.chatInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        this.sendMessage();
+                    }
+                });
+            }
+
+            // Quick replies with proper data-message handling
+            this.bindQuickReplies();
+
+            // Emoji button functionality
+            if (this.emojiBtn) {
+                this.emojiBtn.addEventListener('click', () => this.showEmojiPicker());
+            }
+
+            // Attachment button functionality
+            if (this.attachmentBtn) {
+                this.attachmentBtn.addEventListener('click', () => this.handleFileAttachment());
+            }
+        }
+
+        showEmojiPicker() {
+            const emojis = ['😊', '👍', '❤️', '😂', '🤔', '👏', '🙏', '💪', '🔥', '✨', '🎉', '💡', '🚀', '📊', '💰', '🐟'];
+            
+            // Create emoji picker if it doesn't exist
+            let emojiPicker = document.querySelector('.emoji-picker');
+            if (!emojiPicker) {
+                emojiPicker = document.createElement('div');
+                emojiPicker.className = 'emoji-picker';
+                emojiPicker.style.cssText = `
+                    position: absolute;
+                    bottom: 100%;
+                    right: 0;
+                    background: white;
+                    border: 1px solid #ddd;
+                    border-radius: 12px;
+                    padding: 12px;
+                    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+                    display: grid;
+                    grid-template-columns: repeat(4, 1fr);
+                    gap: 8px;
+                    z-index: 1000;
+                    max-width: 200px;
+                `;
+                
+                emojis.forEach(emoji => {
+                    const emojiBtn = document.createElement('button');
+                    emojiBtn.textContent = emoji;
+                    emojiBtn.style.cssText = `
+                        border: none;
+                        background: transparent;
+                        font-size: 20px;
+                        cursor: pointer;
+                        padding: 4px;
+                        border-radius: 4px;
+                        transition: background 0.2s ease;
+                    `;
+                    emojiBtn.addEventListener('click', () => {
+                        if (this.chatInput) {
+                            this.chatInput.value += emoji;
+                            this.chatInput.focus();
+                        }
+                        emojiPicker.remove();
+                    });
+                    emojiBtn.addEventListener('mouseenter', () => {
+                        emojiBtn.style.background = '#f0f0f0';
+                    });
+                    emojiBtn.addEventListener('mouseleave', () => {
+                        emojiBtn.style.background = 'transparent';
+                    });
+                    emojiPicker.appendChild(emojiBtn);
+                });
+                
+                this.emojiBtn.parentElement.style.position = 'relative';
+                this.emojiBtn.parentElement.appendChild(emojiPicker);
+                
+                // Close picker when clicking outside
+                setTimeout(() => {
+                    document.addEventListener('click', (e) => {
+                        if (!emojiPicker.contains(e.target) && e.target !== this.emojiBtn) {
+                            emojiPicker.remove();
+                        }
+                    }, { once: true });
+                }, 100);
+            }
+        }
+
+        handleFileAttachment() {
+            // Create file input
+            const fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.accept = 'image/*,.pdf,.doc,.docx';
+            fileInput.style.display = 'none';
+            
+            fileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    // For demo purposes, just show a message
+                    this.addMessage(`📎 Đã đính kèm file: ${file.name}`, 'user');
+                    
+                    // Simulate processing
+                    setTimeout(() => {
+                        this.addMessage('🤖 Cảm ơn bạn đã gửi file! Đội ngũ kỹ thuật sẽ xem xét và phản hồi sớm nhất.', 'bot');
+                    }, 1000);
+                }
+                fileInput.remove();
+            });
+            
+            document.body.appendChild(fileInput);
+            fileInput.click();
+        }
+
+        bindQuickReplies() {
+            // Wait for DOM to be ready and re-bind quick replies
+            setTimeout(() => {
+                const quickReplies = document.querySelectorAll('.quick-reply');
+                quickReplies.forEach(reply => {
+                    reply.addEventListener('click', (e) => {
+                        const message = e.currentTarget.getAttribute('data-message') || e.currentTarget.textContent.trim();
+                        if (message) {
+                            this.processUserMessage(message);
+                        }
+                    });
+                });
+                console.log(`✅ Bound ${quickReplies.length} quick reply buttons`);
+            }, 200);
+        }
+
+        updateToggleIcon() {
+            if (this.chatbotToggle) {
+                const isActive = this.chatbotContainer.classList.contains('active');
+                this.chatbotToggle.classList.toggle('active', isActive);
+            }
+        }
+
+        sendMessage() {
+            const message = this.chatInput ? this.chatInput.value.trim() : '';
+            if (message) {
+                this.processUserMessage(message);
+                if (this.chatInput) {
+                    this.chatInput.value = '';
                 }
             }
-            if (foundAdvice) break;
         }
 
-        // Nếu không tìm thấy lời khuyên cụ thể
-        if (!foundAdvice) {
-            displayBotMessage(`Xin lỗi, tôi chưa có thông tin cụ thể về câu hỏi này. Bạn có thể thử hỏi về:\n
-- Chất lượng nước (pH, oxy, độ mặn)\n
-- Dinh dưỡng và cho ăn\n
-- Phòng và trị bệnh\n
-- Quản lý ao nuôi\n
-- Kỹ thuật nuôi tôm\n
-- Xử lý tình huống khẩn cấp\n
-Hoặc chọn một trong các chủ đề gợi ý bên dưới.`);
+        processUserMessage(message) {
+            // Add user message to chat
+            this.addMessage(message, 'user');
+            
+            // Show typing indicator
+            this.showTypingIndicator(true);
+            
+            // Process message and get response
+            const response = this.getResponse(message);
+            
+            // Add bot response with delay for better UX
+            setTimeout(() => {
+                this.addMessage(response, 'bot');
+            }, 1000 + Math.random() * 1000); // Random delay between 1-2 seconds
+        }
+
+        addMessage(message, type) {
+            if (!this.messagesContainer) return;
+
+            // Remove typing indicator if exists
+            this.showTypingIndicator(false);
+
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}-message`;
+            
+            // Format message with proper line breaks
+            const formattedMessage = message.replace(/\n/g, '<br>');
+            
+            // Create avatar
+            const avatar = type === 'bot' ? 
+                `<div class="message-avatar">
+                    <div class="bot-avatar">🤖</div>
+                 </div>` : 
+                `<div class="message-avatar">
+                    <div class="user-avatar"></div>
+                 </div>`;
+            
+            // Create message structure
+            const messageContent = `
+                ${avatar}
+                <div class="message-content">
+                    <div class="message-header">
+                        <span class="sender-name">${type === 'bot' ? 'AI Assistant' : 'Bạn'}</span>
+                        <span class="message-time">${new Date().toLocaleTimeString('vi-VN', { 
+                            hour: '2-digit', 
+                            minute: '2-digit' 
+                        })}</span>
+                    </div>
+                    <div class="message-body">
+                        <p>${formattedMessage}</p>
+                    </div>
+                </div>
+            `;
+            
+            messageDiv.innerHTML = messageContent;
+            this.messagesContainer.appendChild(messageDiv);
+            
+            // Scroll to bottom with smooth behavior
+            this.messagesContainer.scrollTo({
+                top: this.messagesContainer.scrollHeight,
+                behavior: 'smooth'
+            });
+        }
+
+        showTypingIndicator(show = true) {
+            // Remove existing typing indicator
+            const existingIndicator = this.messagesContainer.querySelector('.typing-indicator-message');
+            if (existingIndicator) {
+                existingIndicator.remove();
+            }
+
+            if (show) {
+                const typingDiv = document.createElement('div');
+                typingDiv.className = 'message bot-message typing-indicator-message';
+                typingDiv.innerHTML = `
+                    <div class="message-avatar">
+                        <div class="bot-avatar">🤖</div>
+                    </div>
+                    <div class="message-content">
+                        <div class="typing-indicator">
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                        </div>
+                    </div>
+                `;
+                this.messagesContainer.appendChild(typingDiv);
+                
+                // Scroll to bottom
+                this.messagesContainer.scrollTo({
+                    top: this.messagesContainer.scrollHeight,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        getResponse(message) {
+            const lowerMessage = message.toLowerCase();
+            
+            // Handle specific quick reply messages
+            if (lowerMessage.includes('sản phẩm iot') || lowerMessage.includes('tìm hiểu về sản phẩm')) {
+                return `🛠️ **Sản phẩm IoT của SHRIMP TECH:**
+
+**📦 Gói Starter** - Phù hợp ao nhỏ (500-1000m²)
+- 3 cảm biến cơ bản (pH, DO, nhiệt độ)
+- App mobile cơ bản
+- Giá: 15-20 triệu VND
+
+**📦 Gói Professional** - Ao trung bình (1000-3000m²)
+- 6 cảm biến nâng cao + camera AI
+- Dashboard web + mobile
+- Cảnh báo thông minh
+- Giá: 35-50 triệu VND
+
+**📦 Gói Enterprise** - Ao lớn (3000m²+)
+- Hệ thống IoT đầy đủ
+- AI dự đoán + phân tích
+- Hỗ trợ 24/7
+- Giá: Liên hệ tư vấn
+
+Bạn muốn tìm hiểu gói nào cụ thể?`;
+            }
+            
+            if (lowerMessage.includes('phân tích nước') || lowerMessage.includes('chất lượng nước')) {
+                return `🔬 **Phân tích chất lượng nước ao tôm:**
+
+**Các thông số quan trọng:**
+- **pH**: 7.5-8.5 (lý tưởng)
+- **DO (Oxy hòa tan)**: >4mg/L
+- **Độ mặn**: 10-25‰
+- **Nhiệt độ**: 28-30°C
+- **NH3 (Amoniac)**: <0.1mg/L
+- **H2S**: <0.05mg/L
+
+**Hệ thống IoT sẽ:**
+✅ Giám sát 24/7 tự động
+✅ Cảnh báo khi vượt ngưỡng
+✅ Gợi ý xử lý kịp thời
+✅ Lưu trữ dữ liệu phân tích
+
+Bạn có thông số nào bất thường cần tư vấn không?`;
+            }
+            
+            if (lowerMessage.includes('tư vấn kỹ thuật') || lowerMessage.includes('nuôi tôm thông minh')) {
+                return `📊 **Tư vấn kỹ thuật nuôi tôm thông minh:**
+
+**🎯 Quy trình tối ưu:**
+1. **Chuẩn bị ao** - Xử lý đáy, khử trùng
+2. **Thả giống** - Mật độ phù hợp, con giống sạch
+3. **Quản lý thức ăn** - Theo dõi FCR, khay ăn
+4. **Kiểm soát môi trường** - Nước, khí hậu
+5. **Phòng bệnh** - Sử dụng probiotic, vitamin
+
+**🤖 Công nghệ AI hỗ trợ:**
+- Dự đoán tăng trưởng
+- Tối ưu khẩu phần ăn
+- Cảnh báo bệnh sớm
+- Phân tích hiệu quả kinh tế
+
+Bạn đang gặp khó khăn ở giai đoạn nào?`;
+            }
+            
+            // Search through existing knowledge base
+            for (const category in shrimpFarmingKnowledge) {
+                for (const item of shrimpFarmingKnowledge[category]) {
+                    if (item.trigger.some(trigger => lowerMessage.includes(trigger))) {
+                        return item.advice;
+                    }
+                }
+            }
+            
+            // Default response
+            return `🤖 **Cảm ơn bạn đã liên hệ SHRIMP TECH!**
+
+Tôi hiểu bạn đang quan tâm đến: "${message}"
+
+Đội ngũ kỹ thuật sẽ hỗ trợ bạn chi tiết hơn qua:
+📧 Email: shrimptech.vhu.hutech@gmail.com
+📞 Hotline: 0901 234 567
+🕐 Thời gian: T2-T6, 8:00-17:00
+
+Hoặc bạn có thể thử các câu hỏi phổ biến bên dưới! 👇`;
         }
     }
 
-    // Xử lý sự kiện gửi tin nhắn
-    function handleSendMessage() {
-        const message = chatInput.value.trim();
-        if (message) {
-            displayUserMessage(message);
-            processUserMessage(message);
-            chatInput.value = '';
-        }
-    }
-
-    // Sự kiện click nút gửi
-    sendButton.addEventListener('click', handleSendMessage);
-
-    // Sự kiện nhấn Enter
-    chatInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            handleSendMessage();
-        }
-    });
-
-    // Xử lý quick replies
-    quickReplies.forEach(button => {
-        button.addEventListener('click', function() {
-            const message = this.getAttribute('data-message');
-            displayUserMessage(message);
-            processUserMessage(message);
-        });
-    });
-
-    // Xử lý đóng/mở chatbot
-    chatbotToggle.addEventListener('click', function() {
-        chatbotContainer.classList.toggle('active');
-    });
-
-    chatbotClose.addEventListener('click', function() {
-        chatbotContainer.classList.remove('active');
-    });
-
-    // Thêm hàm test
-    function runTests() {
-        console.log('Bắt đầu kiểm tra chatbot...');
-        testCases.forEach(testCase => {
-            console.log(`\nTest case: "${testCase}"`);
-            processUserMessage(testCase);
-        });
-    }
-
-    // Chạy test sau khi trang load
-    setTimeout(runTests, 1000);
-});
+    // Make Chatbot available globally
+    window.Chatbot = Chatbot;
