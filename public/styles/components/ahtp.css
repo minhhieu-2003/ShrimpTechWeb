@@ -1,0 +1,261 @@
+/* AHTP Consultation Section */
+.ahtp-consultation {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    position: relative;
+    overflow: hidden;
+    min-height: 600px; /* Đảm bảo có chiều cao tối thiểu */
+    display: block; /* Đảm bảo hiển thị */
+    width: 100%;
+}
+
+.ahtp-consultation::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%230066cc' fill-opacity='0.02'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+    z-index: 1;
+}
+
+.ahtp-consultation .container {
+    position: relative;
+    z-index: 2;
+}
+
+.ahtp-consultation .section-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.ahtp-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #0066cc, #3385d6); /* Fallback colors */
+    background: linear-gradient(135deg, var(--primary-blue, #0066cc), var(--primary-blue-light, #3385d6));
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0, 102, 204, 0.3);
+}
+
+.ahtp-badge i {
+    font-size: 0.8rem;
+}
+
+.ahtp-consultation .section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.ahtp-consultation .section-description {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Gallery Grid */
+.ahtp-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    margin-bottom: 60px;
+    width: 100%;
+    /* Đảm bảo gallery hiển thị đúng */
+}
+
+.ahtp-image-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    /* Đảm bảo hiển thị ngay lập tức */
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.ahtp-image-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.ahtp-image-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.3s ease;
+    /* Tối ưu hóa chất lượng hình ảnh */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    image-rendering: high-quality;
+    -webkit-image-smoothing: true;
+    -moz-image-smoothing: true;
+    -ms-image-smoothing: true;
+    /* Cải thiện độ sắc nét */
+    filter: contrast(1.05) saturate(1.1) brightness(1.02);
+    /* Tối ưu hiệu suất */
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.ahtp-image-card:hover img {
+    transform: scale(1.05);
+    filter: contrast(1.1) saturate(1.15) brightness(1.05);
+}
+
+/* Tối ưu hóa cho màn hình retina/high DPI */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .ahtp-image-card img {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+    }
+}
+
+/* Lazy loading optimization */
+.ahtp-image-card img[loading="lazy"] {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.ahtp-image-card img[loading="lazy"].loaded {
+    opacity: 1;
+}
+
+/* Fallback for older browsers */
+@supports not (object-fit: cover) {
+    .ahtp-image-card img {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+}
+
+.ahtp-caption {
+    padding: 24px;
+}
+
+.ahtp-caption h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.ahtp-caption p {
+    color: var(--text-muted);
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+/* AHTP Info Section */
+.ahtp-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+    width: 100%;
+    /* Đảm bảo info section hiển thị */
+}
+
+.ahtp-highlight {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 24px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+.ahtp-highlight:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.ahtp-highlight i {
+    font-size: 2rem;
+    color: var(--primary-blue);
+    margin-top: 4px;
+    flex-shrink: 0;
+}
+
+.highlight-content h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+}
+
+.highlight-content p {
+    color: var(--text-muted);
+    line-height: 1.5;
+    font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .ahtp-consultation {
+        padding: 60px 0;
+    }
+    
+    .ahtp-consultation .section-title {
+        font-size: 2rem;
+    }
+    
+    .ahtp-gallery {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .ahtp-image-card img {
+        height: 200px;
+    }
+    
+    .ahtp-info {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .ahtp-highlight {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .ahtp-consultation .section-title {
+        font-size: 1.75rem;
+    }
+    
+    .ahtp-consultation .section-description {
+        font-size: 1rem;
+    }
+    
+    .ahtp-caption {
+        padding: 20px;
+    }
+    
+    .ahtp-caption h4 {
+        font-size: 1.1rem;
+    }
+}

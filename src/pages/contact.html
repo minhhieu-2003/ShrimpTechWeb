@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liên hệ - SHRIMP TECH</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../styles/pages.css">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="../assets/Logo.jpg" alt="SHRIMP TECH" class="logo">
+                <span class="logo-text">SHRIMP TECH</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="../index.html" class="nav-link">Trang chủ</a></li>
+                <li class="nav-item"><a href="solutions.html" class="nav-link">Giải pháp</a></li>
+                <li class="nav-item"><a href="products.html" class="nav-link">Sản phẩm</a></li>
+                <li class="nav-item"><a href="partners.html" class="nav-link">Đối tác</a></li>
+                <li class="nav-item"><a href="team.html" class="nav-link">Đội ngũ</a></li>
+                <li class="nav-item"><a href="contact.html" class="nav-link active">Liên hệ</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Liên hệ với chúng tôi</h1>
+            <p>Đội ngũ nghiên cứu SHRIMP TECH sẵn sàng hỗ trợ bạn!</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h2>📞 Thông tin liên hệ</h2>
+                    <div class="contact-cards">
+               
+                            <h3>Nhóm nghiên cứu SHRIMP TECH</h3>
+                            <p>
+                                <strong>📧 Email dự án:</strong> shrimptech.vhu.hutech@gmail.com<br>
+                                <strong>📱 Hotline:</strong> 0901 234 567<br>
+                                <strong>🕒 Thời gian làm việc:</strong> T2-T6: 8:00-17:00<br>
+                                <strong>💬 Zalo:</strong> 0901 234 567
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="emergency-contact">
+                        <h3>🚨 Hỗ trợ khẩn cấp 24/7</h3>
+                        <div class="emergency-grid">
+                            <div class="emergency-item">
+                                <i class="fas fa-phone-alt"></i>
+                                <span>Hotline: 1900 1234</span>
+                            </div>
+                            <div class="emergency-item">
+                                <i class="fab fa-telegram"></i>
+                                <span>Telegram: @ShrimpTechSupport</span>
+                            </div>
+                            <div class="emergency-item">
+                                <i class="fab fa-whatsapp"></i>
+                                <span>WhatsApp: +84 901 234 567</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h2>📝 Gửi tin nhắn cho chúng tôi</h2>
+                    <form class="form" id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Họ và tên *</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Số điện thoại *</label>
+                                <input type="tel" id="phone" name="phone" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="company">Công ty/Trang trại</label>
+                                <input type="text" id="company" name="company">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="farmType">Loại ao nuôi *</label>
+                            <select id="farmType" name="farmType" required>
+                                <option value="">Chọn loại ao</option>
+                                <option value="pond-small">Ao tròn nổi (50-700m²)</option>
+                                <option value="pond-medium">Ao lót bạt đáy (2,500-4,000m²)</option>
+                                <option value="pond-large">Ao siêu thâm canh (4,000-10,000m²)</option>
+                                <option value="research">Nghiên cứu/Học thuật</option>
+                                <option value="other">Khác</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">Chủ đề quan tâm *</label>
+                            <select id="subject" name="subject" required>
+                                <option value="">Chọn chủ đề</option>
+                                <option value="product-info">Thông tin sản phẩm</option>
+                                <option value="consultation">Tư vấn hệ thống</option>
+                                <option value="technical">Tư vấn kỹ thuật</option>
+                                <option value="installation">Lắp đặt & bảo trì</option>
+                                <option value="partnership">Hợp tác đại lý</option>
+                                <option value="research">Hợp tác nghiên cứu</option>
+                                <option value="other">Khác</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Nội dung tin nhắn *</label>
+                            <textarea id="message" name="message" rows="5" placeholder="Mô tả chi tiết nhu cầu của bạn: diện tích ao, mật độ nuôi, ngân sách dự kiến..." required></textarea>
+                        </div>
+                        
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="contact-newsletter" name="newsletter">
+                                <span class="checkmark"></span>
+                                Đăng ký nhận tin tức về dự án SHRIMP TECH
+                            </label>
+                        </div>
+                        
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="terms" name="terms" required>
+                                <span class="checkmark"></span>
+                                Tôi đồng ý với <a href="#" target="_blank">điều khoản sử dụng</a> và <a href="#" target="_blank">chính sách bảo mật</a> *
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i>
+                            Gửi tin nhắn
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2>❓ Câu hỏi thường gặp</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h4>🔧 Hệ thống có dễ lắp đặt không?</h4>
+                    <p>Với Kit Starter chỉ cần 1 ngày lắp đặt, Kit Professional 2-3 ngày. Đội ngũ kỹ thuật sẽ hỗ trợ toàn bộ quá trình.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>� Hỗ trợ kỹ thuật sau lắp đặt?</h4>
+                    <p>Đội ngũ kỹ thuật sẽ hỗ trợ 24/7 qua hotline, email và ứng dụng mobile. Bảo trì định kỳ theo lịch hẹn.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>📱 Ứng dụng có hỗ trợ tiếng Việt không?</h4>
+                    <p>Có, ứng dụng được phát triển 100% bằng tiếng Việt, dễ sử dụng cho người nông dân.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>🛡️ Bảo hành như thế nào?</h4>
+                    <p>Starter Kit: 12 tháng, Professional Kit: 18 tháng, Enterprise Kit: 36 tháng. Hỗ trợ 24/7.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section id="newsletter" class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <div class="newsletter-text">
+                    <h2>🔔 Nhận tin tức dự án mới nhất</h2>
+                    <p>Cập nhật tiến độ nghiên cứu, sản phẩm mới và các tin tức công nghệ từ đội ngũ sinh viên VHU & HUTECH</p>
+                </div>
+                <div class="newsletter-form">
+                    <form class="subscribe-form" id="newsletterForm">
+                        <input type="email" placeholder="Nhập email của bạn" required>
+                        <button type="submit" class="btn btn-primary">Đăng ký</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Include footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>SHRIMP TECH</h3>
+                    <p>Hệ thống IoT thông minh cho nuôi tôm siêu thâm canh</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" title="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link" title="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Liên kết</h4>
+                    <ul>
+                        <li><a href="../index.html">Trang chủ</a></li>
+                        <li><a href="solutions.html">Giải pháp</a></li>
+                        <li><a href="products.html">Sản phẩm</a></li>
+                        <li><a href="partners.html">Đối tác</a></li>
+                        <li><a href="team.html">Đội ngũ</a></li>
+                        <li><a href="contact.html">Liên hệ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Hỗ trợ</h4>
+                    <ul>
+                        <li><a href="team.html">Đội ngũ</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#support">Hỗ trợ kỹ thuật</a></li>
+                        <li><a href="#privacy">Chính sách bảo mật</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Liên hệ</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> shrimptech.vhu.hutech@gmail.com</li>
+                        <li><i class="fas fa-phone"></i> 0901 234 567</li>
+                        <li><i class="fas fa-map-marker-alt"></i> VHU & HUTECH, TP.HCM</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 SHRIMP TECH - Dự án nghiên cứu sinh viên VHU & HUTECH. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    
+    <!-- Contact Form Handler -->
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Hiển thị thông báo thành công
+            alert('Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi trong vòng 24h.');
+            
+            // Reset form
+            this.reset();
+        });
+        
+        document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Hiển thị thông báo thành công
+            alert('Cảm ơn bạn đã đăng ký nhận tin! Chúng tôi sẽ gửi những tin tức mới nhất về dự án.');
+            
+            // Reset form
+            this.reset();
+        });
+    </script>
+</body>
+</html>

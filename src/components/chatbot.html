@@ -1,0 +1,208 @@
+<!-- Enhanced Chatbot Widget Component -->
+<div id="chatbot-widget" class="chatbot-widget">
+    <div id="chatbot-toggle" class="chatbot-toggle" aria-label="Mở chat hỗ trợ SHRIMP TECH">
+        <div class="toggle-icon">
+            <svg class="chat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+            <svg class="close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </div>
+        <span class="chat-notification" id="chat-notification">
+            <span class="notification-dot"></span>
+        </span>
+    </div>
+    
+    <div id="chatbot-container" class="chatbot-container">
+        <div class="chatbot-header">
+            <div class="header-content">
+                <div class="chatbot-avatar">
+                    <img src="/assets/chatbot.png" alt="SHRIMP TECH" class="avatar-img">
+                    <div class="avatar-status"></div>
+                </div>
+                <div class="chatbot-info">
+                    <h4 class="chatbot-title">SHRIMPTECH Assistant</h4>
+                    <p class="chatbot-status">
+                        <span class="status-indicator"></span>
+                        Đang trực tuyến - Hỗ trợ 24/7
+                    </p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="action-btn minimize-btn" title="Thu nhỏ">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                </button>
+                <button id="chatbot-close" class="action-btn close-btn" aria-label="Đóng chat">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <div id="chatbot-messages" class="chatbot-messages">
+            <div class="message bot-message welcome-message">
+                <div class="message-avatar">
+                    <div class="bot-avatar">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path d="M12 1v6m0 6v6"></path>
+                            <path d="m15.14 7.14-4.28 4.28"></path>
+                            <path d="m9.14 16.86-4.28-4.28"></path>
+                            <path d="m15.14 16.86-4.28-4.28"></path>
+                            <path d="m9.14 7.14-4.28 4.28"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="message-content">
+                    <div class="message-header">
+                        <span class="sender-name">AI Assistant</span>
+                        <span class="message-time">vừa xong</span>
+                    </div>
+                    <div class="message-body">
+                        <div class="welcome-text">
+                            <h3>🦐 Xin chào! Tôi là AI Assistant của SHRIMP TECH</h3>
+                            <p>Hỗ trợ bạn tối ưu hóa quá trình nuôi tôm với công nghệ IoT thông minh và AI tiên tiến.</p>
+                        </div>
+                        <div class="capabilities-grid">
+                            <div class="capability-item">
+                                <div class="capability-icon">🔬</div>
+                                <div class="capability-text">
+                                    <strong>Phân tích nước</strong>
+                                    <span>Chất lượng & môi trường ao nuôi</span>
+                                </div>
+                            </div>
+                            <div class="capability-item">
+                                <div class="capability-icon">📊</div>
+                                <div class="capability-text">
+                                    <strong>Tư vấn kỹ thuật</strong>
+                                    <span>Nuôi tôm thông minh & hiệu quả</span>
+                                </div>
+                            </div>
+                            <div class="capability-item">
+                                <div class="capability-icon">💡</div>
+                                <div class="capability-text">
+                                    <strong>AI Insights</strong>
+                                    <span>Phân tích dữ liệu IoT thời gian thực</span>
+                                </div>
+                            </div>
+                            <div class="capability-item">
+                                <div class="capability-icon">⚠️</div>
+                                <div class="capability-text">
+                                    <strong>Cảnh báo sớm</strong>
+                                    <span>Phát hiện bệnh tật & rủi ro</span>
+                                </div>
+                            </div>
+                            <div class="capability-item">
+                                <div class="capability-icon">💰</div>
+                                <div class="capability-text">
+                                    <strong>Tối ưu ROI</strong>
+                                    <span>Quản lý chi phí & tối đa lợi nhuận</span>
+                                </div>
+                            </div>
+                            <div class="capability-item">
+                                <div class="capability-icon">📱</div>
+                                <div class="capability-text">
+                                    <strong>Hướng dẫn IoT</strong>
+                                    <span>Cài đặt & vận hành thiết bị</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cta-message">
+                            <p>💬 <strong>Hãy chia sẻ câu hỏi của bạn để tôi có thể hỗ trợ tốt nhất!</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="chatbot-quick-replies">
+            <div class="quick-replies-header">
+                <span>Câu hỏi thường gặp</span>
+            </div>
+            <div class="quick-replies-grid">
+                <button class="quick-reply primary" data-message="Tư vấn sản phẩm IoT cho nuôi tôm">
+                    <div class="quick-reply-icon">🛠️</div>
+                    <span>Sản phẩm IoT</span>
+                </button>
+                <button class="quick-reply" data-message="Hướng dẫn phân tích chất lượng nước">
+                    <div class="quick-reply-icon">🔬</div>
+                    <span>Phân tích nước</span>
+                </button>
+                <button class="quick-reply" data-message="Tư vấn kỹ thuật nuôi tôm">
+                    <div class="quick-reply-icon">📊</div>
+                    <span>Kỹ thuật nuôi</span>
+                </button>
+                <button class="quick-reply" data-message="Chẩn đoán và phòng bệnh tôm">
+                    <div class="quick-reply-icon">🏥</div>
+                    <span>Phòng bệnh</span>
+                </button>
+                <button class="quick-reply" data-message="Tối ưu chi phí và lợi nhuận">
+                    <div class="quick-reply-icon">💰</div>
+                    <span>Tối ưu chi phí</span>
+                </button>
+                <button class="quick-reply" data-message="Hướng dẫn thiết bị IoT">
+                    <div class="quick-reply-icon">📱</div>
+                    <span>Hướng dẫn IoT</span>
+                </button>
+            </div>
+        </div>
+        
+        <div class="chatbot-input-section">
+            <div class="input-suggestions" id="input-suggestions">
+                <!-- Dynamic suggestions will be inserted here -->
+            </div>
+            <div class="chatbot-input">
+                <div class="input-wrapper">
+                    <button class="attachment-btn" title="Đính kèm file">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
+                        </svg>
+                    </button>
+                    <input 
+                        type="text" 
+                        id="chatbot-input-field-2" 
+                        class="message-input"
+                        placeholder="Nhập câu hỏi về nuôi tôm, IoT..."
+                        autocomplete="off"
+                        maxlength="500"
+                    >
+                    <button class="emoji-btn" title="Chọn emoji">
+                        😊
+                    </button>
+                    <button id="chatbot-send-2" class="send-btn" aria-label="Gửi tin nhắn">
+                        <svg class="send-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22,2 15,22 11,13 2,9 22,2"></polygon>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="input-footer">
+                <div class="typing-users" id="typing-users">
+                    <div class="typing-indicator">
+                        <span>AI đang soạn tin...</span>
+                        <div class="typing-dots">
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="powered-by">
+                    <span>Powered by SHRIMP TECH AI</span>
+                    <div class="security-badge" title="Bảo mật end-to-end">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

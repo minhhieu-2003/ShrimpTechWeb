@@ -1,97 +1,488 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ShrimpTech - Firebase Hosting</title>
-
-    <!-- Firebase SDK -->
-    <script defer src="/__/firebase/11.10.0/firebase-app-compat.js"></script>
-    <script defer src="/__/firebase/11.10.0/firebase-auth-compat.js"></script>
-    <script defer src="/__/firebase/11.10.0/firebase-database-compat.js"></script>
-    <script defer src="/__/firebase/11.10.0/firebase-firestore-compat.js"></script>
-    <script defer src="/__/firebase/11.10.0/firebase-functions-compat.js"></script>
-    <script defer src="/__/firebase/11.10.0/firebase-messaging-compat.js"></script>
-    <script defer src="/__/firebase/11.10.0/firebase-storage-compat.js"></script>
-    <script defer src="/__/firebase/11.10.0/firebase-analytics-compat.js"></script>
-    <script defer src="/__/firebase/11.10.0/firebase-remote-config-compat.js"></script>
-    <script defer src="/__/firebase/11.10.0/firebase-performance-compat.js"></script>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no, viewport-fit=cover">
+    <meta name="description" content="SHRIMPTECH - Hệ thống IoT thông minh cho nuôi tôm. Dự án nghiên cứu từ sinh viên VHU & HUTECH">
+    <meta name="keywords" content="IoT, nuôi tôm, thông minh, tự động hóa, VHU, HUTECH, aquaculture, sensor, AI, nông nghiệp">
+    <meta name="author" content="SHRIMPTECH Team">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="Vietnamese">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#0066cc">
+    <meta name="msapplication-navbutton-color" content="#0066cc">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="SHRIMPTECH">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta property="og:title" content="SHRIMPTECH - Hệ thống IoT cho nuôi tôm">
+    <meta property="og:description" content="Dự án nghiên cứu sinh viên VHU & HUTECH - Công nghệ IoT thông minh cho nuôi tôm">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://shrimptech.local">
+    <meta property="og:site_name" content="SHRIMPTECH">
+    <title>SHRIMPTECH - Hệ thống IoT thông minh cho nuôi tôm</title>
     
-    <!-- Initialize Firebase -->
-    <script defer src="/__/firebase/init.js?useEmulator=false"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="js/main.js" as="script">
+    <link rel="preload" href="assets/Logo.jpg" as="image">
+    <link rel="preload" href="assets/hero-dashboard.svg" as="image">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Main CSS file which imports all components -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Skip link for accessibility -->
+    <a href="#main-content" class="skip-link">Bỏ qua đến nội dung chính</a>
+    
+    <!-- Navigation Header -->
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+            <a href="#home" class="nav-logo" aria-label="SHRIMPTECH Home">
+                <img src="assets/Logo.jpg" 
+                     alt="SHRIMPTECH Logo" 
+                     class="logo"
+                     width="50" 
+                     height="50"
+                     decoding="async">
+                <span class="logo-text">SHRIMPTECH</span>
+            </a>
+            <ul class="nav-menu" id="nav-menu" role="menubar">
+                <li class="nav-item" role="none">
+                    <a href="#home" class="nav-link active" role="menuitem" aria-current="page">
+                        <i class="fas fa-home" aria-hidden="true"></i>
+                        <span>Trang chủ</span>
+                    </a>
+                </li>
+                <li class="nav-item" role="none">
+                    <a href="pages/solutions.html" class="nav-link" role="menuitem">
+                        <i class="fas fa-cogs" aria-hidden="true"></i>
+                        <span>Giải pháp</span>
+                    </a>
+                </li>
+                <li class="nav-item" role="none">
+                    <a href="pages/products.html" class="nav-link" role="menuitem">
+                        <i class="fas fa-box" aria-hidden="true"></i>
+                        <span>Sản phẩm</span>
+                    </a>
+                </li>
+                <li class="nav-item" role="none">
+                    <a href="pages/partners.html" class="nav-link" role="menuitem">
+                        <i class="fas fa-handshake" aria-hidden="true"></i>
+                        <span>Đối tác</span>
+                    </a>
+                </li>
+                <li class="nav-item" role="none">
+                    <a href="pages/team.html" class="nav-link" role="menuitem">
+                        <i class="fas fa-users" aria-hidden="true"></i>
+                        <span>Đội ngũ</span>
+                    </a>
+                </li>
+                <li class="nav-item" role="none">
+                    <a href="pages/contact.html" class="nav-link" role="menuitem">
+                        <i class="fas fa-phone" aria-hidden="true"></i>
+                        <span>Liên hệ</span>
+                    </a>
+                </li>
+            </ul>
+            <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span class="bar" aria-hidden="true"></span>
+                <span class="bar" aria-hidden="true"></span>
+                <span class="bar" aria-hidden="true"></span>
+            </button>
+        </div>
+    </nav>
 
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
-      }
-    </style>
-  </head>
-  <body>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>ShrimpTech - Firebase Setup Complete</h1>
-      <p>Your Firebase project is successfully connected and ready to use!</p>
-      <a target="_blank" rel="noopener" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
+    <!-- Hero Section -->
+    <main id="main-content">
+        <section id="home" class="hero">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <span>Dự án nghiên cứu sinh viên</span>
+                    </div>
+                    <h1 class="hero-title">
+                        Hệ thống <span class="gradient-text">IoT thông minh</span>
+                        <br class="hero-break">
+                        cho nuôi tôm
+                    </h1>
+                    <p class="hero-description">
+                        Dự án nghiên cứu từ sinh viên <strong>Đại học Văn Hiến (VHU)</strong> và 
+                        <strong>Đại học Công nghệ TP.HCM (HUTECH)</strong> với sự tư vấn từ 
+                        <strong>AHTP TP.HCM</strong> - Ứng dụng công nghệ IoT & AI 
+                        để tự động hóa và tối ưu hệ thống nuôi tôm Việt Nam.
+                    </p>
+                    <div class="hero-stats">
+                        <div class="hero-stat">
+                            <span class="stat-number">95%</span>
+                            <span class="stat-label">Tự động hóa</span>
+                        </div>
+                        <div class="hero-stat">
+                            <span class="stat-number">24/7</span>
+                            <span class="stat-label">Giám sát</span>
+                        </div>
+                        <div class="hero-stat">
+                            <span class="stat-number">3+</span>
+                            <span class="stat-label">Đối tác</span>
+                        </div>
+                    </div>
+                    <div class="hero-buttons">
+                        <a href="pages/contact.html" class="btn btn-primary">
+                            <i class="fas fa-phone"></i>
+                            <span>Tư vấn miễn phí</span>
+                        </a>
+                        <a href="pages/products.html" class="btn btn-secondary">
+                            <i class="fas fa-eye"></i>
+                            <span>Xem sản phẩm</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="hero-image">
+                        <img src="assets/hero-dashboard.svg" 
+                             alt="SHRIMPTECH Dashboard Interface"
+                             width="500" 
+                             height="400"
+                             decoding="async">
+                    </div>
+                    <div class="hero-features">
+                        <div class="feature-pill">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Bảo mật cao</span>
+                        </div>
+                        <div class="feature-pill">
+                            <i class="fas fa-mobile-alt"></i>
+                            <span>Ứng dụng mobile</span>
+                        </div>
+                        <div class="feature-pill">
+                            <i class="fas fa-cloud"></i>
+                            <span>Cloud-based</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Overview Section -->
+        <section class="overview fade-in">
+            <div class="container">
+                <div class="overview-grid">
+                    <div class="overview-card slide-in-left">
+                        <div class="overview-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h3>Giải pháp IoT</h3>
+                        <p>Hệ thống tự động điều khiển thiết bị nuôi tôm thông minh</p>
+                        <a href="pages/solutions.html" class="btn btn-outline">Tìm hiểu thêm</a>
+                    </div>
+                    <div class="overview-card fade-in">
+                        <div class="overview-icon">
+                            <i class="fas fa-box"></i>
+                        </div>
+                        <h3>Sản phẩm</h3>
+                        <p>Các gói kit phù hợp với mọi quy mô ao nuôi tôm</p>
+                        <a href="pages/products.html" class="btn btn-outline">Xem sản phẩm</a>
+                    </div>
+                    <div class="overview-card slide-in-right">
+                        <div class="overview-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3>Đối tác</h3>
+                        <p>Hợp tác với các doanh nghiệp hàng đầu ngành tôm và đối tác đầu tư</p>
+                        <a href="pages/partners.html" class="btn btn-outline">Xem đối tác</a>
+                    </div>
+                    <div class="overview-card slide-in-left">
+                        <div class="overview-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Đội ngũ</h3>
+                        <p>Tìm hiểu về đội ngũ nghiên cứu và mentor dự án</p>
+                        <a href="pages/team.html" class="btn btn-outline">Xem đội ngũ</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Highlight -->
+        <section class="features-highlight">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">🚀 Tại sao chọn SHRIMPTECH?</h2>
+                    <p class="section-description">
+                        Dự án nghiên cứu từ sinh viên - Công nghệ tiên tiến - Sản phẩm chất lượng
+                    </p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3>Đội ngũ đa ngành</h3>
+                        <p>5 sinh viên VHU & HUTECH từ Điện tử viễn thông đến Thương mại điện tử, được mentor kinh nghiệm quốc tế</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3>AI & Machine Learning</h3>
+                        <p>Ứng dụng trí tuệ nhân tạo để dự đoán, cảnh báo và tối ưu quy trình nuôi</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3>Dễ sử dụng</h3>
+                        <p>Giao diện thân thiện, hoàn toàn bằng tiếng Việt, phù hợp với người nông dân</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Bảo mật dữ liệu</h3>
+                        <p>Hệ thống bảo mật cao, dữ liệu được mã hóa và lưu trữ an toàn</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h3>Hỗ trợ toàn diện</h3>
+                        <p>Lắp đặt, đào tạo, bảo trì với đội ngũ kỹ thuật chuyên nghiệp</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Tăng năng suất</h3>
+                        <p>Cải thiện FCR, tăng tỷ lệ sống, tối ưu hóa quy trình nuôi tôm</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AHTP Consultation Section -->
+        <section class="ahtp-consultation">
+            <div class="container">
+                <div class="section-header">
+                    <div class="ahtp-badge">
+                        <i class="fas fa-certificate"></i>
+                        <span>Hợp tác chính thức</span>
+                    </div>
+                    <h2 class="section-title">🎓 Tham vấn học hỏi tại AHTP TP.HCM</h2>
+                    <p class="section-description">
+                        Đội ngũ sinh viên được tư vấn và hướng dẫn trực tiếp bởi các chuyên gia từ AHTP TP.HCM
+                    </p>
+                </div>
+                <div class="ahtp-gallery">
+                    <div class="ahtp-image-card">
+                        <img src="assets/z6767572890652_fce0d8e897aad3256c34675204043be4.jpg" 
+                             alt="Sinh viên thuyết trình dự án tại AHTP" 
+                             loading="lazy"
+                             decoding="async"
+                             width="400" 
+                             height="250">
+                        <div class="ahtp-caption">
+                            <h4>Thuyết trình dự án</h4>
+                            <p>Sinh viên VHU & HUTECH trình bày ý tướng về hệ thống IoT cho nuôi tôm</p>
+                        </div>
+                    </div>
+                    <div class="ahtp-image-card">
+                        <img src="assets/z6767572795827_480e5739c1ee686163d759a051b392de.jpg" 
+                             alt="Trao đổi kỹ thuật với chuyên gia AHTP" 
+                             loading="lazy"
+                             decoding="async"
+                             width="400" 
+                             height="250">
+                        <div class="ahtp-caption">
+                            <h4>Trao đổi kỹ thuật</h4>
+                            <p>Thảo luận về các giải pháp công nghệ và khả năng ứng dụng thực tế</p>
+                        </div>
+                    </div>
+                    <div class="ahtp-image-card">
+                        <img src="assets/z6767572758845_e822e6a6ef99e89b10bf57cef21813d9.jpg" 
+                             alt="Tham quan mô hình và thiết bị tại AHTP" 
+                             loading="lazy"
+                             decoding="async"
+                             width="400" 
+                             height="250">
+                        <div class="ahtp-caption">
+                            <h4>Tham quan mô hình</h4>
+                            <p>Khám phá các công nghệ tiên tiến và thiết bị nghiên cứu tại AHTP</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="ahtp-info">
+                    <div class="ahtp-highlight">
+                        <i class="fas fa-university"></i>
+                        <div class="highlight-content">
+                            <h4>AHTP TP.HCM</h4>
+                            <p>Đối tác tư vấn chuyên môn và định hướng phát triển dự án</p>
+                        </div>
+                    </div>
+                    <div class="ahtp-highlight">
+                        <i class="fas fa-handshake"></i>
+                        <div class="highlight-content">
+                            <h4>Hợp tác nghiên cứu</h4>
+                            <p>Kết nối học thuật và ứng dụng thực tiễn trong ngành thủy sản</p>
+                        </div>
+                    </div>
+                    <div class="ahtp-highlight">
+                        <i class="fas fa-lightbulb"></i>
+                        <div class="highlight-content">
+                            <h4>Chia sẻ kinh nghiệm</h4>
+                            <p>Học hỏi từ các chuyên gia hàng đầu về công nghệ nuôi tôm</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">2</div>
+                        <div class="stat-label">Trường đại học</div>
+                        <div class="stat-desc">VHU & HUTECH</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">5</div>
+                        <div class="stat-label">Sinh viên nghiên cứu</div>
+                        <div class="stat-desc">Đa chuyên ngành</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">3+</div>
+                        <div class="stat-label">Đối tác</div>
+                        <div class="stat-desc">Hợp tác tiềm năng</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">95%</div>
+                        <div class="stat-label">Tự động hóa</div>
+                        <div class="stat-desc">Hệ thống thông minh</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>Sẵn sàng hiện đại hóa ao tôm của bạn?</h2>
+                    <p>Liên hệ ngay với đội ngũ nghiên cứu ShrimpTech để được tư vấn miễn phí!</p>
+                    <div class="cta-buttons">
+                        <a href="pages/contact.html" class="btn btn-primary">
+                            <i class="fas fa-phone"></i>
+                            Liên hệ tư vấn
+                        </a>
+                        <a href="pages/products.html" class="btn btn-secondary">
+                            <i class="fas fa-cube"></i>
+                            Xem sản phẩm
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>SHRIMPTECH</h3>
+                    <p>Hệ thống IoT thông minh cho nuôi tôm</p>
+                    <p><strong>Dự án nghiên cứu:</strong> VHU & HUTECH</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/people/Shrimptech-H%E1%BB%87-th%E1%BB%91ng-qu%E1%BA%A3n-l%C3%BD-gi%C3%A1m-s%C3%A1t-ao-t%C3%B4m-t%C3%ADch-h%E1%BB%A3p-Deeplearning/61578134870127/" class="social-link" title="Facebook SHRIMPTECH" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link" title="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Sản phẩm</h4>
+                    <ul>
+                        <li><a href="pages/solutions.html">Giải pháp IoT</a></li>
+                        <li><a href="pages/products.html">Gói sản phẩm</a></li>
+                        <li><a href="pages/products.html#sensor-kits">Kit cảm biến</a></li>
+                        <li><a href="pages/solutions.html#architecture">Kiến trúc hệ thống</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Công ty</h4>
+                    <ul>
+                        <li><a href="pages/team.html">Về dự án</a></li>
+                        <li><a href="pages/partners.html">Đối tác</a></li>
+                        <li><a href="pages/team.html">Đội ngũ</a></li>
+                        <li><a href="pages/contact.html">Liên hệ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Hỗ trợ</h4>
+                    <ul>
+                        <li><a href="pages/contact.html">FAQ</a></li>
+                        <li><a href="pages/contact.html">Hỗ trợ kỹ thuật</a></li>
+                        <li><a href="pages/solutions.html">Tài liệu kỹ thuật</a></li>
+                        <li><a href="#privacy">Chính sách bảo mật</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Liên hệ</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> shrimptech.vhu.hutech@gmail.com</li>
+                        <li><i class="fas fa-phone"></i> 0901 234 567</li>
+                        <li><i class="fas fa-map-marker-alt"></i> VHU & HUTECH, TP.HCM</li>
+                        <li><i class="fas fa-clock"></i> T2-T6: 8:00-17:00</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ShrimpTech - Dự án nghiên cứu sinh viên VHU & HUTECH. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chatbot Floating Button and Widget (HTML only) -->
+    <div id="chatbot-widget" class="chatbot-widget" style="display:none;">
+        <div class="chatbot-header">
+            <span>Chatbot ShrimpTech</span>
+            <button id="chatbot-close" title="Đóng">&times;</button>
+        </div>
+        <div class="chatbot-messages" id="chatbot-messages">
+            <div class="chatbot-message bot">Xin chào! Tôi có thể giúp gì cho bạn?</div>
+        </div>
+        <form id="chatbot-form" autocomplete="off">
+            <input type="text" id="chatbot-input" placeholder="Nhập câu hỏi..." required />
+            <button type="submit">Gửi</button>
+        </form>
     </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
+    <button id="chatbot-toggle" class="chatbot-toggle" title="Chat với ShrimpTech">
+        <i class="fas fa-robot"></i>
+    </button>
 
-    <script>
-      // Firebase Configuration
-      const firebaseConfig = {
-        apiKey: "AIzaSyA3XF9mhdZFPBhJINHY8JFxUPcU3XS4D5w",
-        authDomain: "shrimptech-1065f.firebaseapp.com",
-        projectId: "shrimptech-1065f",
-        storageBucket: "shrimptech-1065f.firebasestorage.app",
-        messagingSenderId: "71175599742",
-        appId: "1:71175599742:web:9a03a3d12314f570eb0a2f",
-        measurementId: "G-DZ9GXV9MJR"
-      };
-
-      document.addEventListener('DOMContentLoaded', function() {
-        const loadEl = document.querySelector('#load');
-        
-        try {
-          let app = firebase.app();
-          let features = [
-            'auth', 
-            'database', 
-            'firestore',
-            'functions',
-            'messaging', 
-            'storage', 
-            'analytics', 
-            'remoteConfig',
-            'performance',
-          ].filter(feature => typeof app[feature] === 'function');
-          
-          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
-          
-          // Initialize Analytics if available
-          if (typeof firebase.analytics === 'function') {
-            firebase.analytics();
-            console.log('Firebase Analytics initialized');
-          }
-          
-          // Initialize Performance if available
-          if (typeof firebase.performance === 'function') {
-            firebase.performance();
-            console.log('Firebase Performance initialized');
-          }
-          
-        } catch (e) {
-          console.error('Firebase initialization error:', e);
-          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
-        }
-      });
-    </script>
-  </body>
+    <!-- Load JavaScript modules in order -->
+    <script src="js/utils.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/button-animations.js"></script>
+    <script src="js/loading-animations.js"></script>
+    <script src="js/scroll-animations.js"></script>
+    <script src="js/image-enhancer.js"></script>
+    <script src="js/form-handler.js"></script>
+    <script src="js/performance-monitor.js"></script>
+    <!-- <script src="js/chatbot.js"></script> -->
+    <link rel="stylesheet" href="styles/components/chatbot.css">
+    <script src="js/chatbot.js"></script>
+</body>
 </html>

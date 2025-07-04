@@ -1,0 +1,192 @@
+/* Image Quality Optimization */
+
+/* Base image optimization */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* High quality rendering for all images */
+.hero-image img,
+.logo,
+.ahtp-image-card img,
+img[data-high-quality] {
+    /* Cross-browser image rendering optimization */
+    image-rendering: -webkit-optimize-contrast; /* Safari */
+    image-rendering: -moz-crisp-edges;          /* Firefox */
+    image-rendering: -o-crisp-edges;            /* Opera */
+    image-rendering: crisp-edges;               /* Standard */
+    image-rendering: high-quality;              /* Fallback */
+    
+    /* Image smoothing for better quality */
+    -webkit-image-smoothing: true;
+    -moz-image-smoothing: true;
+    -ms-image-smoothing: true;
+    
+    /* Performance optimization */
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    
+    /* Prevent layout shift */
+    aspect-ratio: attr(width) / attr(height);
+}
+
+/* Specific optimizations for gallery images */
+.ahtp-image-card img {
+    /* Enhanced visual quality */
+    filter: contrast(1.05) saturate(1.1) brightness(1.02);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    object-fit: cover;
+    object-position: center;
+}
+
+.ahtp-image-card:hover img {
+    filter: contrast(1.1) saturate(1.15) brightness(1.05);
+    transform: scale(1.02);
+}
+
+/* Hero image specific optimizations */
+.hero-image img {
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.15)) 
+            contrast(1.02) 
+            saturate(1.05) 
+            brightness(1.01);
+}
+
+/* Logo optimizations */
+.logo {
+    filter: contrast(1.03) saturate(1.08) brightness(1.01);
+    transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+.logo:hover {
+    filter: contrast(1.06) saturate(1.12) brightness(1.03);
+    transform: scale(1.05);
+}
+
+/* Retina/High DPI optimizations */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .hero-image img,
+    .logo,
+    .ahtp-image-card img {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: pixelated;
+    }
+}
+
+@media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) {
+    .hero-image img,
+    .logo,
+    .ahtp-image-card img {
+        image-rendering: auto;
+        -webkit-image-smoothing: true;
+    }
+}
+
+/* Lazy loading states */
+img[loading="lazy"] {
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+}
+
+img[loading="lazy"].loaded {
+    opacity: 1;
+}
+
+img[loading="lazy"].error {
+    opacity: 0.7;
+    filter: grayscale(50%);
+}
+
+/* Progressive enhancement for modern browsers */
+@supports (object-view-box: inset(0)) {
+    .ahtp-image-card img {
+        object-view-box: inset(5% 5% 5% 5%);
+    }
+}
+
+/* WebP support detection */
+@supports (background-image: url('data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA')) {
+    .hero-image img[src$=".jpg"],
+    .ahtp-image-card img[src$=".jpg"],
+    .logo[src$=".jpg"] {
+        /* WebP fallback will be handled by JavaScript */
+        image-rendering: auto;
+    }
+}
+
+/* Print optimizations */
+@media print {
+    img {
+        image-rendering: auto;
+        filter: none !important;
+        opacity: 1 !important;
+    }
+}
+
+/* Accessibility - respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .ahtp-image-card img,
+    .logo,
+    .hero-image img {
+        transition: none !important;
+        animation: none !important;
+    }
+}
+
+/* Dark mode adaptations */
+@media (prefers-color-scheme: dark) {
+    .hero-image img,
+    .ahtp-image-card img {
+        filter: brightness(0.9) contrast(1.1);
+    }
+    
+    .logo {
+        filter: brightness(1.1) contrast(0.9);
+    }
+}
+
+/* Focus states for accessibility */
+.ahtp-image-card:focus-within img,
+.nav-logo:focus .logo {
+    outline: 2px solid var(--primary-blue);
+    outline-offset: 2px;
+}
+
+/* Error state styling */
+img.error,
+img[data-error="true"] {
+    background: var(--gray-100);
+    border: 1px solid var(--gray-300);
+    position: relative;
+}
+
+img.error::after,
+img[data-error="true"]::after {
+    content: "🖼️ Không thể tải hình ảnh";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+/* Performance hint for browsers */
+.critical-image {
+    content-visibility: auto;
+    contain: layout style paint;
+}
+
+/* Blur-up loading effect */
+.blur-up {
+    filter: blur(5px);
+    transition: filter 0.3s ease;
+}
+
+.blur-up.loaded {
+    filter: blur(0);
+}

@@ -1,38 +1,28 @@
 {
-  "name": "shrimptech-website",
+  "name": "shrimp-tech",
   "version": "1.0.0",
-  "description": "SHRIMP TECH - Hệ thống AI-Powered quản lý ao tôm thông minh",
-  "main": "index.html",
+  "description": "SHRIMP TECH - Hệ thống IoT thông minh cho nuôi tôm",
+  "main": "public/index.html",
   "scripts": {
-    "start": "http-server -p 3000 -o",
-    "serve": "http-server -p 3000",
-    "dev": "http-server -p 3000 -c-1",
-    "build": "echo 'Static website - no build required'",
-    "test": "echo 'Testing website functionality...'",
-    "deploy": "echo 'Ready for deployment to static hosting'"
+    "start": "echo 'Start your local server here'",
+    "build": "echo 'Building project...'",
+    "test": "echo 'No tests specified'"
   },
   "keywords": [
-    "shrimp",
+    "iot",
     "aquaculture",
-    "AI",
-    "deep-learning",
-    "IoT",
-    "website",
-    "responsive"
+    "shrimp",
+    "smart-farming",
+    "sensors"
   ],
-  "author": "SHRIMP TECH Development Team",
+  "author": "SHRIMP TECH Team - VHU & HUTECH",
   "license": "MIT",
-  "devDependencies": {
-    "http-server": "^14.1.1"
-  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/shrimptech/website.git"
+    "url": "https://github.com/shrimptech/shrimptech-iot"
   },
-  "homepage": "https://shrimptech.vn",
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead"
-  ]
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  }
 }

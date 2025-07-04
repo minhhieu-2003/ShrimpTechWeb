@@ -1,0 +1,245 @@
+/* Browser Compatibility and Performance Optimizations */
+
+/* Touch action for better mobile performance */
+.nav-link,
+.btn,
+.hamburger,
+.overview-card,
+.feature-item {
+    touch-action: manipulation;
+}
+
+/* Smooth scrolling with fallback */
+html {
+    scroll-behavior: smooth;
+}
+
+/* For browsers that don't support scroll-behavior */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+/* iOS Safari fixes */
+@supports (-webkit-touch-callout: none) {
+    .navbar {
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+    }
+    
+    .nav-menu {
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+    }
+    
+    /* Fix for iOS safe area */
+    .nav-container {
+        padding-left: max(var(--space-8), env(safe-area-inset-left));
+        padding-right: max(var(--space-8), env(safe-area-inset-right));
+    }
+    
+    /* Fix iOS input zoom */
+    input, textarea, select {
+        font-size: 16px;
+    }
+}
+
+/* Firefox specific fixes - Use feature query instead of @-moz-document */
+@supports (-moz-appearance: none) {
+    .hero-image img {
+        image-rendering: -moz-crisp-edges;
+    }
+}
+
+/* Edge specific fixes */
+@supports (-ms-ime-align: auto) {
+    .hero-image img,
+    .logo {
+        image-rendering: -webkit-optimize-contrast;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .nav-link {
+        border: 1px solid transparent;
+    }
+    
+    .nav-link:hover,
+    .nav-link:focus {
+        border-color: currentColor;
+    }
+    
+    .btn {
+        border: 2px solid currentColor;
+    }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Print styles */
+@media print {
+    .navbar,
+    .hamburger,
+    .cta,
+    .footer {
+        display: none;
+    }
+    
+    .hero {
+        page-break-inside: avoid;
+    }
+    
+    .overview-card,
+    .feature-item {
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+}
+
+/* Force hardware acceleration for smooth animations */
+.navbar,
+.nav-menu,
+.hamburger,
+.btn,
+.hero-visual {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    will-change: transform;
+}
+
+/* Optimize font rendering */
+body {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Improve click/tap responsiveness */
+.btn,
+.nav-link,
+.hamburger {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Ensure proper z-index stacking */
+.navbar {
+    z-index: 1000;
+}
+
+.nav-menu {
+    z-index: 999;
+}
+
+/* Fix for very small screens */
+@media (max-width: 280px) {
+    .container {
+        padding: 0 var(--space-1);
+    }
+    
+    .hero-title {
+        font-size: 1.2rem;
+    }
+    
+    .nav-container {
+        padding: 0 var(--space-2);
+    }
+}
+
+/* Fix for very large screens */
+@media (min-width: 1920px) {
+    .container {
+        max-width: 1600px;
+    }
+    
+    .hero-image img {
+        max-width: 600px;
+    }
+}
+
+/* Accessibility improvements */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Focus indicators */
+.nav-link:focus,
+.btn:focus,
+.hamburger:focus {
+    outline: 2px solid var(--primary-blue);
+    outline-offset: 2px;
+}
+
+/* Loading states */
+.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid var(--gray-300);
+    border-top-color: var(--primary-blue);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Prevent layout shift */
+.hero-image img,
+.logo {
+    aspect-ratio: attr(width) / attr(height);
+    height: auto;
+}
+
+/* Better text contrast on all backgrounds */
+.gradient-text {
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-dark));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: inline-block;
+}
+
+/* Fallback for browsers that don't support background-clip: text */
+@supports not (-webkit-background-clip: text) {
+    .gradient-text {
+        color: var(--primary-blue);
+        background: none;
+        -webkit-text-fill-color: unset;
+    }
+}

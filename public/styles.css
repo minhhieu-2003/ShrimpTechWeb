@@ -1,0 +1,24 @@
+/* SHRIMP TECH - Professional Website Styles */
+/* Modern, Clean, and Responsive Design */
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* Import Component Styles */
+@import './styles/components/variables.css';
+@import './styles/components/base.css';
+@import './styles/components/layout.css';
+@import './styles/components/buttons.css';
+@import './styles/components/navigation.css';
+@import './styles/components/hero.css';
+@import './styles/components/sections.css';
+@import './styles/components/ahtp.css';
+@import './styles/components/products.css';
+@import './styles/components/sensors.css';
+@import './styles/components/team.css';
+@import './styles/components/footer.css';
+@import './styles/components/chatbot.css';
+@import './styles/components/performance.css';
+@import './styles/components/responsive.css';
+@import './styles/components/compatibility.css';
+@import './styles/components/image-quality.css';
