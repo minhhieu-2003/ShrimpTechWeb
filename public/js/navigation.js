@@ -52,6 +52,7 @@ class Navigation {
     toggleMobileMenu() {
         this.isMenuOpen = !this.isMenuOpen;
         this.navMenu.classList.toggle('active', this.isMenuOpen);
+        this.navMenu.classList.toggle('open', this.isMenuOpen); // Thêm toggle class 'open'
         this.hamburger.classList.toggle('active', this.isMenuOpen);
         document.body.classList.toggle('menu-open', this.isMenuOpen);
         
@@ -62,6 +63,7 @@ class Navigation {
     closeMobileMenu() {
         this.isMenuOpen = false;
         this.navMenu.classList.remove('active');
+        this.navMenu.classList.remove('open'); // Đảm bảo xóa class 'open' khi đóng
         this.hamburger.classList.remove('active');
         document.body.classList.remove('menu-open');
         this.hamburger.setAttribute('aria-expanded', 'false');
@@ -89,16 +91,21 @@ class Navigation {
     setupSubpageNavigation() {
         this.navLinks.forEach(link => {
             const href = link.getAttribute('href');
-            if (href && !href.startsWith('#') && !href.startsWith('http')) {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    window.history.pushState({}, '', href);
-                    window.dispatchEvent(new Event('popstate'));
-                });
+            // Chỉ ngăn chặn mặc định với anchor nội bộ (#), không can thiệp link trang con
+            if (href && href.startsWith('#')) {
+                // Đã xử lý ở setupSmoothScroll
+                return;
             }
+            // Nếu là link ngoài (http/https), không can thiệp
+            if (href && href.startsWith('http')) {
+                return;
+            }
+            // Không ngăn chặn mặc định với link trang con, để trình duyệt chuyển trang
         });
     }
 }
 
 // Export for use in other modules
-window.Navigation = Navigation;
+window.mobile = window.mobile || {};
+window.mobile.Navigation = new Navigation();
+

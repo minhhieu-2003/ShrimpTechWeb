@@ -1,5 +1,5 @@
 <!-- Hero Dashboard Mockup -->
-<svg width="600" height="400" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+<svg width="900" height="600" viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="dashboardBg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" style="stop-color:#f8f9fa;stop-opacity:1" />
@@ -12,58 +12,61 @@
   </defs>
   
   <!-- Background -->
-  <rect width="600" height="400" rx="20" fill="url(#dashboardBg)"/>
+  <rect width="900" height="600" rx="20" fill="url(#dashboardBg)"/>
   
-  <!-- Header -->
-  <rect x="20" y="20" width="560" height="60" rx="10" fill="white" stroke="#e9ecef" stroke-width="1"/>
-  <text x="40" y="45" font-family="Arial" font-size="16" font-weight="bold" fill="#333">SHRIMP TECH Dashboard</text>
-  <circle cx="520" cy="50" r="15" fill="url(#cardGradient)"/>
-  <text x="515" y="55" font-family="Arial" font-size="12" fill="white">ST</text>
-  
-  <!-- Main Content Grid -->
-  <!-- Temperature Card -->
-  <rect x="40" y="100" width="160" height="100" rx="15" fill="white" stroke="#e9ecef" stroke-width="1"/>
-  <circle cx="70" cy="130" r="15" fill="#ff6b6b"/>
-  <text x="100" y="135" font-family="Arial" font-size="14" font-weight="bold" fill="#333">Nhiệt độ</text>
-  <text x="100" y="155" font-family="Arial" font-size="24" font-weight="bold" fill="#ff6b6b">28.5°C</text>
-  <text x="100" y="175" font-family="Arial" font-size="12" fill="#666">Bình thường</text>
-  
-  <!-- pH Card -->
-  <rect x="220" y="100" width="160" height="100" rx="15" fill="white" stroke="#e9ecef" stroke-width="1"/>
-  <circle cx="250" cy="130" r="15" fill="#4ecdc4"/>
-  <text x="280" y="135" font-family="Arial" font-size="14" font-weight="bold" fill="#333">pH Level</text>
-  <text x="280" y="155" font-family="Arial" font-size="24" font-weight="bold" fill="#4ecdc4">7.2</text>
-  <text x="280" y="175" font-family="Arial" font-size="12" fill="#666">Tối ưu</text>
-  
-  <!-- Oxygen Card -->
-  <rect x="400" y="100" width="160" height="100" rx="15" fill="white" stroke="#e9ecef" stroke-width="1"/>
-  <circle cx="430" cy="130" r="15" fill="#45b7d1"/>
-  <text x="460" y="135" font-family="Arial" font-size="14" font-weight="bold" fill="#333">Oxy</text>
-  <text x="460" y="155" font-family="Arial" font-size="24" font-weight="bold" fill="#45b7d1">8.5mg/L</text>
-  <text x="460" y="175" font-family="Arial" font-size="12" fill="#666">Tốt</text>
-  
-  <!-- Chart Area -->
-  <rect x="40" y="220" width="340" height="160" rx="15" fill="white" stroke="#e9ecef" stroke-width="1"/>
-  <text x="60" y="245" font-family="Arial" font-size="14" font-weight="bold" fill="#333">Biểu đồ xu hướng 24h</text>
-  
-  <!-- Simple line chart -->
-  <polyline points="60,350 90,320 120,340 150,310 180,330 210,300 240,320 270,290 300,310 330,280 360,300" 
-            stroke="url(#cardGradient)" stroke-width="3" fill="none"/>
-  
-  <!-- AI Predictions Panel -->
-  <rect x="400" y="220" width="160" height="160" rx="15" fill="white" stroke="#e9ecef" stroke-width="1"/>
-  <text x="420" y="245" font-family="Arial" font-size="14" font-weight="bold" fill="#333">AI Dự đoán</text>
-  
-  <!-- Prediction items -->
-  <circle cx="420" cy="270" r="5" fill="#28a745"/>
-  <text x="435" y="275" font-family="Arial" font-size="12" fill="#333">Chất lượng nước: Tốt</text>
-  
-  <circle cx="420" cy="295" r="5" fill="#ffc107"/>
-  <text x="435" y="300" font-family="Arial" font-size="12" fill="#333">Cần cho ăn sau 2h</text>
-  
-  <circle cx="420" cy="320" r="5" fill="#17a2b8"/>
-  <text x="435" y="325" font-family="Arial" font-size="12" fill="#333">Thu hoạch: 15 ngày</text>
-  
-  <circle cx="420" cy="345" r="5" fill="#667eea"/>
-  <text x="435" y="350" font-family="Arial" font-size="12" fill="#333">Sức khỏe tôm: 95%</text>
+  <!-- Header (giảm font-size cho cân đối) -->
+  <rect x="30" y="30" width="830" height="80" rx="18" fill="white" stroke="#e9ecef" stroke-width="2"/>
+  <text x="450" y="85" font-family="Arial" font-size="36" font-weight="bold" fill="#333" text-anchor="middle">SHRIMPTECH Dashboard</text>
+
+  <!-- Top Row: 3 Info Cards ngang (giảm font, tăng padding) -->
+  <g>
+    <rect x="120" y="130" width="220" height="75" rx="16" fill="#fff" stroke="#e9ecef" stroke-width="1.5"/>
+    <circle cx="150" cy="167" r="14" fill="#b388ff"/>
+    <text x="190" y="155" font-family="Arial" font-size="16" font-weight="bold" fill="#333">Khí độc (NH₃, H₂S)</text>
+    <text x="190" y="175" font-family="Arial" font-size="18" font-weight="bold" fill="#b388ff">0.02 mg/L</text>
+    <text x="190" y="195" font-family="Arial" font-size="13" fill="#666">An toàn</text>
+  </g>
+  <g>
+    <rect x="360" y="130" width="220" height="75" rx="16" fill="#fff" stroke="#e9ecef" stroke-width="1.5"/>
+    <circle cx="390" cy="167" r="14" fill="#ff6b6b"/>
+    <text x="430" y="155" font-family="Arial" font-size="16" font-weight="bold" fill="#333">Nhiệt độ</text>
+    <text x="430" y="175" font-family="Arial" font-size="18" font-weight="bold" fill="#ff6b6b">28.5°C</text>
+    <text x="430" y="195" font-family="Arial" font-size="13" fill="#666">Bình thường</text>
+  </g>
+  <g>
+    <rect x="600" y="130" width="220" height="75" rx="16" fill="#fff" stroke="#e9ecef" stroke-width="1.5"/>
+    <circle cx="630" cy="167" r="14" fill="#4ecdc4"/>
+    <text x="670" y="155" font-family="Arial" font-size="16" font-weight="bold" fill="#333">pH Level</text>
+    <text x="670" y="175" font-family="Arial" font-size="18" font-weight="bold" fill="#4ecdc4">7.2</text>
+    <text x="670" y="195" font-family="Arial" font-size="13" fill="#666">Tối ưu</text>
+  </g>
+
+  <!-- Left Column: Oxy + AI Dự đoán (giảm font, tăng padding) -->
+  <g>
+    <rect x="60" y="230" width="220" height="75" rx="16" fill="#fff" stroke="#e9ecef" stroke-width="1.5"/>
+    <circle cx="90" cy="265" r="14" fill="#45b7d1"/>
+    <text x="130" y="255" font-family="Arial" font-size="16" font-weight="bold" fill="#333">Oxy</text>
+    <text x="130" y="275" font-family="Arial" font-size="18" font-weight="bold" fill="#45b7d1">8.5mg/L</text>
+    <text x="130" y="295" font-family="Arial" font-size="13" fill="#666">Tốt</text>
+  </g>
+  <!-- Dịch layout AI Dự đoán và biểu đồ xu hướng sang phải cho cân bằng -->
+  <g>
+    <rect x="90" y="320" width="200" height="140" rx="16" fill="#fff" stroke="#e9ecef" stroke-width="1.5"/>
+    <text x="110" y="345" font-family="Arial" font-size="18" font-weight="bold" fill="#333">AI Dự đoán</text>
+    <circle cx="120" cy="370" r="10" fill="#28a745"/>
+    <text x="140" y="375" font-family="Arial" font-size="15" fill="#333">Chất lượng nước: Tốt</text>
+    <circle cx="120" cy="395" r="10" fill="#ffc107"/>
+    <text x="140" y="400" font-family="Arial" font-size="15" fill="#333">Cần cho ăn sau 2h</text>
+    <circle cx="120" cy="420" r="10" fill="#17a2b8"/>
+    <text x="140" y="425" font-family="Arial" font-size="15" fill="#333">Thu hoạch: 15 ngày</text>
+    <circle cx="120" cy="445" r="10" fill="#667eea"/>
+    <text x="140" y="450" font-family="Arial" font-size="15" fill="#333">Sức khỏe tôm: 95%</text>
+  </g>
+  <rect x="340" y="230" width="520" height="200" rx="18" fill="#fff" stroke="#e9ecef" stroke-width="1.5"/>
+  <text x="360" y="260" font-family="Arial" font-size="22" font-weight="bold" fill="#333">Biểu đồ xu hướng 24h</text>
+  <!-- Multiple trend lines (dịch sang phải) -->
+  <polyline points="380,400 430,340 480,370 530,310 580,350 630,290 680,330 730,270 780,310 830,250 860,290" stroke="url(#cardGradient)" stroke-width="3.5" fill="none"/>
+  <polyline points="380,425 430,365 480,395 530,335 580,375 630,315 680,355 730,295 780,335 830,275 860,315" stroke="#4ecdc4" stroke-width="3" fill="none" opacity="0.8"/>
+  <polyline points="380,450 430,390 480,420 530,360 580,400 630,340 680,380 730,320 780,360 830,300 860,340" stroke="#ff6b6b" stroke-width="2.5" fill="none" opacity="0.7"/>
+  <polyline points="380,370 430,310 480,340 530,280 580,320 630,260 680,300 730,240 780,280 830,220 860,260" stroke="#45b7d1" stroke-width="2.5" fill="none" opacity="0.7"/>
 </svg>

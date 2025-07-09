@@ -168,18 +168,37 @@ window.addEventListener('DOMContentLoaded', function() {
       { keywords: ['kiểm tra nh3','kiem tra nh3'], reply: 'NH3 (amoniac) là chất độc cho tôm, nên kiểm tra định kỳ và giữ dưới 0.1 mg/l.' },
       { keywords: ['kiểm soát dịch bệnh','kiem soat dich benh'], reply: 'Nên kiểm tra sức khỏe tôm thường xuyên, vệ sinh ao, bổ sung men vi sinh và liên hệ chuyên gia khi phát hiện dấu hiệu bất thường.' },
       { keywords: ['kiểm soát thức ăn','kiem soat thuc an'], reply: 'Cho ăn vừa đủ, tránh dư thừa, kiểm tra thức ăn chìm nổi và điều chỉnh lượng phù hợp với sức ăn của tôm.' },
-      { keywords: ['dự án shrimptech','du an shrimptech','shrimptech là gì','shrimptech la gi','giới thiệu dự án','gioi thieu du an','thông tin dự án','thong tin du an','shrimptech project'], reply: 'SHRIMPTECH là dự án nghiên cứu của sinh viên Đại học Văn Hiến (VHU) & Đại học Công nghệ TP.HCM (HUTECH), hợp tác cùng chuyên gia AHTP TP.HCM. Dự án phát triển hệ thống IoT & AI thông minh giúp tối ưu hóa quy trình nuôi tôm, nâng cao năng suất, giảm rủi ro và bảo vệ môi trường.' },
-      { keywords: ['đội ngũ','doi ngu','mentor','giảng viên hướng dẫn','giang vien huong dan'], reply: 'Đội ngũ SHRIMPTECH gồm 5 sinh viên đa ngành từ VHU & HUTECH, được mentor bởi các chuyên gia AHTP TP.HCM và các giảng viên giàu kinh nghiệm.' },
-      { keywords: ['mục tiêu dự án','muc tieu du an','ý nghĩa dự án','y nghia du an','sứ mệnh dự án','su menh du an'], reply: 'Mục tiêu của SHRIMPTECH là ứng dụng công nghệ IoT & AI vào nuôi tôm, giúp người nông dân Việt Nam tiếp cận giải pháp hiện đại, tăng năng suất, giảm chi phí và bảo vệ môi trường.' },
-      { keywords: ['trường đại học','truong dai hoc','vhu','hutech'], reply: 'Dự án SHRIMPTECH do sinh viên Đại học Văn Hiến (VHU) và Đại học Công nghệ TP.HCM (HUTECH) thực hiện, với sự hỗ trợ từ các chuyên gia và mentor của AHTP TP.HCM.' },
-      { keywords: ['đối tác','doi tac','ahtp','chuyên gia ahtp','chuyen gia ahtp'], reply: 'Đối tác chuyên môn của dự án là AHTP TP.HCM, nơi cung cấp tư vấn kỹ thuật, mentor và hỗ trợ nghiên cứu phát triển sản phẩm.' },
-      { keywords: ['công nghệ','cong nghe','iot','ai','trí tuệ nhân tạo','tri tue nhan tao'], reply: 'SHRIMPTECH ứng dụng công nghệ IoT (Internet of Things) để giám sát, điều khiển thiết bị ao nuôi và AI (trí tuệ nhân tạo) để phân tích, dự báo, cảnh báo sớm các rủi ro trong nuôi tôm.' },
-      { keywords: ['ý nghĩa','y nghia','lợi ích','loi ich','giá trị','gia tri'], reply: 'Dự án mang lại giá trị thực tiễn cho người nuôi tôm: tăng năng suất, giảm rủi ro, tiết kiệm chi phí, bảo vệ môi trường và nâng cao trình độ ứng dụng công nghệ trong nông nghiệp.' },
+      { keywords: ['dự án', 'du an', 'shrimptech'], reply: 'SHRIMPTECH là dự án ứng dụng IoT & AI vào nuôi tôm, giúp bà con tối ưu hóa sản xuất, giảm rủi ro và tăng lợi nhuận. Bạn muốn tìm hiểu về công nghệ, đội ngũ hay kết quả thực tế?' },
+      { keywords: ['iot', 'thiết bị iot', 'thiet bi iot'], reply: 'Các thiết bị IoT của SHRIMPTECH giúp giám sát nước, điều khiển thiết bị ao nuôi từ xa, cảnh báo sớm các rủi ro. Bạn quan tâm đến loại cảm biến, bộ điều khiển hay giải pháp tổng thể?' },
+      { keywords: ['sản phẩm', 'san pham'], reply: 'Chúng tôi cung cấp các bộ kit cảm biến nước, thiết bị IoT, phần mềm quản lý ao nuôi và dịch vụ tư vấn kỹ thuật. Bạn muốn biết chi tiết về sản phẩm nào?' },
+      { keywords: ['liên hệ', 'lien he', 'hỗ trợ', 'ho tro'], reply: 'Bạn có thể liên hệ đội ngũ SHRIMPTECH qua email shrimptech.vhu.hutech@gmail.com hoặc số 0901 234 567. Chúng tôi luôn sẵn sàng hỗ trợ!' },
+      { keywords: ['cảm ơn', 'cam on', 'thanks', 'thank you'], reply: 'Rất vui được hỗ trợ bạn! Nếu còn thắc mắc, hãy hỏi tiếp nhé.' },
+      { keywords: ['xin chào', 'chào', 'hello', 'hi'], reply: 'Xin chào! Tôi là trợ lý AI của SHRIMPTECH. Bạn cần tư vấn về nuôi tôm, IoT hay giải pháp kỹ thuật nào?' },
+      { keywords: ['báo giá', 'giá', 'bao gia'], reply: 'Bạn vui lòng cho biết sản phẩm hoặc dịch vụ quan tâm, chúng tôi sẽ gửi báo giá chi tiết và ưu đãi tốt nhất.' },
+      { keywords: ['hướng dẫn', 'huong dan'], reply: 'Bạn cần hướng dẫn về thiết bị IoT, phân tích nước hay kỹ thuật nuôi tôm? Hãy mô tả cụ thể để tôi hỗ trợ chi tiết hơn.' },
+      { keywords: ['phân tích nước', 'phan tich nuoc'], reply: 'Chúng tôi có thể phân tích các chỉ số nước như pH, DO, nhiệt độ, độ mặn... Bạn muốn kiểm tra chỉ số nào?' },
+      { keywords: ['phòng bệnh', 'phong benh'], reply: 'Bạn nên kiểm tra môi trường nước thường xuyên, bổ sung men vi sinh và liên hệ chuyên gia khi phát hiện dấu hiệu bất thường.' },
+      { keywords: ['tối ưu chi phí', 'toi uu chi phi', 'lợi nhuận', 'loi nhuan'], reply: 'Để tối ưu chi phí và tăng lợi nhuận, hãy kiểm soát lượng thức ăn, theo dõi môi trường nước bằng IoT và áp dụng các khuyến nghị kỹ thuật từ SHRIMPTECH.' },
+      { keywords: ['kỹ thuật nuôi', 'ky thuat nuoi'], reply: 'Bạn muốn tư vấn về kỹ thuật nuôi tôm giai đoạn nào? Tôi có thể hỗ trợ về chọn giống, quản lý nước, phòng bệnh, cho ăn...' },
+      // ...existing code...
     ];
+    // Ưu tiên cụm từ khóa dài trước
+    cases.sort((a, b) => Math.max(...b.keywords.map(k=>k.length)) - Math.max(...a.keywords.map(k=>k.length)));
+    let matchedReplies = [];
+    let matchedKeywords = new Set();
     for (let c of cases) {
       for (let k of c.keywords) {
-        if (input.includes(k) || inputNoTone.includes(removeVietnameseTones(k))) return c.reply;
+        if ((input.includes(k) || inputNoTone.includes(removeVietnameseTones(k))) && !matchedKeywords.has(k)) {
+          matchedReplies.push(c.reply);
+          c.keywords.forEach(kw => matchedKeywords.add(kw));
+          break; // Chỉ lấy 1 reply cho mỗi case
+        }
       }
+    }
+    if (matchedReplies.length > 1) {
+      return matchedReplies.map((r,i)=>`• ${r}`).join('<br>');
+    } else if (matchedReplies.length === 1) {
+      return matchedReplies[0];
     }
     // Các trường hợp chào hỏi, thông tin chung
     if (/(chào|hello|hi|xin chao)/.test(inputNoTone)) return 'Xin chào! Tôi có thể giúp gì cho bạn?';
@@ -205,7 +224,8 @@ window.addEventListener('DOMContentLoaded', function() {
 - Luôn theo dõi các chỉ số môi trường (pH, nhiệt độ, DO, độ mặn) bằng thiết bị IoT để kịp thời điều chỉnh.
 Nếu bạn cần lời khuyên chi tiết cho tình huống cụ thể, hãy mô tả rõ hơn nhé!`;
     }
-    return 'Cảm ơn bạn đã liên hệ. Đội ngũ ShrimpTech sẽ phản hồi sớm nhất!';
+    // Nếu không rõ ý định, hỏi lại người dùng
+    return 'Bạn có thể mô tả rõ hơn về vấn đề hoặc câu hỏi của mình không? Tôi sẽ hỗ trợ chi tiết nhất!';
   }
 
   // Notification dot demo (ẩn khi mở chat)

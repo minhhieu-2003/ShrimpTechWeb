@@ -18,7 +18,8 @@
         "ignore": [
           "image-rendering: crisp-edges",
           "scrollbar-width",
-          "content-visibility: auto"
+          "content-visibility: auto",
+          "min-height: auto"
         ]
       }
     ]
