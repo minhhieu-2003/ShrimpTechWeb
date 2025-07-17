@@ -119,7 +119,7 @@ shrimptech/
 ## Liên hệ
 
 - 📧 **Email**: shrimptech.vhu.hutech@gmail.com
-- 📱 **Hotline**: 0901 234 567
+- 📱 **Hotline**: 0835749407
 - 🏢 **Địa chỉ**: VHU & HUTECH, TP.HCM
 - ⏰ **Giờ làm việc**: T2-T6: 8:00-17:00
 
