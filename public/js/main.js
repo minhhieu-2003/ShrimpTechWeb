@@ -1,8 +1,12 @@
 // SHRIMP TECH Website - Main JavaScript (CLEANED VERSION)
 // Removed all duplicates and optimized for performance
+// Email system integration ready
 
 // Performance monitoring
 const perfStart = performance.now();
+
+// Global email system status
+window.shrimpTechEmailReady = false;
 
 // Preload critical resources
 if ('requestIdleCallback' in window) {

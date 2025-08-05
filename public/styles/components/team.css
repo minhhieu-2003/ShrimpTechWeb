@@ -59,9 +59,11 @@
 }
 
 .team-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
     gap: 30px;
+    justify-content: center;
+    align-items: stretch;
     margin-top: 40px;
 }
 
@@ -110,6 +112,140 @@
     font-size: 0.9rem;
     color: var(--text-muted);
     line-height: 1.6;
+}
+
+/* Mentor Section */
+.mentor {
+    padding: 80px 0;
+    background-color: #f8f9fa;
+}
+
+.mentor-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    align-items: stretch;
+    margin-top: 40px;
+}
+
+.mentor-card {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #e9ecef;
+    max-width: 450px;
+    width: 100%;
+}
+
+.mentor-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.mentor-avatar {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 2rem;
+    color: white;
+}
+
+.mentor-info h3 {
+    font-size: 1.4rem;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.mentor-title {
+    font-size: 1rem;
+    color: var(--gray-600);
+    margin-bottom: 20px;
+    font-style: italic;
+    text-align: center;
+}
+
+.mentor-education,
+.mentor-experience,
+.mentor-business,
+.mentor-projects {
+    margin-bottom: 20px;
+}
+
+.mentor-education h4,
+.mentor-experience h4,
+.mentor-business h4,
+.mentor-projects h4 {
+    font-size: 1rem;
+    color: var(--primary-blue-dark);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.mentor-education ul,
+.mentor-experience ul,
+.mentor-business ul,
+.mentor-projects ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.mentor-education li,
+.mentor-experience li,
+.mentor-business li,
+.mentor-projects li {
+    padding: 5px 0;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    position: relative;
+    padding-left: 15px;
+}
+
+.mentor-education li:before,
+.mentor-experience li:before,
+.mentor-business li:before,
+.mentor-projects li:before {
+    content: "•";
+    color: var(--primary-blue);
+    position: absolute;
+    left: 0;
+}
+
+.mentor-skills h4 {
+    font-size: 1rem;
+    color: var(--primary-blue-dark);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.skills-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.skill-tag {
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-dark) 100%);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    white-space: nowrap;
 }
 
 /* Achievements Section */
@@ -193,6 +329,26 @@
         width: 60px;
         height: 60px;
         font-size: 1.5rem;
+    }
+    
+    .mentor-grid {
+        flex-direction: column;
+        gap: 25px;
+    }
+    
+    .mentor-card {
+        max-width: 100%;
+        padding: 25px;
+    }
+    
+    .mentor-avatar {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+    
+    .skills-tags {
+        justify-content: center;
     }
     
     .achievements-grid {

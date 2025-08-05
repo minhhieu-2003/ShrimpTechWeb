@@ -1,0 +1,26 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Start Email API Server",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceFolder}/public/api/email-server.js",
+            "cwd": "${workspaceFolder}/public/api",
+            "env": {
+                "NODE_ENV": "development"
+            },
+            "console": "integratedTerminal",
+            "restart": true,
+            "runtimeArgs": ["--inspect"]
+        },
+        {
+            "name": "Test Email System",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceFolder}/public/api/test-email.js",
+            "cwd": "${workspaceFolder}/public/api",
+            "console": "integratedTerminal"
+        }
+    ]
+}

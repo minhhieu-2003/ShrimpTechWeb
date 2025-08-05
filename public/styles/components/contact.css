@@ -1,0 +1,650 @@
+/* Contact Page Styles */
+.contact-section {
+    padding: var(--space-16) 0;
+    background: var(--gray-50);
+}
+
+.contact-content {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: var(--space-12);
+    align-items: start;
+}
+
+.contact-info {
+    position: sticky;
+    top: calc(100px + var(--space-6));
+}
+
+.contact-cards {
+    background: white;
+    border-radius: var(--space-4);
+    padding: var(--space-8);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--gray-200);
+}
+
+.contact-card {
+    padding: var(--space-6);
+    background: var(--gray-50);
+    border-radius: var(--space-3);
+    border: 1px solid var(--gray-200);
+}
+
+.contact-card h3 {
+    color: var(--text-primary);
+    margin-bottom: var(--space-6);
+    font-weight: 600;
+    font-size: var(--font-size-xl);
+}
+
+.contact-card p {
+    color: var(--text-secondary);
+    line-height: 2;
+    font-size: var(--font-size-base);
+}
+
+.contact-card strong {
+    color: var(--primary-blue);
+    margin-right: var(--space-2);
+}
+
+/* Form Styles */
+.contact-form {
+    background: white;
+    padding: var(--space-8);
+    border-radius: var(--space-4);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--gray-200);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+    margin-bottom: var(--space-6);
+}
+
+.form-group {
+    margin-bottom: var(--space-6);
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: var(--space-2);
+    color: var(--text-primary);
+    font-weight: 500;
+    font-size: var(--font-size-sm);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: var(--space-3);
+    border: 1px solid var(--gray-300);
+    border-radius: var(--space-2);
+    background: white;
+    color: var(--text-primary);
+    font-size: var(--font-size-base);
+    transition: all 0.2s ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--primary-blue);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+}
+
+.btn-primary {
+    width: 100%;
+    padding: var(--space-4) var(--space-8);
+    background: var(--primary-blue);
+    color: white;
+    border: none;
+    border-radius: var(--space-2);
+    font-weight: 600;
+    font-size: var(--font-size-base);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+    background: var(--primary-blue-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 102, 204, 0.15);
+}
+
+/* FAQ Section */
+.faq-section {
+    padding: var(--space-16) 0;
+    background: white;
+}
+
+.faq-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-8);
+    margin-top: var(--space-8);
+}
+
+.faq-item {
+    background: var(--gray-50);
+    padding: var(--space-6);
+    border-radius: var(--space-3);
+    border: 1px solid var(--gray-200);
+    transition: all 0.2s ease;
+}
+
+.faq-item:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.faq-item h4 {
+    color: var(--text-primary);
+    margin-bottom: var(--space-4);
+    font-weight: 600;
+    font-size: var(--font-size-lg);
+}
+
+.faq-item p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    font-size: var(--font-size-base);
+}
+
+/* Newsletter Section */
+.newsletter {
+    padding: var(--space-16) 0;
+    background: var(--primary-blue);
+    color: white;
+}
+
+.newsletter-content {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.newsletter-content h2 {
+    color: white;
+    margin-bottom: var(--space-4);
+}
+
+.newsletter-content p {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.newsletter-form {
+    margin-top: var(--space-8);
+}
+
+.subscribe-form {
+    display: flex;
+    gap: var(--space-4);
+    margin-top: var(--space-6);
+}
+
+.subscribe-form input {
+    flex: 1;
+    padding: var(--space-4);
+    border: 1px solid var(--gray-300);
+    border-radius: var(--space-2);
+    background: white;
+    font-size: var(--font-size-base);
+    color: var(--text-primary);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.subscribe-form input:focus {
+    border-color: var(--primary-blue);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+}
+
+.subscribe-form .btn-primary {
+    width: auto;
+    padding: var(--space-4) var(--space-8);
+    background: var(--accent-orange);
+}
+
+.subscribe-form .btn-primary:hover {
+    background: #e55a2b;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .contact-content {
+        grid-template-columns: 1fr;
+        gap: var(--space-6);
+    }
+
+    .contact-info {
+        position: static;
+        margin-bottom: var(--space-6);
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: var(--space-4);
+    }
+
+    .subscribe-form {
+        flex-direction: column;
+        gap: var(--space-4);
+    }
+
+    .contact-section,
+    .faq-section,
+    .newsletter {
+        padding: var(--space-10) 0;
+    }
+
+    .faq-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-6);
+    }
+
+    .contact-form,
+    .contact-cards {
+        padding: var(--space-6);
+    }
+
+    .contact-card {
+        padding: var(--space-4);
+    }
+}
+
+@media (max-width: 576px) {
+    .contact-section,
+    .faq-section,
+    .newsletter {
+        padding: var(--space-8) 0;
+    }
+
+    .contact-form,
+    .contact-cards {
+        padding: var(--space-4);
+    }
+
+    .contact-card {
+        padding: var(--space-3);
+    }
+
+    .contact-card h3 {
+        font-size: var(--font-size-lg);
+    }
+
+    .faq-item {
+        padding: var(--space-4);
+    }
+
+    .btn-primary {
+        padding: var(--space-3) var(--space-6);
+        font-size: var(--font-size-sm);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea,
+    .subscribe-form input {
+        font-size: 16px; /* Prevent zoom on iOS */
+    }
+}
+
+/* Form validation styles */
+.form-group input:invalid,
+.form-group select:invalid,
+.form-group textarea:invalid {
+    border-color: #dc3545;
+}
+
+.form-group input:valid,
+.form-group select:valid,
+.form-group textarea:valid {
+    border-color: var(--gray-300);
+}
+
+/* Error message styling */
+.error-message {
+    color: #dc3545;
+    font-size: var(--font-size-sm);
+    margin-top: var(--space-1);
+    display: none;
+}
+
+.form-group.error .error-message {
+    display: block;
+}
+
+.form-group.error input,
+.form-group.error select,
+.form-group.error textarea {
+    border-color: #dc3545;
+}
+
+/* Success state */
+.form-group.success input,
+.form-group.success select,
+.form-group.success textarea {
+    border-color: #28a745;
+}
+
+/* Checkbox styling - Mobile-friendly */
+.checkbox-group {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    margin-bottom: var(--space-6);
+    position: relative;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: var(--font-size-sm);
+    line-height: 1.5;
+    position: relative;
+    min-height: 24px;
+    width: 100%;
+}
+
+.checkbox-text {
+    flex: 1;
+    line-height: 1.5;
+}
+
+.checkbox-group input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: white;
+    border: 2px solid var(--gray-300);
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.checkbox-label:hover .checkmark {
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.1);
+}
+
+.checkbox-group input[type="checkbox"]:checked ~ .checkmark {
+    background-color: var(--primary-blue);
+    border-color: var(--primary-blue);
+}
+
+.checkbox-group input[type="checkbox"]:checked ~ .checkmark::after {
+    content: "✓";
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    display: block;
+}
+
+/* Alternative checkmark styling for better mobile compatibility */
+.checkbox-group input[type="checkbox"]:checked ~ .checkmark::before {
+    content: "";
+    position: absolute;
+    width: 6px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    top: 2px;
+    left: 6px;
+}
+
+/* Hide text checkmark on mobile if needed, show border checkmark */
+@media (max-width: 768px) {
+    .checkbox-group input[type="checkbox"]:checked ~ .checkmark::after {
+        display: none;
+    }
+    
+    .checkbox-group input[type="checkbox"]:checked ~ .checkmark::before {
+        display: block;
+        width: 8px;
+        height: 12px;
+        top: 2px;
+        left: 8px;
+        border-width: 0 3px 3px 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .checkbox-group input[type="checkbox"]:checked ~ .checkmark::before {
+        width: 10px;
+        height: 14px;
+        top: 3px;
+        left: 9px;
+        border-width: 0 3px 3px 0;
+    }
+}
+
+.checkbox-group input[type="checkbox"]:focus ~ .checkmark {
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+}
+
+/* Mobile-specific checkbox styling */
+@media (max-width: 768px) {
+    .checkbox-label {
+        min-height: 32px;
+        font-size: var(--font-size-base);
+        line-height: 1.4;
+        gap: var(--space-4);
+        padding: 8px;
+        margin: -8px;
+        border-radius: 4px;
+    }
+    
+    .checkbox-text {
+        line-height: 1.4;
+    }
+    
+    .checkmark {
+        height: 24px;
+        width: 24px;
+        border-width: 2px;
+        margin-top: 2px;
+    }
+}
+
+@media (max-width: 576px) {
+    .checkbox-label {
+        min-height: 36px;
+        font-size: 16px; /* Prevent zoom on iOS */
+        gap: var(--space-4);
+        padding: 10px;
+        margin: -10px;
+    }
+    
+    .checkbox-text {
+        font-size: 16px;
+        line-height: 1.4;
+    }
+    
+    .checkmark {
+        height: 28px;
+        width: 28px;
+        margin-top: 2px;
+    }
+}
+
+/* Checkbox error states */
+.checkbox-group.error .checkmark {
+    border-color: #dc3545;
+    background-color: rgba(220, 53, 69, 0.1);
+}
+
+.checkbox-group.error .checkbox-label {
+    color: #dc3545;
+}
+
+/* Checkbox checked state styling */
+.checkbox-label.checked {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+/* Enhanced mobile checkbox interaction */
+@media (max-width: 768px) {
+    .checkbox-label {
+        -webkit-tap-highlight-color: rgba(0, 102, 204, 0.1);
+    }
+    
+    .checkbox-label:active {
+        transform: scale(0.98);
+        background-color: rgba(0, 102, 204, 0.05);
+    }
+    
+    /* Ensure checkbox links are touch-friendly */
+    .checkbox-text a {
+        color: var(--primary-blue);
+        text-decoration: underline;
+        padding: 4px 2px;
+        margin: -4px -2px;
+        border-radius: 4px;
+        min-height: 32px;
+        display: inline-flex;
+        align-items: center;
+        font-weight: 500;
+    }
+    
+    .checkbox-text a:active {
+        background-color: rgba(0, 102, 204, 0.1);
+        transform: scale(0.95);
+    }
+    
+    /* Highlight required checkboxes */
+    .checkbox-group input[required] ~ .checkmark {
+        border-color: var(--primary-blue);
+        border-width: 2px;
+    }
+    
+    .checkbox-group input[required]:not(:checked) ~ .checkmark {
+        box-shadow: 0 0 0 1px rgba(220, 53, 69, 0.3);
+    }
+}
+
+/* Button loading state */
+.btn-primary:disabled {
+    background: var(--gray-400);
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-primary.loading {
+    position: relative;
+    color: transparent;
+}
+
+.btn-primary.loading::after {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    left: 50%;
+    margin-left: -8px;
+    margin-top: -8px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    border-top-color: #ffffff;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Mobile-specific enhancements */
+body.keyboard-visible {
+    padding-bottom: 0;
+}
+
+.form-message {
+    margin: var(--space-4) 0;
+    padding: var(--space-4);
+    border-radius: var(--space-2);
+    border-left: 4px solid;
+}
+
+.form-message-success {
+    background: #d4edda;
+    border-color: #28a745;
+    color: #155724;
+}
+
+.form-message-error {
+    background: #f8d7da;
+    border-color: #dc3545;
+    color: #721c24;
+}
+
+.form-message-info {
+    background: #d1ecf1;
+    border-color: #17a2b8;
+    color: #0c5460;
+}
+
+.message-content {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+}
+
+.close-message {
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+.close-message:hover {
+    opacity: 1;
+}
+
+@media (max-width: 576px) {
+    .form-message {
+        position: fixed !important;
+        top: 20px !important;
+        left: 20px !important;
+        right: 20px !important;
+        z-index: 10000 !important;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+        margin: 0 !important;
+    }
+    
+    body.keyboard-visible .contact-form {
+        transform: translateY(-100px);
+        transition: transform 0.3s ease;
+    }
+}

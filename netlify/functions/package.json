@@ -1,0 +1,12 @@
+{
+  "name": "shrimptech-functions",
+  "version": "1.0.0",
+  "description": "SHRIMPTECH Netlify Functions",
+  "main": "contact.js",
+  "dependencies": {
+    "nodemailer": "^6.9.8"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

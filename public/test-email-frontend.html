@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHRIMPTECH - Email System Test</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 800px; 
+            margin: 50px auto; 
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .form-group { 
+            margin-bottom: 20px; 
+        }
+        label { 
+            display: block; 
+            margin-bottom: 5px; 
+            font-weight: 600;
+            color: #333;
+        }
+        input, select, textarea { 
+            width: 100%; 
+            padding: 10px; 
+            border: 2px solid #ddd; 
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: #0066cc;
+            outline: none;
+        }
+        button { 
+            background: #0066cc; 
+            color: white; 
+            padding: 12px 24px; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        button:hover { 
+            background: #0052a3; 
+        }
+        button:disabled { 
+            background: #ccc; 
+            cursor: not-allowed; 
+        }
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        h1 { color: #0066cc; text-align: center; }
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🦐 SHRIMPTECH Email System Test</h1>
+        <p style="text-align: center; color: #666;">Test tính năng gửi email từ form liên hệ</p>
+        
+        <form id="testForm">
+            <div class="form-group">
+                <label for="name">Họ và tên *</label>
+                <input type="text" id="name" name="name" value="Nguyễn Test User" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" value="test@example.com" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">Số điện thoại *</label>
+                <input type="tel" id="phone" name="phone" value="0835749407" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="company">Công ty/Trang trại</label>
+                <input type="text" id="company" name="company" value="Trang trại test">
+            </div>
+            
+            <div class="form-group">
+                <label for="farmType">Loại ao nuôi *</label>
+                <select id="farmType" name="farmType" required>
+                    <option value="">Chọn loại ao</option>
+                    <option value="pond-small">Ao tròn nổi (50-700m²)</option>
+                    <option value="pond-medium">Ao lót bạt đáy (700–1.000m²)</option>
+                    <option value="pond-large" selected>Ao siêu thâm canh tổng hợp (1.000–3.000m² mỗi ao)</option>
+                    <option value="research">Nghiên cứu/Học thuật</option>
+                    <option value="other">Khác</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="subject">Chủ đề quan tâm *</label>
+                <select id="subject" name="subject" required>
+                    <option value="">Chọn chủ đề</option>
+                    <option value="product-info">Thông tin sản phẩm</option>
+                    <option value="consultation">Tư vấn hệ thống</option>
+                    <option value="technical" selected>Tư vấn kỹ thuật</option>
+                    <option value="installation">Lắp đặt & bảo trì</option>
+                    <option value="partnership">Hợp tác đại lý</option>
+                    <option value="research">Hợp tác nghiên cứu</option>
+                    <option value="other">Khác</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="message">Nội dung tin nhắn *</label>
+                <textarea id="message" name="message" rows="4" required>Đây là tin nhắn test từ hệ thống SHRIMPTECH email. Kiểm tra tính năng gửi email từ website đến backend API server.</textarea>
+            </div>
+            
+            <div class="checkbox-group">
+                <input type="checkbox" id="newsletter" name="newsletter" checked>
+                <label for="newsletter">Đăng ký nhận tin tức về dự án SHRIMPTECH</label>
+            </div>
+            
+            <button type="submit" id="submitBtn">
+                📧 Test Gửi Email
+            </button>
+        </form>
+        
+        <div id="status"></div>
+        
+        <div style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 5px;">
+            <h3>📋 System Status:</h3>
+            <div id="systemStatus">Đang kiểm tra...</div>
+        </div>
+    </div>
+
+    <script>
+        // Check system status
+        async function checkSystemStatus() {
+            const statusDiv = document.getElementById('systemStatus');
+            
+            try {
+                // Check API server status
+                const response = await fetch('/api/status');
+                if (response.ok) {
+                    const data = await response.json();
+                    statusDiv.innerHTML = `
+                        ✅ <strong>API Server:</strong> Running (${data.service})<br>
+                        ⏰ <strong>Timestamp:</strong> ${new Date(data.timestamp).toLocaleString('vi-VN')}<br>
+                        🌐 <strong>Status:</strong> Ready to handle requests
+                    `;
+                    statusDiv.className = 'success';
+                } else {
+                    throw new Error('API server not responding');
+                }
+            } catch (error) {
+                statusDiv.innerHTML = `
+                    ❌ <strong>API Server:</strong> Not running<br>
+                    🔧 <strong>Action:</strong> Please start the email server first<br>
+                    💡 <strong>Command:</strong> <code>cd public/api && npm start</code>
+                `;
+                statusDiv.className = 'error';
+            }
+        }
+
+        // Handle form submission
+        document.getElementById('testForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const statusDiv = document.getElementById('status');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            // Disable form
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '⏳ Đang gửi...';
+            
+            // Collect form data
+            const formData = new FormData(this);
+            const data = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                company: formData.get('company'),
+                farmType: formData.get('farmType'),
+                subject: formData.get('subject'),
+                message: formData.get('message'),
+                newsletter: formData.get('newsletter') === 'on'
+            };
+            
+            try {
+                // Send to API
+                const response = await fetch('/api/contact', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    statusDiv.innerHTML = `
+                        ✅ <strong>SUCCESS!</strong><br>
+                        📧 ${result.message}<br>
+                        📬 Kiểm tra email: shrimptech.vhu.hutech@gmail.com<br>
+                        ⏰ Thời gian: ${new Date().toLocaleString('vi-VN')}
+                    `;
+                    statusDiv.className = 'status success';
+                    
+                    // Reset form
+                    this.reset();
+                } else {
+                    throw new Error(result.message);
+                }
+                
+            } catch (error) {
+                console.error('Test error:', error);
+                statusDiv.innerHTML = `
+                    ❌ <strong>ERROR!</strong><br>
+                    🔧 ${error.message}<br>
+                    💡 Kiểm tra console để xem chi tiết lỗi
+                `;
+                statusDiv.className = 'status error';
+            } finally {
+                // Re-enable form
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '📧 Test Gửi Email';
+            }
+        });
+
+        // Test newsletter separately
+        async function testNewsletter() {
+            try {
+                const response = await fetch('/api/newsletter', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email: 'newsletter-test@example.com' })
+                });
+                
+                const result = await response.json();
+                console.log('Newsletter test:', result);
+                
+                return result.success;
+            } catch (error) {
+                console.error('Newsletter test failed:', error);
+                return false;
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            checkSystemStatus();
+            
+            // Add test newsletter button
+            const container = document.querySelector('.container');
+            const testNewsletterBtn = document.createElement('button');
+            testNewsletterBtn.innerHTML = '📬 Test Newsletter';
+            testNewsletterBtn.style.marginLeft = '10px';
+            testNewsletterBtn.style.background = '#28a745';
+            testNewsletterBtn.onclick = async function() {
+                this.disabled = true;
+                this.innerHTML = '⏳ Testing...';
+                
+                const success = await testNewsletter();
+                
+                const statusDiv = document.getElementById('status');
+                if (success) {
+                    statusDiv.innerHTML = '✅ Newsletter test passed!';
+                    statusDiv.className = 'status success';
+                } else {
+                    statusDiv.innerHTML = '❌ Newsletter test failed!';
+                    statusDiv.className = 'status error';
+                }
+                
+                this.disabled = false;
+                this.innerHTML = '📬 Test Newsletter';
+            };
+            
+            document.getElementById('submitBtn').parentNode.appendChild(testNewsletterBtn);
+        });
+    </script>
+</body>
+</html>

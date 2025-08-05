@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Email System - SHRIMPTECH</title>
+    <style>
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f7fa;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        h1 { color: #0066cc; text-align: center; }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: #0066cc;
+            outline: none;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .btn {
+            background: #0066cc;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+        .btn:hover { background: #0052a3; }
+        .btn:disabled { 
+            background: #ccc; 
+            cursor: not-allowed; 
+        }
+        .status {
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        @media (max-width: 768px) {
+            .form-row { grid-template-columns: 1fr; }
+            body { padding: 10px; }
+            .container { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🦐 Test Email System - SHRIMPTECH</h1>
+        
+        <div id="status" class="status info">
+            ℹ️ Điền form dưới đây để test tính năng gửi email thực tế
+        </div>
+
+        <form id="testForm">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="name">Họ và tên *</label>
+                    <input type="text" id="name" name="name" required value="Nguyễn Văn Test">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Số điện thoại *</label>
+                    <input type="tel" id="phone" name="phone" required value="0835749407">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required value="test@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="company">Công ty/Trang trại</label>
+                    <input type="text" id="company" name="company" value="Trang trại test">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="farmType">Loại ao nuôi *</label>
+                <select id="farmType" name="farmType" required>
+                    <option value="">Chọn loại ao</option>
+                    <option value="pond-small">Ao tròn nổi (50-700m²)</option>
+                    <option value="pond-medium">Ao lót bạt đáy (700–1.000m²)</option>
+                    <option value="pond-large" selected>Ao siêu thâm canh tổng hợp (1.000–3.000m² mỗi ao)</option>
+                    <option value="research">Nghiên cứu/Học thuật</option>
+                    <option value="other">Khác</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="subject">Chủ đề quan tâm *</label>
+                <select id="subject" name="subject" required>
+                    <option value="">Chọn chủ đề</option>
+                    <option value="product-info">Thông tin sản phẩm</option>
+                    <option value="consultation">Tư vấn hệ thống</option>
+                    <option value="technical" selected>Tư vấn kỹ thuật</option>
+                    <option value="installation">Lắp đặt & bảo trì</option>
+                    <option value="partnership">Hợp tác đại lý</option>
+                    <option value="research">Hợp tác nghiên cứu</option>
+                    <option value="other">Khác</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="message">Nội dung tin nhắn *</label>
+                <textarea id="message" name="message" rows="4" required>Đây là tin nhắn test từ hệ thống. Tôi muốn test tính năng gửi email của website SHRIMPTECH.</textarea>
+            </div>
+            
+            <div class="checkbox-group">
+                <input type="checkbox" id="newsletter" name="newsletter" checked>
+                <label for="newsletter">Đăng ký nhận tin tức về dự án SHRIMPTECH</label>
+            </div>
+            
+            <button type="submit" class="btn" id="submitBtn">
+                📧 Gửi Email Test
+            </button>
+        </form>
+
+        <hr style="margin: 40px 0; border: 1px solid #eee;">
+        
+        <h2>📬 Test Newsletter</h2>
+        <form id="newsletterForm">
+            <div class="form-group">
+                <label for="newsletterEmail">Email để đăng ký newsletter</label>
+                <input type="email" id="newsletterEmail" required value="newsletter@example.com">
+            </div>
+            <button type="submit" class="btn" id="newsletterBtn">
+                🔔 Đăng ký Newsletter Test
+            </button>
+        </form>
+    </div>
+
+    <!-- Load required scripts -->
+    <script src="js/email-service.js"></script>
+    <script src="js/backend-handler.js"></script>
+
+    <script>
+        let backend = null;
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            updateStatus('⏳ Đang khởi tạo hệ thống...', 'info');
+            
+            try {
+                // Initialize backend handler
+                backend = new ShrimpTechBackend();
+                updateStatus('✅ Hệ thống đã sẵn sàng. Server email đang chạy trên http://localhost:3001', 'success');
+            } catch (error) {
+                updateStatus('❌ Lỗi khởi tạo: ' + error.message, 'error');
+            }
+        });
+
+        function updateStatus(message, type) {
+            const statusDiv = document.getElementById('status');
+            statusDiv.textContent = message;
+            statusDiv.className = `status ${type}`;
+        }
+
+        // Contact form handler
+        document.getElementById('testForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const originalText = submitBtn.textContent;
+            
+            submitBtn.disabled = true;
+            submitBtn.textContent = '⏳ Đang gửi...';
+            updateStatus('⏳ Đang gửi email...', 'info');
+            
+            try {
+                if (!backend) {
+                    throw new Error('Backend chưa được khởi tạo');
+                }
+
+                const formData = {
+                    name: document.getElementById('name').value.trim(),
+                    email: document.getElementById('email').value.trim(),
+                    phone: document.getElementById('phone').value.trim(),
+                    company: document.getElementById('company').value.trim(),
+                    farmType: document.getElementById('farmType').value,
+                    subject: document.getElementById('subject').value,
+                    message: document.getElementById('message').value.trim(),
+                    newsletter: document.getElementById('newsletter').checked
+                };
+
+                console.log('Sending form data:', formData);
+                const result = await backend.handleContactForm(formData);
+                
+                if (result.success) {
+                    updateStatus('✅ ' + result.message + ' Kiểm tra email: shrimptech.vhu.hutech@gmail.com', 'success');
+                } else {
+                    throw new Error(result.message || 'Có lỗi xảy ra');
+                }
+                
+            } catch (error) {
+                console.error('Contact form error:', error);
+                updateStatus('❌ Lỗi: ' + error.message, 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+            }
+        });
+
+        // Newsletter form handler
+        document.getElementById('newsletterForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const newsletterBtn = document.getElementById('newsletterBtn');
+            const originalText = newsletterBtn.textContent;
+            
+            newsletterBtn.disabled = true;
+            newsletterBtn.textContent = '⏳ Đang đăng ký...';
+            
+            try {
+                if (!backend) {
+                    throw new Error('Backend chưa được khởi tạo');
+                }
+
+                const email = document.getElementById('newsletterEmail').value.trim();
+                console.log('Subscribing newsletter:', email);
+                
+                const result = await backend.subscribeNewsletter({ email });
+                
+                if (result.success) {
+                    updateStatus('✅ ' + result.message + ' Kiểm tra email: shrimptech.vhu.hutech@gmail.com', 'success');
+                } else {
+                    throw new Error(result.message || 'Có lỗi xảy ra');
+                }
+                
+            } catch (error) {
+                console.error('Newsletter error:', error);
+                updateStatus('❌ Lỗi newsletter: ' + error.message, 'error');
+            } finally {
+                newsletterBtn.disabled = false;
+                newsletterBtn.textContent = originalText;
+            }
+        });
+
+        // Test server connection
+        async function testServerConnection() {
+            try {
+                const response = await fetch('http://localhost:3001/api/status');
+                if (response.ok) {
+                    const data = await response.json();
+                    updateStatus(`✅ Server đang hoạt động: ${data.service} (${data.timestamp})`, 'success');
+                } else {
+                    throw new Error('Server không phản hồi');
+                }
+            } catch (error) {
+                updateStatus('❌ Không thể kết nối đến server. Hãy đảm bảo email server đang chạy trên port 3001', 'error');
+            }
+        }
+
+        // Test server connection after 2 seconds
+        setTimeout(testServerConnection, 2000);
+    </script>
+</body>
+</html>
