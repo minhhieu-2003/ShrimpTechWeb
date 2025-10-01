@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="../styles/pages.css">
     <!-- CRITICAL FIX FOR SOLUTIONS VISIBILITY -->
     <style>
-        /* FORCE SOLUTIONS SECTION TO BE VISIBLE */
+        /* FORCE SOLUTIONS SECTION TO BE VISIBLE WITH PROPER COLORS */
         .page-content .solution-card,
         .page-content .content-grid,
         .page-content .stagger-animation {
@@ -42,17 +42,17 @@
         
         .page-content .solution-card {
             background: white !important;
-            border-radius: 16px !important;
+            border-radius: var(--radius-xl) !important;
             padding: 2.5rem !important;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
-            border: 1px solid #e2e8f0 !important;
+            box-shadow: var(--shadow-md) !important;
+            border: 1px solid var(--gray-200) !important;
             transition: all 0.3s ease !important;
             text-align: center !important;
         }
         
         .page-content .solution-card:hover {
             transform: translateY(-6px) !important;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1) !important;
+            box-shadow: var(--shadow-xl) !important;
         }
         
         .page-content .solution-icon {
@@ -65,19 +65,19 @@
             margin: 0 auto 1.5rem !important;
             font-size: 2rem !important;
             color: white !important;
-            background: linear-gradient(135deg, #0066cc, #004499) !important;
-            box-shadow: 0 4px 6px -1px rgba(0, 102, 204, 0.3) !important;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-dark) 100%) !important;
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.3) !important;
         }
         
         .page-content .solution-card h3 {
             font-size: 1.25rem !important;
             font-weight: 600 !important;
-            color: #1a202c !important;
+            color: var(--text-primary) !important;
             margin-bottom: 1rem !important;
         }
         
         .page-content .solution-card p {
-            color: #4a5568 !important;
+            color: var(--text-muted) !important;
             line-height: 1.6 !important;
             margin-bottom: 1.5rem !important;
         }
@@ -102,13 +102,13 @@
             align-items: flex-start !important;
             gap: 0.75rem !important;
             padding: 0.5rem 0 !important;
-            color: #4a5568 !important;
+            color: var(--text-muted) !important;
             font-size: 0.9rem !important;
             line-height: 1.5 !important;
         }
         
         .page-content .card-features li i {
-            color: #38a169 !important;
+            color: var(--success) !important;
             font-size: 0.8rem !important;
             width: 16px !important;
             text-align: center !important;
@@ -148,7 +148,7 @@
                 <img src="../assets/Logo.jpg" alt="SHRIMP TECH" class="logo">
                 <span class="logo-text">SHRIMP TECH</span>
             </div>
-            <ul class="nav-menu">
+            <ul class="nav-menu" id="nav-menu">
                 <li class="nav-item"><a href="../index.html" class="nav-link">Trang chủ</a></li>
                 <li class="nav-item"><a href="solutions.html" class="nav-link active">Giải pháp</a></li>
                 <li class="nav-item"><a href="products.html" class="nav-link">Sản phẩm</a></li>
@@ -156,11 +156,11 @@
                 <li class="nav-item"><a href="team.html" class="nav-link">Đội ngũ</a></li>
                 <li class="nav-item"><a href="contact.html" class="nav-link">Liên hệ</a></li>
             </ul>
-            <div class="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
+            <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span class="bar" aria-hidden="true"></span>
+                <span class="bar" aria-hidden="true"></span>
+                <span class="bar" aria-hidden="true"></span>
+            </button>
         </div>
     </nav>
 
@@ -394,9 +394,10 @@
                 <div class="footer-section">
                     <h3>Liên hệ</h3>
                     <div class="contact-info">
-                        <p><i class="fas fa-phone"></i> +84 123 456 789</p>
-                        <p><i class="fas fa-envelope"></i> info@shrimptech.vn</p>
-                        <p><i class="fas fa-map-marker-alt"></i> TP.HCM, Việt Nam</p>
+                        <p><i class="fas fa-phone"></i> 0835749407 | 0826529739</p>
+                        <p><i class="fas fa-envelope"></i> shrimptech.vhu.hutech@gmail.com</p>
+                        <p><i class="fas fa-map-marker-alt"></i> VHU & HUTECH, TP.HCM</p>
+                        <p><i class="fas fa-clock"></i> T2-T6: 8:00-17:00</p>
                     </div>
                 </div>
             </div>
@@ -408,6 +409,12 @@
     </footer>
 
     <!-- JavaScript -->
+    <!-- Load JavaScript modules -->
+    <script src="../js/utils.js"></script>
+    <script src="../js/navigation.js"></script>
+    <script src="../js/button-animations.js"></script>
+    <script src="../js/loading-animations.js"></script>
+    <script src="../js/scroll-animations.js"></script>
     <script src="../js/main.js"></script>
     <!-- Enhanced JavaScript for solutions section -->
     <script>

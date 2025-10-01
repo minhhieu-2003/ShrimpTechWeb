@@ -17,7 +17,7 @@
 
 /* Modern Page Header */
 .page-header {
-    background: linear-gradient(135deg, #0066cc 0%, #004499 50%, #002266 100%);
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-dark) 50%, #002266 100%);
     color: white;
     padding: 140px 0 100px;
     position: relative;
@@ -62,8 +62,8 @@
 /* Breadcrumb Navigation */
 .breadcrumb {
     padding: 1rem 0;
-    background: #f8fafc;
-    border-bottom: 1px solid #e2e8f0;
+    background: var(--gray-50);
+    border-bottom: 1px solid var(--gray-200);
 }
 
 .breadcrumb-nav {
@@ -71,26 +71,26 @@
     align-items: center;
     gap: 0.5rem;
     font-size: 0.9rem;
-    color: #64748b;
+    color: var(--gray-500);
 }
 
 .breadcrumb-nav a {
-    color: #0066cc;
+    color: var(--primary-blue);
     text-decoration: none;
     transition: color 0.2s;
 }
 
 .breadcrumb-nav a:hover {
-    color: #004499;
+    color: var(--primary-blue-dark);
 }
 
 .breadcrumb-separator {
-    color: #94a3b8;
+    color: var(--gray-400);
 }
 
 /* Navigation Active State */
 .nav-link.active {
-    color: #0066cc !important;
+    color: var(--primary-blue) !important;
     font-weight: 600;
 }
 
@@ -113,15 +113,15 @@
 }
 
 .page-link:hover {
-    background-color: #0066cc;
+    background-color: var(--primary-blue);
     color: white;
-    border-color: #0066cc;
+    border-color: var(--primary-blue);
 }
 
 .page-link.active {
-    background-color: #0066cc;
+    background-color: var(--primary-blue);
     color: white;
-    border-color: #0066cc;
+    border-color: var(--primary-blue);
 }
 
 .page-link.disabled {
@@ -157,9 +157,9 @@
 
 .qa-category:hover,
 .qa-category.active {
-    background: #0066cc;
+    background: var(--primary-blue);
     color: white;
-    border-color: #0066cc;
+    border-color: var(--primary-blue);
 }
 
 .qa-list {
@@ -293,7 +293,7 @@
 }
 
 .video-duration {
-    background: #0066cc;
+    background: var(--primary-blue);
     color: white;
     padding: 4px 8px;
     border-radius: 4px;
@@ -312,23 +312,33 @@
 /* Contact Form Styles */
 .contact-content {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
+    grid-template-columns: 380px 1fr;
+    gap: 50px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
     align-items: start;
 }
 
 .contact-cards {
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 20px;
+    width: 100%;
 }
 
 .contact-card {
     background: white;
-    padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-    border-left: 4px solid #0066cc;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    border: 1px solid #e2e8f0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.12);
 }
 
 .contact-card.featured {
@@ -350,46 +360,25 @@
 }
 
 .contact-card h3 {
-    margin: 0 0 15px 0;
-    color: #333;
-    font-size: 1.3rem;
+    margin: 0 0 20px 0;
+    color: var(--text-primary);
+    font-size: 1.4rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .contact-card p {
     margin: 0;
-    color: #666;
-    line-height: 1.6;
+    color: var(--text-muted);
+    line-height: 1.8;
+    font-size: 1rem;
 }
 
-.emergency-contact {
-    margin-top: 30px;
-    padding: 25px;
-    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%);
-    border-radius: 15px;
-    color: white;
-}
-
-.emergency-contact h3 {
-    margin: 0 0 20px 0;
-    font-size: 1.3rem;
-}
-
-.emergency-grid {
-    display: grid;
-    gap: 15px;
-}
-
-.emergency-item {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 15px;
-    background: rgba(255,255,255,0.1);
-    border-radius: 10px;
-}
-
-.emergency-item i {
-    font-size: 1.2rem;
+.contact-card p strong {
+    color: var(--text-secondary);
+    font-weight: 500;
 }
 
 .form {
@@ -427,18 +416,22 @@
 .form-group select,
 .form-group textarea {
     width: 100%;
-    padding: 12px 15px;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
+    padding: 16px 20px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
     font-size: 1rem;
-    transition: border-color 0.3s ease;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    background: #fafbfc;
+    font-family: inherit;
 }
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: #0066cc;
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+    background: #fff;
 }
 
 .form-group textarea {
@@ -447,17 +440,17 @@
 }
 
 .checkbox-group {
-    display: flex;
-    align-items: flex-start;
-    gap: 15px;
+    margin-bottom: 20px;
 }
 
 .checkbox-label {
     display: flex;
     align-items: flex-start;
-    gap: 10px;
+    gap: 12px;
     cursor: pointer;
-    line-height: 1.5;
+    line-height: 1.6;
+    font-size: 0.95rem;
+    color: var(--text-muted);
 }
 
 .checkbox-label input[type="checkbox"] {
@@ -476,8 +469,8 @@
 }
 
 .checkbox-label input[type="checkbox"]:checked + .checkmark {
-    background: #0066cc;
-    border-color: #0066cc;
+    background: var(--primary-blue);
+    border-color: var(--primary-blue);
 }
 
 .checkbox-label input[type="checkbox"]:checked + .checkmark::after {
@@ -491,44 +484,94 @@
     font-weight: bold;
 }
 
+/* Simple Checkbox Styles */
+.simple-checkbox {
+    margin-bottom: 16px;
+}
+
+.simple-checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    cursor: pointer;
+    line-height: 1.5;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    padding: 8px 0;
+}
+
+.simple-checkbox-label input[type="checkbox"] {
+    margin-top: 2px;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--primary-blue);
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.simple-checkbox-label:hover {
+    color: var(--text-secondary);
+}
+
+.simple-checkbox-label a {
+    color: var(--primary-blue);
+    text-decoration: none;
+}
+
+.simple-checkbox-label a:hover {
+    text-decoration: underline;
+}
+
 /* FAQ Section */
 .faq-section {
-    padding: 60px 0;
-    background: #f8f9fa;
+    padding: 80px 0;
+    background: #ffffff;
 }
 
 .faq-section h2 {
     text-align: center;
-    margin-bottom: 40px;
-    color: #333;
-    font-size: 2rem;
+    margin-bottom: 50px;
+    color: var(--text-primary);
+    font-size: 2.2rem;
+    font-weight: 700;
 }
 
 .faq-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 25px;
-    max-width: 1000px;
+    gap: 30px;
+    max-width: 1200px;
     margin: 0 auto;
+    padding: 0 20px;
 }
 
 .faq-item {
     background: white;
-    padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    border: 1px solid #e2e8f0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.faq-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
 }
 
 .faq-item h4 {
     margin: 0 0 15px 0;
-    color: #333;
-    font-size: 1.1rem;
+    color: var(--text-primary);
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.4;
 }
 
 .faq-item p {
     margin: 0;
-    color: #666;
-    line-height: 1.6;
+    color: var(--text-muted);
+    line-height: 1.7;
+    font-size: 0.95rem;
 }
 
 /* Newsletter Styles */
@@ -777,7 +820,7 @@
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, #0066cc, #004499);
+    background: linear-gradient(90deg, var(--primary-blue), var(--primary-blue-dark));
     transform: scaleX(0);
     transition: transform 0.3s ease;
 }
@@ -796,19 +839,19 @@
     margin-bottom: 1.5rem;
     font-size: 1.5rem;
     color: white;
-    background: linear-gradient(135deg, #0066cc, #004499);
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-dark));
 }
 
 .card-title {
     font-size: 1.25rem;
     font-weight: 600;
-    color: #1a202c;
+    color: var(--text-primary);
     margin-bottom: 0.75rem;
     line-height: 1.3;
 }
 
 .card-description {
-    color: #4a5568;
+    color: var(--text-muted);
     line-height: 1.6;
     margin-bottom: 1.5rem;
 }
@@ -828,13 +871,13 @@
     align-items: flex-start;
     gap: 0.75rem;
     padding: 0.5rem 0;
-    color: #4a5568;
+    color: var(--text-muted);
     font-size: 0.9rem;
     line-height: 1.5;
 }
 
 .card-features li i {
-    color: #38a169;
+    color: var(--success);
     font-size: 0.8rem;
     width: 16px;
     text-align: center;
@@ -859,7 +902,7 @@
 
 /* Featured Card */
 .content-card.featured {
-    border: 2px solid #0066cc;
+    border: 2px solid var(--primary-blue);
     position: relative;
 }
 
@@ -871,7 +914,7 @@
     position: absolute;
     top: 1rem;
     right: 1rem;
-    background: linear-gradient(135deg, #0066cc, #004499);
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-dark));
     color: white;
     padding: 0.25rem 0.75rem;
     border-radius: 20px;
@@ -897,7 +940,7 @@
 }
 
 .product-card.featured {
-    border: 3px solid #0066cc;
+    border: 3px solid var(--primary-blue);
     transform: scale(1.05);
 }
 
@@ -929,7 +972,7 @@
 .product-header h3 {
     font-size: 1.5rem;
     font-weight: 700;
-    color: #1a202c;
+    color: var(--text-primary);
     margin-bottom: 1rem;
 }
 
@@ -943,7 +986,7 @@
 .product-price .price {
     font-size: 2rem;
     font-weight: 800;
-    color: #0066cc;
+    color: var(--primary-blue);
 }
 
 .product-price .period {
@@ -967,12 +1010,12 @@
     align-items: flex-start;
     gap: 1rem;
     padding: 0.75rem 0;
-    color: #4a5568;
+    color: var(--text-muted);
     line-height: 1.5;
 }
 
 .product-features li i {
-    color: #38a169;
+    color: var(--success);
     font-size: 1rem;
     margin-top: 0.25rem;
     min-width: 16px;
@@ -1018,7 +1061,7 @@
     margin: 0 auto 1.5rem;
     font-size: 2rem;
     color: white;
-    background: linear-gradient(135deg, #0066cc, #004499);
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-dark));
     box-shadow: 0 4px 6px -1px rgba(0, 102, 204, 0.3);
 }
 
@@ -1079,15 +1122,23 @@
 
 /* Contact Form Styles */
 .contact-form {
-    background: white;
-    border-radius: 20px;
-    padding: 3rem;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    border: 1px solid #e2e8f0;
+    background: #fff;
+    border-radius: 28px;
+    padding: 40px;
+    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.12);
+    border: 1.5px solid #e2e8f0;
+    width: 100%;
+}
+
+.contact-form h2 {
+    margin-bottom: 30px;
+    color: #1a202c;
+    font-size: 1.5rem;
+    font-weight: 600;
 }
 
 .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.2rem;
 }
 
 .form-label {
@@ -1102,19 +1153,19 @@
 .form-textarea,
 .form-select {
     width: 100%;
-    padding: 0.75rem 1rem;
+    padding: 14px 18px;
     border: 2px solid #e2e8f0;
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: all 0.2s;
-    background: white;
+    border-radius: 10px;
+    font-size: 1.08rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    background: #fafbfc;
 }
 
 .form-input:focus,
 .form-textarea:focus,
 .form-select:focus {
     outline: none;
-    border-color: #0066cc;
+    border-color: var(--primary-blue);
     box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
 }
 
@@ -1149,13 +1200,13 @@
     margin: 0 auto 1rem;
     font-size: 1.5rem;
     color: white;
-    background: linear-gradient(135deg, #0066cc, #004499);
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-dark));
 }
 
 .contact-title {
     font-size: 1.1rem;
     font-weight: 600;
-    color: #1a202c;
+    color: var(--text-primary);
     margin-bottom: 0.5rem;
 }
 
@@ -1191,7 +1242,7 @@
 .mou-partner {
     position: relative;
     background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-    border: 2px solid #0066cc;
+    border: 2px solid var(--primary-blue);
     box-shadow: 0 8px 25px rgba(0, 102, 204, 0.15);
 }
 
@@ -1200,7 +1251,7 @@
     position: absolute;
     top: -12px;
     right: 20px;
-    background: linear-gradient(135deg, #0066cc, #004499);
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-dark));
     color: white;
     padding: 0.5rem 1rem;
     border-radius: 20px;
@@ -1221,7 +1272,7 @@
 }
 
 .mou-partner .partner-logo {
-    background: linear-gradient(135deg, #0066cc, #004499);
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-dark));
     color: white;
     box-shadow: 0 4px 15px rgba(0, 102, 204, 0.3);
 }
@@ -1373,10 +1424,69 @@ section[style*="background: #f8fafc"] .stagger-animation {
 .stagger-animation.visible > *:nth-child(5) { transition-delay: 0.5s; }
 .stagger-animation.visible > *:nth-child(6) { transition-delay: 0.6s; }
 
-/* Utility Classes */
-.text-center { text-align: center; }
-.text-left { text-align: left; }
-.text-right { text-align: right; }
+/* Responsive Design */
+@media (max-width: 768px) {
+    .contact-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding: 0 15px;
+    }
+    
+    .contact-form {
+        padding: 30px 25px;
+        border-radius: 20px;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 14px 16px;
+        font-size: 1rem;
+    }
+    
+    .contact-card {
+        padding: 25px;
+        border-radius: 16px;
+    }
+    
+    .simple-checkbox-label {
+        font-size: 0.85rem;
+        gap: 10px;
+        padding: 10px 0;
+    }
+    
+    .simple-checkbox-label input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .contact-form {
+        padding: 25px 20px;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 12px 14px;
+    }
+    
+    .simple-checkbox-label {
+        font-size: 0.8rem;
+        gap: 8px;
+    }
+    
+    .simple-checkbox-label input[type="checkbox"] {
+        width: 15px;
+        height: 15px;
+    }
+}
 
 .mb-1 { margin-bottom: 0.25rem; }
 .mb-2 { margin-bottom: 0.5rem; }
@@ -1397,3 +1507,19 @@ section[style*="background: #f8fafc"] .stagger-animation {
 .inline-block { display: inline-block; }
 .flex { display: flex; }
 .inline-flex { display: inline-flex; }
+
+/* Contact Section General */
+#contact.contact {
+    padding: 80px 0;
+    background: #f8fafc;
+}
+
+.contact-info h2 {
+    margin-bottom: 25px;
+    color: #1a202c;
+    font-size: 1.5rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}

@@ -1,0 +1,531 @@
+/**
+ * Display Optimization CSS cho SHRIMPTECH
+ * Tối ưu hiển thị, performance và trải nghiệm người dùng
+ */
+
+/* ========================================
+   CRITICAL RENDERING OPTIMIZATIONS
+======================================== */
+
+/* Prevent layout shifts */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-display: swap; /* Ensure text remains visible during font load */
+}
+
+/* Critical font loading */
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153;
+}
+
+/* ========================================
+   LOADING OPTIMIZATIONS
+======================================== */
+
+/* Enhanced loading animations */
+.loading-overlay {
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
+
+.loading-logo svg {
+    filter: drop-shadow(0 0 20px rgba(255,255,255,0.3));
+}
+
+.loading-spinner {
+    position: relative;
+}
+
+.loading-spinner::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border: 2px solid transparent;
+    border-top: 2px solid rgba(255,255,255,0.6);
+    border-radius: 50%;
+    animation: spinReverse 2s linear infinite;
+}
+
+@keyframes spinReverse {
+    0% { transform: rotate(360deg); }
+    100% { transform: rotate(0deg); }
+}
+
+/* Loading progress enhancements */
+.loading-progress {
+    position: relative;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.loading-progress-bar {
+    box-shadow: 0 0 10px rgba(255,255,255,0.5);
+    position: relative;
+}
+
+.loading-progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,0.4),
+        transparent
+    );
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* ========================================
+   CONTENT FADE-IN OPTIMIZATIONS
+======================================== */
+
+.main-content {
+    will-change: opacity;
+    transform: translateZ(0); /* Force hardware acceleration */
+}
+
+.main-content.loaded {
+    animation: contentFadeIn 0.8s ease-out;
+}
+
+@keyframes contentFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========================================
+   PROGRESSIVE ENHANCEMENT
+======================================== */
+
+/* Enhanced for JavaScript enabled */
+.js .hero-title {
+    opacity: 0;
+    animation: titleReveal 1s ease-out 0.5s forwards;
+}
+
+.js .hero-description {
+    opacity: 0;
+    animation: descriptionReveal 1s ease-out 0.8s forwards;
+}
+
+.js .hero-buttons {
+    opacity: 0;
+    animation: buttonsReveal 1s ease-out 1.1s forwards;
+}
+
+@keyframes titleReveal {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes descriptionReveal {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes buttonsReveal {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ========================================
+   NAVIGATION OPTIMIZATIONS (Note: .navbar base styles in navigation.css)
+======================================== */
+
+.navbar-loaded {
+    animation: navbarSlideDown 0.6s ease-out;
+}
+
+@keyframes navbarSlideDown {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Enhanced nav links */
+.nav-link {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,0.1),
+        transparent
+    );
+    transition: left 0.5s ease;
+}
+
+.nav-link:hover::before {
+    left: 100%;
+}
+
+/* ========================================
+   IMAGE OPTIMIZATIONS
+======================================== */
+
+img {
+    height: auto;
+    max-width: 100%;
+}
+
+/* Lazy loading placeholders */
+img.lazy {
+    background: linear-gradient(
+        90deg,
+        #f0f0f0 25%,
+        #e0e0e0 50%,
+        #f0f0f0 75%
+    );
+    background-size: 200% 100%;
+    animation: placeholder 1.5s infinite;
+}
+
+@keyframes placeholder {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* WebP support */
+.webp .hero-image {
+    background-image: url('assets/hero-dashboard.webp');
+}
+
+.no-webp .hero-image {
+    background-image: url('assets/hero-dashboard.svg');
+}
+
+/* ========================================
+   PERFORMANCE OPTIMIZATIONS
+======================================== */
+
+/* GPU acceleration for animations */
+.hero-visual,
+.hero-image,
+.overview-card,
+.feature-item {
+    will-change: transform;
+    transform: translateZ(0);
+}
+
+/* Scroll performance */
+.hero,
+.overview,
+.features-highlight {
+    will-change: scroll-position;
+}
+
+/* Reduce animations on slow connections */
+.slow-connection * {
+    animation-duration: 0.1s !important;
+    transition-duration: 0.1s !important;
+}
+
+.slow-connection .loading-spinner {
+    animation: none;
+    border: 4px solid #0066cc;
+}
+
+/* Low memory optimizations */
+.low-memory .hero-image::before,
+.low-memory .hero-image::after {
+    display: none;
+}
+
+.low-memory .loading-progress-bar::after {
+    display: none;
+}
+
+/* ========================================
+   MOBILE OPTIMIZATIONS
+======================================== */
+
+.mobile-device .hero-title {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+
+.mobile-device .loading-spinner {
+    width: 40px;
+    height: 40px;
+}
+
+.mobile-device .loading-logo {
+    width: 60px;
+    height: 60px;
+}
+
+/* Touch optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .nav-link:hover::before {
+        display: none;
+    }
+    
+    .btn {
+        min-height: 44px; /* Apple's recommended touch target */
+    }
+}
+
+/* ========================================
+   ACCESSIBILITY OPTIMIZATIONS
+======================================== */
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    .loading-spinner {
+        animation: none;
+        border: 4px solid #0066cc;
+    }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    .loading-overlay {
+        background: #000;
+        color: #fff;
+    }
+    
+    .loading-progress {
+        border: 2px solid #fff;
+    }
+    
+    .loading-progress-bar {
+        background: #fff;
+    }
+}
+
+/* Keyboard navigation */
+.keyboard-nav .nav-link:focus,
+.keyboard-nav .btn:focus {
+    outline: 3px solid #0066cc;
+    outline-offset: 2px;
+}
+
+/* Focus management */
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.skip-link:focus {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    width: auto;
+    height: auto;
+    padding: 10px 15px;
+    background: #0066cc;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    z-index: 10000;
+}
+
+/* ========================================
+   COMPONENT LOADING STATES
+======================================== */
+
+[data-lazy-component] {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+}
+
+[data-lazy-component].component-loaded {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Skeleton loading for cards */
+.overview-card.loading {
+    background: linear-gradient(
+        90deg,
+        #f0f0f0 25%,
+        #e0e0e0 50%,
+        #f0f0f0 75%
+    );
+    background-size: 200% 100%;
+    animation: skeleton 1.5s infinite;
+}
+
+@keyframes skeleton {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* ========================================
+   PRINT OPTIMIZATIONS
+======================================== */
+
+@media print {
+    .loading-overlay,
+    .navbar,
+    .chatbot-widget,
+    .chatbot-toggle {
+        display: none !important;
+    }
+    
+    .main-content {
+        opacity: 1 !important;
+    }
+    
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+/* ========================================
+   DARK MODE OPTIMIZATIONS
+======================================== */
+
+@media (prefers-color-scheme: dark) {
+    .loading-overlay {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    }
+    
+    .loading-progress {
+        background: rgba(255,255,255,0.1);
+    }
+    
+    img.lazy {
+        background: linear-gradient(
+            90deg,
+            #2a2a2a 25%,
+            #3a3a3a 50%,
+            #2a2a2a 75%
+        );
+    }
+}
+
+/* ========================================
+   UTILITY CLASSES
+======================================== */
+
+.visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+.fade-in {
+    animation: fadeIn 0.6s ease-out;
+}
+
+.slide-up {
+    animation: slideUp 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Performance monitoring */
+.perf-monitor {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background: rgba(0,0,0,0.8);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    z-index: 9999;
+    display: none;
+}
+
+.perf-monitor.show {
+    display: block;
+}

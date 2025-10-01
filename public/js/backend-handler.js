@@ -362,6 +362,94 @@ class ShrimpTechBackend {
 document.addEventListener('DOMContentLoaded', () => {
     window.shrimpTechBackend = new ShrimpTechBackend();
     console.log('🚀 ShrimpTech Backend initialized');
+    
+    // Setup form submission handlers
+    const contactForm = document.getElementById('contactForm');
+    const newsletterForm = document.getElementById('newsletterForm');
+    
+    if (contactForm) {
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            
+            try {
+                // Show loading state
+                submitBtn.textContent = 'Đang gửi...';
+                submitBtn.disabled = true;
+                
+                // Collect form data
+                const formData = new FormData(contactForm);
+                const data = {
+                    name: formData.get('name'),
+                    phone: formData.get('phone'),
+                    email: formData.get('email'),
+                    company: formData.get('company'),
+                    farmType: formData.get('farmType'),
+                    subject: formData.get('subject'),
+                    message: formData.get('message'),
+                    agreement: formData.get('agreement'),
+                    newsletter: formData.get('newsletter')
+                };
+                
+                // Submit via backend
+                const result = await window.shrimpTechBackend.submitContact(data);
+                
+                if (result.success) {
+                    // Show success message
+                    alert('✅ Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi trong 24h.');
+                    contactForm.reset();
+                } else {
+                    throw new Error(result.message || 'Lỗi không xác định');
+                }
+                
+            } catch (error) {
+                console.error('❌ Contact form error:', error);
+                alert('❌ Có lỗi xảy ra. Vui lòng thử lại hoặc liên hệ trực tiếp qua email.');
+            } finally {
+                // Restore button state
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+    }
+    
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitBtn = newsletterForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            
+            try {
+                submitBtn.textContent = 'Đang đăng ký...';
+                submitBtn.disabled = true;
+                
+                const formData = new FormData(newsletterForm);
+                const data = { email: formData.get('email') };
+                
+                const result = await window.shrimpTechBackend.makeRequest('/newsletter', {
+                    method: 'POST',
+                    body: JSON.stringify(data)
+                });
+                
+                if (result.success) {
+                    alert('✅ Đăng ký newsletter thành công!');
+                    newsletterForm.reset();
+                } else {
+                    throw new Error(result.message || 'Lỗi không xác định');
+                }
+                
+            } catch (error) {
+                console.error('❌ Newsletter error:', error);
+                alert('❌ Có lỗi xảy ra. Vui lòng thử lại.');
+            } finally {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+    }
 });
 
 // Export for module use

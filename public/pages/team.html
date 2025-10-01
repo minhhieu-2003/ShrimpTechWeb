@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="../styles/pages.css">
+    <link rel="stylesheet" href="../styles/components/responsive.css">
 </head>
 <body>
     <!-- Navigation Header -->
@@ -17,7 +18,7 @@
                 <img src="../assets/Logo.jpg" alt="SHRIMP TECH" class="logo">
                 <span class="logo-text">SHRIMP TECH</span>
             </div>
-            <ul class="nav-menu">
+            <ul class="nav-menu" id="nav-menu">
                 <li class="nav-item"><a href="../index.html" class="nav-link">Trang chủ</a></li>
                 <li class="nav-item"><a href="solutions.html" class="nav-link">Giải pháp</a></li>
                 <li class="nav-item"><a href="products.html" class="nav-link">Sản phẩm</a></li>
@@ -25,11 +26,11 @@
                 <li class="nav-item"><a href="team.html" class="nav-link active">Đội ngũ</a></li>
                 <li class="nav-item"><a href="contact.html" class="nav-link">Liên hệ</a></li>
             </ul>
-            <div class="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
+            <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span class="bar" aria-hidden="true"></span>
+                <span class="bar" aria-hidden="true"></span>
+                <span class="bar" aria-hidden="true"></span>
+            </button>
         </div>
     </nav>
 
@@ -156,18 +157,18 @@
                         💡 Nghiên cứu thị trường và phân tích khách hàng
                     </p>
                 </div>
-                
-                <div class="team-member">
+                   <div class="team-member">
                     <div class="member-avatar">
                         <i class="fas fa-chart-line"></i>
                     </div>
-                    <h4>💎 Phí Ánh Xuân</h4>
-                    <p class="member-role"><strong>Digital Business Analyst</strong></p>
+                    <h4>📊 Nguyễn Trường Tùng</h4>
+                    <p class="member-role"><strong>Financial Analyst & Business Development</strong></p>
                     <p class="member-info">
                         🏫 Đại học Công nghệ TP.HCM (HUTECH)<br>
-                        💻 Chuyên ngành: Thương mại điện tử<br>
-                        📊 Phân tích dữ liệu và tối ưu quy trình kinh doanh<br>
-                        🎨 Thiết kế trải nghiệm người dùng và UI/UX
+                        📊 Chuyên ngành: Business Finance - Khoa Tài Chính-Thương Mại<br>
+                        💼 Phân tích tài chính và phát triển kinh doanh<br>
+                        🔍 Nghiên cứu thị trường và đánh giá hiệu quả đầu tư<br>
+                        📈 Lập kế hoạch tài chính và chiến lược mở rộng
                     </p>
                 </div>
             </div>
@@ -370,6 +371,12 @@
         </div>
     </footer>
 
+    <!-- Load JavaScript modules -->
+    <script src="../js/utils.js"></script>
+    <script src="../js/navigation.js"></script>
+    <script src="../js/button-animations.js"></script>
+    <script src="../js/loading-animations.js"></script>
+    <script src="../js/scroll-animations.js"></script>
     <script src="../js/main.js"></script>
 </body>
 </html>

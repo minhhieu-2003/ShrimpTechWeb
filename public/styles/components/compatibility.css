@@ -24,6 +24,7 @@ html {
 /* iOS Safari fixes */
 @supports (-webkit-touch-callout: none) {
     .navbar {
+        /* Enhanced backdrop filter for iOS Safari */
         -webkit-backdrop-filter: blur(10px);
         backdrop-filter: blur(10px);
     }

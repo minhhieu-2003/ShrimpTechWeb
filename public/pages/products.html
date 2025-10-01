@@ -67,7 +67,7 @@
                 <img src="../assets/Logo.jpg" alt="SHRIMP TECH" class="logo">
                 <span class="logo-text">SHRIMP TECH</span>
             </div>
-            <ul class="nav-menu">
+            <ul class="nav-menu" id="nav-menu">
                 <li class="nav-item"><a href="../index.html" class="nav-link">Trang chủ</a></li>
                 <li class="nav-item"><a href="solutions.html" class="nav-link">Giải pháp</a></li>
                 <li class="nav-item"><a href="products.html" class="nav-link active">Sản phẩm</a></li>
@@ -75,11 +75,11 @@
                 <li class="nav-item"><a href="team.html" class="nav-link">Đội ngũ</a></li>
                 <li class="nav-item"><a href="contact.html" class="nav-link">Liên hệ</a></li>
             </ul>
-            <div class="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
+            <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span class="bar" aria-hidden="true"></span>
+                <span class="bar" aria-hidden="true"></span>
+                <span class="bar" aria-hidden="true"></span>
+            </button>
         </div>
     </nav>
 
@@ -313,9 +313,12 @@
                 <div class="footer-section">
                     <h3>Liên hệ</h3>
                     <div class="contact-info">
-                        <p><i class="fas fa-phone"></i> +84 123 456 789</p>
-                        <p><i class="fas fa-envelope"></i> info@shrimptech.vn</p>
-                        <p><i class="fas fa-map-marker-alt"></i> TP.HCM, Việt Nam</p>
+                       <ul>
+                        <li><i class="fas fa-envelope"></i> shrimptech.vhu.hutech@gmail.com</li>
+                        <li><i class="fas fa-phone"></i> 0835749407 | 0826529739</li>
+                        <li><i class="fas fa-map-marker-alt"></i> VHU & HUTECH, TP.HCM</li>
+                        <li><i class="fas fa-clock"></i> T2-T6: 8:00-17:00</li>
+                    </ul>
                     </div>
                 </div>
             </div>
@@ -327,6 +330,12 @@
     </footer>
 
     <!-- JavaScript -->
+    <!-- Load JavaScript modules -->
+    <script src="../js/utils.js"></script>
+    <script src="../js/navigation.js"></script>
+    <script src="../js/button-animations.js"></script>
+    <script src="../js/loading-animations.js"></script>
+    <script src="../js/scroll-animations.js"></script>
     <script src="../js/main.js"></script>
     <script src="../js/scroll-animations.js"></script>
     

@@ -37,11 +37,21 @@ class Navigation {
             }
         });
         
+        // Close menu when pressing Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.isMenuOpen) {
+                this.closeMobileMenu();
+            }
+        });
+        
         // Smooth scroll for anchor links
         this.setupSmoothScroll();
 
         // Handle navigation for links pointing to subpages
         this.setupSubpageNavigation();
+        
+        // Set active nav state based on current page
+        this.setActiveNavState();
     }
     
     handleScroll() {
@@ -91,10 +101,54 @@ class Navigation {
             const href = link.getAttribute('href');
             if (href && !href.startsWith('#') && !href.startsWith('http')) {
                 link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    window.history.pushState({}, '', href);
-                    window.dispatchEvent(new Event('popstate'));
+                    // Cho phép navigation bình thường, không preventDefault
+                    // Thêm loading state
+                    this.addLoadingState(link);
+                    
+                    // Đóng mobile menu trước khi navigate
+                    this.closeMobileMenu();
                 });
+            }
+        });
+    }
+
+    addLoadingState(linkElement) {
+        // Thêm class loading cho visual feedback
+        linkElement.classList.add('nav-loading');
+        
+        // Tạo spinner nhỏ
+        const spinner = document.createElement('i');
+        spinner.className = 'fas fa-spinner fa-spin nav-spinner';
+        spinner.setAttribute('aria-hidden', 'true');
+        linkElement.appendChild(spinner);
+        
+        // Xóa loading state sau 2 giây (fallback)
+        setTimeout(() => {
+            linkElement.classList.remove('nav-loading');
+            const existingSpinner = linkElement.querySelector('.nav-spinner');
+            if (existingSpinner) {
+                existingSpinner.remove();
+            }
+        }, 2000);
+    }
+
+    setActiveNavState() {
+        const currentPath = window.location.pathname;
+        const currentPage = currentPath.split('/').pop() || 'index.html';
+        
+        // Xóa tất cả active states
+        this.navLinks.forEach(link => link.classList.remove('active'));
+        
+        // Set active state dựa trên current page
+        this.navLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href) {
+                // Check for exact match hoặc partial match
+                if (href.includes(currentPage) || 
+                    (currentPage === 'index.html' && href.startsWith('#home')) ||
+                    (currentPath === '/' && href.startsWith('#home'))) {
+                    link.classList.add('active');
+                }
             }
         });
     }

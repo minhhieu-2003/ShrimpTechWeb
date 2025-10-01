@@ -1,15 +1,17 @@
 /**
- * Form Handler Component
- * Xử lý form submission và validation
+ * Form Handler Component - SMTP + Node.js Only
+ * Xử lý form submission chỉ dùng Node.js backend với SMTP
  */
 class FormHandler {
     constructor() {
         this.init();
+        this.retryAttempts = 3;
+        this.retryDelay = 2000; // 2 seconds
     }
     
     init() {
         // Contact form
-        const contactForm = document.querySelector('#contact-form');
+        const contactForm = document.querySelector('#contactForm');
         if (contactForm) {
             contactForm.addEventListener('submit', this.handleContactForm.bind(this));
         }
@@ -22,6 +24,25 @@ class FormHandler {
         
         // Form validation
         this.setupFormValidation();
+        
+        // Test SMTP connection on page load
+        this.testSMTPConnection();
+    }
+    
+    async testSMTPConnection() {
+        try {
+            const response = await fetch('/api/health', {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' }
+            });
+            
+            if (response.ok) {
+                const result = await response.json();
+                console.log('✅ SMTP Server status:', result.smtp ? 'Connected' : 'Disconnected');
+            }
+        } catch (error) {
+            console.log('⚠️ Could not check SMTP server status');
+        }
     }
     
     async handleContactForm(e) {
@@ -30,57 +51,300 @@ class FormHandler {
         const form = e.target;
         const formData = new FormData(form);
         const data = {
-            name: formData.get('name'),
-            email: formData.get('email'),
-            phone: formData.get('phone'),
-            message: formData.get('message')
+            name: formData.get('name')?.trim(),
+            email: formData.get('email')?.trim(),
+            phone: formData.get('phone')?.trim(),
+            message: formData.get('message')?.trim()
         };
         
-        // Validate required fields
-        if (!data.name || !data.email || !data.message) {
-            this.showMessage('Vui lòng điền đầy đủ thông tin bắt buộc.', 'error');
+        // Enhanced validation
+        const validation = ValidationService.validateContactData(data);
+        if (!validation.isValid) {
+            this.showMessage(validation.errors.join('<br>'), 'error');
+            return;
+        }
+        
+        // Show loading state with progress
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        this.setLoadingState(submitBtn, 'Đang gửi email...');
+        
+        try {
+            const result = await this.submitWithRetry(data, 'contact');
+            
+            if (result.success) {
+                this.showMessage(
+                    '✅ Email đã được gửi thành công!<br>' +
+                    '📧 Chúng tôi sẽ phản hồi trong vòng 24 giờ.<br>' +
+                    '📩 Vui lòng kiểm tra email xác nhận.', 
+                    'success'
+                );
+                form.reset();
+                this.trackFormSubmission('contact', true);
+            } else {
+                this.showMessage(result.message || 'Có lỗi xảy ra. Vui lòng thử lại.', 'error');
+                this.trackFormSubmission('contact', false);
+            }
+            
+        } catch (error) {
+            console.error('Contact form error:', error);
+            
+            // Fallback mailto khi tất cả endpoints fail
+            this.openMailtoFallback(data);
+            
+            this.showMessage(
+                '⚠️ Hệ thống email tạm thời gặp sự cố.<br>' +
+                '📧 Đã mở ứng dụng email mặc định với thông tin của bạn.<br>' +
+                '✉️ Hoặc gửi trực tiếp tới: <a href="mailto:shrimptech.vhu.hutech@gmail.com">shrimptech.vhu.hutech@gmail.com</a>', 
+                'warning'
+            );
+            this.trackFormSubmission('contact', false);
+        } finally {
+            this.resetLoadingState(submitBtn, originalText);
+        }
+    }
+
+    async handleNewsletterForm(e) {
+        e.preventDefault();
+        
+        const form = e.target;
+        const formData = new FormData(form);
+        const data = {
+            email: formData.get('email')?.trim()
+        };
+        
+        // Validate email
+        if (!data.email || !ValidationService.isValidEmail(data.email)) {
+            this.showMessage('Vui lòng nhập email hợp lệ', 'error');
             return;
         }
         
         // Show loading state
         const submitBtn = form.querySelector('button[type="submit"]');
         const originalText = submitBtn.innerHTML;
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang gửi...';
-        submitBtn.disabled = true;
+        this.setLoadingState(submitBtn, 'Đang đăng ký...');
         
         try {
-            // Gửi form chỉ qua API, không dùng Firebase nữa
-            const result = await this.submitToAPI(data);
+            const result = await this.submitWithRetry(data, 'newsletter');
             
             if (result.success) {
-                this.showMessage(result.message, 'success');
+                this.showMessage(
+                    '✅ Đăng ký newsletter thành công!<br>' +
+                    '📧 Cảm ơn bạn đã theo dõi ShrimpTech!', 
+                    'success'
+                );
                 form.reset();
+                this.trackFormSubmission('newsletter', true);
             } else {
                 this.showMessage(result.message || 'Có lỗi xảy ra. Vui lòng thử lại.', 'error');
+                this.trackFormSubmission('newsletter', false);
             }
+            
         } catch (error) {
-            console.error('Contact form error:', error);
-            this.showMessage('Có lỗi xảy ra. Vui lòng thử lại.', 'error');
+            console.error('Newsletter form error:', error);
+            this.showMessage('❌ Không thể đăng ký newsletter. Vui lòng thử lại sau.', 'error');
+            this.trackFormSubmission('newsletter', false);
         } finally {
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
+            this.resetLoadingState(submitBtn, originalText);
         }
     }
     
-    async submitToAPI(data) {
-        const response = await fetch('/api/contact', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        });
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+    async submitWithRetry(data, type) {
+        for (let attempt = 1; attempt <= this.retryAttempts; attempt++) {
+            try {
+                console.log(`📤 Attempt ${attempt}/${this.retryAttempts} for ${type} form`);
+                
+                // Detect environment and submit
+                const isProduction = window.location.hostname === 'shrimptech.vn' || 
+                                   (window.location.hostname !== 'localhost' && 
+                                    window.location.hostname !== '127.0.0.1');
+                
+                let result;
+                if (isProduction) {
+                    result = await this.submitToDeployedBackend(data, type);
+                } else {
+                    result = await this.submitToNodeJSAPI(data, type);
+                }
+                
+                if (result.success) {
+                    console.log(`✅ ${type} form submitted successfully on attempt ${attempt}`);
+                    return result;
+                } else {
+                    throw new Error(result.message || 'Submission failed');
+                }
+                
+            } catch (error) {
+                console.log(`❌ Attempt ${attempt} failed:`, error.message);
+                
+                if (attempt === this.retryAttempts) {
+                    throw error; // Last attempt failed
+                }
+                
+                // Wait before retry
+                console.log(`⏳ Waiting ${this.retryDelay}ms before retry...`);
+                await this.delay(this.retryDelay);
+                this.retryDelay *= 1.5; // Exponential backoff
+            }
         }
+    }
+    
+    async submitToDeployedBackend(data, type = 'contact') {
+        const endpoints = {
+            contact: [
+                // Sử dụng local server đang chạy trên port 3001
+                'http://localhost:3001/api/contact',
+                '/api/contact'  // fallback cho cùng domain
+            ],
+            newsletter: [
+                // Sử dụng local server đang chạy trên port 3001
+                'http://localhost:3001/api/newsletter',
+                '/api/newsletter'  // fallback cho cùng domain
+            ]
+        };
         
-        return await response.json();
+        const backendUrls = endpoints[type] || endpoints.contact;
+        console.log(`🌐 Trying deployed SMTP backends for ${type}...`);
+        
+        for (const url of backendUrls) {
+            try {
+                console.log(`📤 Trying SMTP backend: ${url}`);
+                
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
+                
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'Origin': window.location.origin
+                    },
+                    body: JSON.stringify(data),
+                    signal: controller.signal
+                });
+
+                clearTimeout(timeoutId);
+
+                if (response.ok) {
+                    const result = await response.json();
+                    console.log('✅ SMTP email sent successfully via:', url);
+                    return result;
+                } else {
+                    const errorData = await response.json().catch(() => ({}));
+                    console.warn(`⚠️ SMTP Backend ${url} returned ${response.status}:`, errorData.message || 'Unknown error');
+                    throw new Error(errorData.message || `HTTP ${response.status}`);
+                }
+            } catch (error) {
+                console.log(`❌ SMTP Backend ${url} error:`, error.message);
+                if (url === backendUrls[backendUrls.length - 1]) {
+                    throw error; // Last URL failed
+                }
+            }
+        }
+    }
+    
+    async submitToNodeJSAPI(data, type = 'contact') {
+        const endpoints = {
+            contact: [
+                'http://localhost:3001/api/contact',
+                'http://127.0.0.1:3001/api/contact',
+                '/api/contact'
+            ],
+            newsletter: [
+                'http://localhost:3001/api/newsletter',
+                'http://127.0.0.1:3001/api/newsletter',
+                '/api/newsletter'
+            ]
+        };
+        
+        const apiUrls = endpoints[type] || endpoints.contact;
+        console.log(`🌐 Using local Node.js SMTP API for ${type}...`);
+        
+        for (const apiUrl of apiUrls) {
+            try {
+                console.log(`📤 Trying SMTP API: ${apiUrl}`);
+                
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    console.log(`✅ SMTP Success with API: ${apiUrl}`);
+                    return result;
+                } else {
+                    const errorData = await response.json().catch(() => ({}));
+                    throw new Error(errorData.message || `HTTP ${response.status}`);
+                }
+            } catch (error) {
+                console.log(`❌ SMTP API ${apiUrl} error:`, error.message);
+                if (apiUrl === apiUrls[apiUrls.length - 1]) {
+                    // If all local APIs failed, try deployed backends
+                    console.log('🔄 All local SMTP APIs failed, trying deployed backends...');
+                    return await this.submitToDeployedBackend(data, type);
+                }
+            }
+        }
+    }
+    
+    setLoadingState(button, message) {
+        button.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${message}`;
+        button.disabled = true;
+        button.style.opacity = '0.7';
+        button.style.cursor = 'not-allowed';
+    }
+    
+    resetLoadingState(button, originalText) {
+        button.innerHTML = originalText;
+        button.disabled = false;
+        button.style.opacity = '1';
+        button.style.cursor = 'pointer';
+    }
+    
+    delay(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+    
+    trackFormSubmission(type, success) {
+        // Track form submissions for analytics
+        console.log(`📊 Form submission tracked: ${type} - ${success ? 'Success' : 'Failed'}`);
+        
+        // Optional: Send analytics to Google Analytics or other services
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'form_submit', {
+                'form_type': type,
+                'success': success,
+                'page_url': window.location.href
+            });
+        }
+    }
+    
+    // Fallback method khi tất cả endpoints fail
+    openMailtoFallback(data) {
+        const subject = encodeURIComponent('[SHRIMPTECH] Liên hệ từ website');
+        const body = encodeURIComponent(
+            `Tên: ${data.name}\n` +
+            `Email: ${data.email}\n` +
+            `Điện thoại: ${data.phone || 'Không có'}\n\n` +
+            `Tin nhắn:\n${data.message}\n\n` +
+            `---\n` +
+            `Gửi từ: ${window.location.href}\n` +
+            `Thời gian: ${new Date().toLocaleString()}`
+        );
+        
+        const mailtoUrl = `mailto:shrimptech.vhu.hutech@gmail.com?subject=${subject}&body=${body}`;
+        
+        try {
+            window.open(mailtoUrl, '_self');
+            console.log('📧 Opened mailto fallback');
+        } catch (error) {
+            console.error('Failed to open mailto:', error);
+        }
     }
     
     showMessage(message, type = 'info') {
@@ -90,42 +354,40 @@ class FormHandler {
             existingMessage.remove();
         }
         
-        // Create new message
+        // Create new message with better styling
         const messageDiv = document.createElement('div');
         messageDiv.className = `form-message form-message-${type}`;
         messageDiv.innerHTML = `
             <div class="message-content">
-                <i class="fas fa-${type === 'success' ? 'check' : type === 'error' ? 'exclamation-triangle' : 'info'}"></i>
-                <span>${message}</span>
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-triangle' : 'info-circle'}"></i>
+                <div class="message-text">${message}</div>
+                <button class="message-close" onclick="this.parentElement.parentElement.remove()">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
         `;
         
-        // Add to form
-        const form = document.querySelector('#contact-form');
+        // Add to form with animation
+        const form = document.querySelector('#contactForm') || document.querySelector('#newsletterForm');
         if (form) {
             form.appendChild(messageDiv);
             
-            // Auto remove after 5 seconds
+            // Animate in
+            setTimeout(() => messageDiv.classList.add('show'), 100);
+            
+            // Auto remove after 8 seconds for success, 10 seconds for error
+            const timeout = type === 'error' ? 10000 : 8000;
             setTimeout(() => {
-                messageDiv.remove();
-            }, 5000);
+                if (messageDiv.parentNode) {
+                    messageDiv.classList.add('fade-out');
+                    setTimeout(() => {
+                        if (messageDiv.parentNode) {
+                            messageDiv.remove();
+                        }
+                    }, 300);
+                }
+            }, timeout);
         }
-    }
-    
-    handleNewsletterForm(e) {
-        e.preventDefault();
-        
-        const submitBtn = e.target.querySelector('button[type="submit"]');
-        const originalText = submitBtn.innerHTML;
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-        submitBtn.disabled = true;
-        
-        setTimeout(() => {
-            alert('Cảm ơn bạn đã đăng ký nhận tin!');
-            e.target.reset();
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
-        }, 1500);
     }
     
     setupFormValidation() {
@@ -185,5 +447,90 @@ class FormHandler {
     }
 }
 
+// Enhanced validation service
+class ValidationService {
+    static validateContactData(data) {
+        const errors = [];
+        
+        // Name validation
+        if (!data.name || data.name.length < 2) {
+            errors.push('Tên phải có ít nhất 2 ký tự');
+        } else if (data.name.length > 50) {
+            errors.push('Tên không được quá 50 ký tự');
+        }
+        
+        // Email validation
+        if (!data.email) {
+            errors.push('Email là bắt buộc');
+        } else if (!this.isValidEmail(data.email)) {
+            errors.push('Email không hợp lệ');
+        }
+        
+        // Phone validation (optional)
+        if (data.phone && !this.isValidVietnamesePhone(data.phone)) {
+            errors.push('Số điện thoại Việt Nam không hợp lệ (VD: 0901234567)');
+        }
+        
+        // Message validation
+        if (!data.message || data.message.length < 10) {
+            errors.push('Tin nhắn phải có ít nhất 10 ký tự');
+        } else if (data.message.length > 1000) {
+            errors.push('Tin nhắn không được quá 1000 ký tự');
+        }
+        
+        return { isValid: errors.length === 0, errors };
+    }
+    
+    static validateNewsletterData(data) {
+        const errors = [];
+        
+        if (!data.email) {
+            errors.push('Email là bắt buộc');
+        } else if (!this.isValidEmail(data.email)) {
+            errors.push('Email không hợp lệ');
+        }
+        
+        return { isValid: errors.length === 0, errors };
+    }
+    
+    static isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+    
+    static isValidVietnamesePhone(phone) {
+        // Vietnamese phone regex - supports various formats
+        const cleanPhone = phone.replace(/[\s\-\(\)]/g, '');
+        return /^(\+84|84|0)(3[2-9]|5[689]|7[06-9]|8[1-689]|9[0-46-9])[0-9]{7}$/.test(cleanPhone);
+    }
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    window.formHandler = new FormHandler();
+    console.log('✅ FormHandler initialized with SMTP support');
+    console.log('🌐 Environment:', window.location.hostname);
+});
+
+// Thay phần khởi tạo endpoints bằng đoạn sau (hoặc chỉnh logic tương ứng trong EmailService)
+const host = window.location.hostname;
+const isFirebaseHost = host.endsWith('.web.app') || host.endsWith('.firebaseapp.com');
+
+if (isFirebaseHost) {
+    // Khi chạy trên Firebase hosting: KHÔNG dùng relative '/api' (sẽ bị rewrite về index.html)
+    window.API_BACKENDS = [
+        'https://shrimptech-api.railway.app/api/contact',
+        'https://shrimptech-web.vercel.app/api/contact',
+        'https://shrimptech-web.netlify.app/.netlify/functions/contact'
+    ];
+} else {
+    // Local / dev: ưu tiên localhost, có thể dùng relative '/api' khi backend cùng host
+    window.API_BACKENDS = [
+        'http://localhost:3002/api/contact',
+        'http://localhost:3001/api/contact',
+        '/api/contact' // chỉ dùng làm fallback trên local/dev
+    ];
+}
+
 // Export for use in other modules
 window.FormHandler = FormHandler;
+window.ValidationService = ValidationService;

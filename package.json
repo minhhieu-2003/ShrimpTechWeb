@@ -4,9 +4,18 @@
   "description": "SHRIMP TECH - Hệ thống IoT thông minh cho nuôi tôm",
   "main": "public/index.html",
   "scripts": {
-    "start": "echo 'Start your local server here'",
+    "start": "node server.js",
     "build": "echo 'Building project...'",
-    "test": "echo 'No tests specified'"
+    "test": "echo 'No tests specified'",
+    "optimize-images": "node scripts/image-optimizer.js",
+    "performance-test": "echo 'Open tests/test-performance.html in browser'",
+    "performance-dashboard": "echo 'Open tests/performance-dashboard.html in browser'",
+    "website-optimizer": "echo 'Open tests/test-optimizer.html in browser'",
+    "email-test": "node tests/test-email-config.js",
+    "validate-email": "node tests/validate-email-system.js",
+    "security-audit": "node scripts/security-audit.js",
+    "production-setup": "node scripts/build-production.js",
+    "deploy": "node scripts/deploy-production.js"
   },
   "keywords": [
     "iot",
@@ -24,5 +33,17 @@
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=8.0.0"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
+    "express": "^4.19.2",
+    "express-rate-limit": "^8.1.0",
+    "helmet": "^8.1.0",
+    "node-fetch": "^3.3.2",
+    "nodemailer": "^7.0.6"
+  },
+  "devDependencies": {
+    "axios": "^1.12.2"
   }
 }

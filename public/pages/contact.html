@@ -3,11 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSP tạm thời bị loại bỏ cho dev; production nên bật CSP hợp lý -->
+    <!-- Đã xóa các URL thô nằm trong head để tránh phá vỡ DOM -->
     <title>Liên hệ - SHRIMP TECH</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../styles.css">
-    <link rel="stylesheet" href="../styles/pages.css">
+    <link rel="stylesheet" href="../styles.css?v=20251001">
+    <link rel="stylesheet" href="../styles/pages.css?v=20251001">
+    <link rel="stylesheet" href="../styles/components/responsive.css">
 </head>
 <body>
     <!-- Navigation Header -->
@@ -17,7 +20,7 @@
                 <img src="../assets/Logo.jpg" alt="SHRIMP TECH" class="logo">
                 <span class="logo-text">SHRIMP TECH</span>
             </div>
-            <ul class="nav-menu">
+            <ul class="nav-menu" id="nav-menu">
                 <li class="nav-item"><a href="../index.html" class="nav-link">Trang chủ</a></li>
                 <li class="nav-item"><a href="solutions.html" class="nav-link">Giải pháp</a></li>
                 <li class="nav-item"><a href="products.html" class="nav-link">Sản phẩm</a></li>
@@ -25,11 +28,11 @@
                 <li class="nav-item"><a href="team.html" class="nav-link">Đội ngũ</a></li>
                 <li class="nav-item"><a href="contact.html" class="nav-link active">Liên hệ</a></li>
             </ul>
-            <div class="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
+            <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span class="bar" aria-hidden="true"></span>
+                <span class="bar" aria-hidden="true"></span>
+                <span class="bar" aria-hidden="true"></span>
+            </button>
         </div>
     </nav>
 
@@ -52,32 +55,14 @@
                             <h3>Nhóm nghiên cứu SHRIMP TECH</h3>
                             <p>
                                 <strong>📧 Email dự án:</strong> shrimptech.vhu.hutech@gmail.com<br>
-                                <strong>📱 Hotline:</strong> 0901 234 567<br>
+                                <strong>📱 Hotline1:</strong> 0835749407<br>
+                                <strong>📱 Hotline2:</strong> 0826529739<br>
                                 <strong>🕒 Thời gian làm việc:</strong> T2-T6: 8:00-17:00<br>
-                                <strong>💬 Zalo:</strong> 0901 234 567
+                                <strong>💬 Zalo1:</strong> 0835749407<br>
+                                <strong>💬 Zalo2:</strong> 0826529739
                             </p>
                         </div>
                     </div>
-                    
-                    <div class="emergency-contact">
-                        <h3>🚨 Hỗ trợ khẩn cấp 24/7</h3>
-                        <div class="emergency-grid">
-                            <div class="emergency-item">
-                                <i class="fas fa-phone-alt"></i>
-                                <span>Hotline: 1900 1234</span>
-                            </div>
-                            <div class="emergency-item">
-                                <i class="fab fa-telegram"></i>
-                                <span>Telegram: @ShrimpTechSupport</span>
-                            </div>
-                            <div class="emergency-item">
-                                <i class="fab fa-whatsapp"></i>
-                                <span>WhatsApp: +84 901 234 567</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
                 <div class="contact-form">
                     <h2>📝 Gửi tin nhắn cho chúng tôi</h2>
                     <form class="form" id="contactForm">
@@ -134,18 +119,16 @@
                             <textarea id="message" name="message" rows="5" placeholder="Mô tả chi tiết nhu cầu của bạn: diện tích ao, mật độ nuôi, ngân sách dự kiến..." required></textarea>
                         </div>
                         
-                        <div class="form-group checkbox-group">
-                            <label class="checkbox-label">
+                        <div class="form-group simple-checkbox">
+                            <label class="simple-checkbox-label">
                                 <input type="checkbox" id="contact-newsletter" name="newsletter">
-                                <span class="checkmark"></span>
                                 Đăng ký nhận tin tức về dự án SHRIMP TECH
                             </label>
                         </div>
                         
-                        <div class="form-group checkbox-group">
-                            <label class="checkbox-label">
+                        <div class="form-group simple-checkbox">
+                            <label class="simple-checkbox-label">
                                 <input type="checkbox" id="terms" name="terms" required>
-                                <span class="checkmark"></span>
                                 Tôi đồng ý với <a href="#" target="_blank">điều khoản sử dụng</a> và <a href="#" target="_blank">chính sách bảo mật</a> *
                             </label>
                         </div>
@@ -241,8 +224,9 @@
                     <h4>Liên hệ</h4>
                     <ul>
                         <li><i class="fas fa-envelope"></i> shrimptech.vhu.hutech@gmail.com</li>
-                        <li><i class="fas fa-phone"></i> 0901 234 567</li>
+                        <li><i class="fas fa-phone"></i> 0835749407 | 0826529739</li>
                         <li><i class="fas fa-map-marker-alt"></i> VHU & HUTECH, TP.HCM</li>
+                        <li><i class="fas fa-clock"></i> T2-T6: 8:00-17:00</li>
                     </ul>
                 </div>
             </div>
@@ -252,28 +236,35 @@
         </div>
     </footer>
 
-    <script src="../js/main.js"></script>
+    <!-- Load JavaScript modules in correct order -->
+    <script src="../js/utils.js?v=20251001"></script>
+    <script src="../js/navigation.js?v=20251001"></script>
+    <script src="../js/button-animations.js?v=20251001"></script>
+    <script src="../js/loading-animations.js?v=20251001"></script>
+    <script src="../js/scroll-animations.js?v=20251001"></script>
     
-    <!-- Contact Form Handler -->
+    <!-- Fix Chrome Extension Errors -->
+    <script src="../js/fix-chrome-extension-errors.js?v=20251001"></script>
+    
+    <!-- Emergency SW Cleaner (temporary) -->
+    <script src="../js/emergency-sw-cleaner.js?v=20251001"></script>
+    
+    <!-- Load Production Config -->
+    <script src="../js/production-config.js?v=20251001"></script>
+    
+    <!-- Form Handler for API Integration -->
+    <script src="../js/form-handler.js?v=20251001"></script>
+    
+    <!-- Main initialization (load after all modules) -->
+    <script src="../js/main.js?v=20251001"></script>
+    
+    <!-- Initialize Form Handler -->
     <script>
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize FormHandler for local development
+            const formHandler = new FormHandler();
             
-            // Hiển thị thông báo thành công
-            alert('Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi trong vòng 24h.');
-            
-            // Reset form
-            this.reset();
-        });
-        
-        document.getElementById('newsletterForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Hiển thị thông báo thành công
-            alert('Cảm ơn bạn đã đăng ký nhận tin! Chúng tôi sẽ gửi những tin tức mới nhất về dự án.');
-            
-            // Reset form
-            this.reset();
+            console.log('✅ Contact form handler initialized for local Node.js backend');
         });
     </script>
 </body>

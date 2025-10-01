@@ -17,7 +17,7 @@
                 <img src="../assets/Logo.jpg" alt="SHRIMP TECH" class="logo">
                 <span class="logo-text">SHRIMP TECH</span>
             </div>
-            <ul class="nav-menu">
+            <ul class="nav-menu" id="nav-menu">
                 <li class="nav-item"><a href="../index.html" class="nav-link">Trang chủ</a></li>
                 <li class="nav-item"><a href="solutions.html" class="nav-link">Giải pháp</a></li>
                 <li class="nav-item"><a href="products.html" class="nav-link">Sản phẩm</a></li>
@@ -25,11 +25,11 @@
                 <li class="nav-item"><a href="team.html" class="nav-link">Đội ngũ</a></li>
                 <li class="nav-item"><a href="contact.html" class="nav-link">Liên hệ</a></li>
             </ul>
-            <div class="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
+            <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span class="bar" aria-hidden="true"></span>
+                <span class="bar" aria-hidden="true"></span>
+                <span class="bar" aria-hidden="true"></span>
+            </button>
         </div>
     </nav>
 
@@ -283,6 +283,12 @@
         </div>
     </footer>
 
+    <!-- Load JavaScript modules -->
+    <script src="../js/utils.js"></script>
+    <script src="../js/navigation.js"></script>
+    <script src="../js/button-animations.js"></script>
+    <script src="../js/loading-animations.js"></script>
+    <script src="../js/scroll-animations.js"></script>
     <script src="../js/main.js"></script>
 </body>
 </html>

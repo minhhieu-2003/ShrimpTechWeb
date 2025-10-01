@@ -18,6 +18,10 @@
 @import './styles/components/team.css';
 @import './styles/components/footer.css';
 @import './styles/components/chatbot.css';
+@import './styles/components/chatbot-advanced.css';
+@import './styles/components/critical.css';
+@import './styles/components/display-optimization.css';
+@import './styles/components/security-validation.css';
 @import './styles/components/performance.css';
 @import './styles/components/responsive.css';
 @import './styles/components/compatibility.css';
