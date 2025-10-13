@@ -377,3 +377,323 @@ body.menu-open {
     position: fixed;
     width: 100%;
 }
+
+/* Tối ưu cho trang đội ngũ trên mobile */
+@media (max-width: 768px) {
+    /* Page Header */
+    .page-header {
+        padding: 100px 0 60px;
+    }
+    
+    .page-header h1 {
+        font-size: 1.8rem;
+        line-height: 1.3;
+        margin-bottom: 1rem;
+    }
+    
+    .page-header p {
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+    
+    /* About Section */
+    .about {
+        padding: 50px 0;
+    }
+    
+    .about-description {
+        font-size: 1rem;
+        line-height: 1.7;
+        padding: 0 10px;
+    }
+    
+    .about-stats {
+        flex-direction: column;
+        gap: 25px;
+        margin-top: 30px;
+    }
+    
+    .about-stat {
+        width: 100%;
+        padding: 20px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    
+    .about-stat .stat-number {
+        font-size: 1.8rem;
+        margin-bottom: 8px;
+    }
+    
+    .about-stat .stat-label {
+        font-size: 0.95rem;
+    }
+    
+    /* Team Grid */
+    .team {
+        padding: 50px 0;
+    }
+    
+    .team-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        padding: 0 15px;
+    }
+    
+    .team-member {
+        padding: 25px 20px;
+    }
+    
+    .member-avatar {
+        width: 70px;
+        height: 70px;
+        font-size: 2rem;
+        margin-bottom: 15px;
+    }
+    
+    .team-member h4 {
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+    }
+    
+    .member-role {
+        font-size: 0.9rem;
+        margin-bottom: 12px;
+    }
+    
+    .member-info {
+        font-size: 0.85rem;
+        line-height: 1.6;
+    }
+    
+    /* Mentor Cards */
+    .mentor-card {
+        padding: 25px 20px;
+        margin-bottom: 25px;
+    }
+    
+    .mentor-avatar {
+        width: 80px;
+        height: 80px;
+        font-size: 2.5rem;
+    }
+    
+    .mentor-info h3 {
+        font-size: 1.2rem;
+        margin-bottom: 8px;
+    }
+    
+    .mentor-title {
+        font-size: 0.9rem;
+    }
+    
+    .mentor-education ul,
+    .mentor-experience ul,
+    .mentor-projects ul {
+        font-size: 0.85rem;
+        line-height: 1.6;
+        padding-left: 20px;
+    }
+    
+    /* Achievements */
+    .achievements-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .achievement-item {
+        padding: 15px;
+        font-size: 0.9rem;
+    }
+    
+    .achievement-item i {
+        font-size: 1.3rem;
+    }
+}
+
+/* Contact Page Mobile Optimization */
+@media (max-width: 768px) {
+    /* Contact Content */
+    .contact-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    /* Contact Info */
+    .contact-info {
+        order: 2;
+    }
+    
+    .contact-info h2 {
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+    }
+    
+    .contact-cards {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .contact-card {
+        padding: 20px;
+    }
+    
+    .contact-card h3 {
+        font-size: 1.1rem;
+        margin-bottom: 15px;
+    }
+    
+    .contact-card p {
+        font-size: 0.9rem;
+        line-height: 1.7;
+    }
+    
+    /* Contact Form */
+    .contact-form {
+        order: 1;
+        padding: 25px 20px;
+    }
+    
+    .contact-form h2 {
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .form-group label {
+        font-size: 0.9rem;
+        margin-bottom: 8px;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 12px 15px;
+        font-size: 0.95rem;
+    }
+    
+    .form-group textarea {
+        min-height: 120px;
+    }
+    
+    /* Contact Info Cards */
+    .contact-info-card {
+        padding: 20px;
+    }
+    
+    .contact-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.3rem;
+        margin-bottom: 12px;
+    }
+    
+    .contact-title {
+        font-size: 1rem;
+        margin-bottom: 8px;
+    }
+    
+    .contact-detail {
+        font-size: 0.85rem;
+    }
+    
+    /* FAQ Section */
+    .faq-section {
+        padding: 50px 0;
+    }
+    
+    .faq-item {
+        padding: 20px;
+        margin-bottom: 15px;
+    }
+    
+    .faq-item h4 {
+        font-size: 1rem;
+        margin-bottom: 10px;
+    }
+    
+    .faq-item p {
+        font-size: 0.9rem;
+        line-height: 1.6;
+    }
+    
+    /* Newsletter Section */
+    .newsletter {
+        padding: 50px 0;
+    }
+    
+    .newsletter-content {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        text-align: center;
+    }
+    
+    .newsletter-text h2 {
+        font-size: 1.4rem;
+        margin-bottom: 12px;
+    }
+    
+    .newsletter-text p {
+        font-size: 0.9rem;
+    }
+    
+    .subscribe-form {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .subscribe-form input {
+        width: 100%;
+        padding: 12px 15px;
+        font-size: 0.95rem;
+    }
+    
+    .subscribe-form button {
+        width: 100%;
+        padding: 12px 20px;
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Extra small mobile adjustments */
+    .page-header {
+        padding: 90px 0 50px;
+    }
+    
+    .page-header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .page-header p {
+        font-size: 0.85rem;
+    }
+    
+    .about-description {
+        font-size: 0.9rem;
+        padding: 0 5px;
+    }
+    
+    .team-member,
+    .mentor-card {
+        padding: 20px 15px;
+    }
+    
+    .contact-form,
+    .contact-card {
+        padding: 20px 15px;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 10px 12px;
+        font-size: 0.9rem;
+    }
+}

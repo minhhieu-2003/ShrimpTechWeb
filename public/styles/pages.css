@@ -1426,65 +1426,220 @@ section[style*="background: #f8fafc"] .stagger-animation {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    .contact {
+        padding: 50px 0;
+    }
+    
     .contact-content {
         grid-template-columns: 1fr;
         gap: 30px;
+        max-width: 100%;
+    }
+    
+    .contact-info {
+        order: 2;
         padding: 0 15px;
     }
     
+    .contact-info h2 {
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+    }
+    
+    .contact-cards {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .contact-card {
+        padding: 20px;
+        text-align: left;
+    }
+    
+    .contact-icon {
+        margin: 0 0 12px 0;
+    }
+    
+    .contact-card h3 {
+        font-size: 1.1rem;
+        justify-content: flex-start;
+    }
+    
+    .contact-card p {
+        font-size: 0.9rem;
+        line-height: 1.7;
+    }
+    
+    /* Contact Form */
     .contact-form {
-        padding: 30px 25px;
-        border-radius: 20px;
+        order: 1;
+        padding: 25px 20px;
+        border-radius: 15px;
+        margin: 0 15px;
+    }
+    
+    .contact-form h2 {
+        font-size: 1.3rem;
+        margin-bottom: 20px;
     }
     
     .form-row {
         grid-template-columns: 1fr;
-        gap: 16px;
+        gap: 15px;
+    }
+    
+    .form-group {
+        margin-bottom: 15px;
+    }
+    
+    .form-group label {
+        font-size: 0.9rem;
+        margin-bottom: 8px;
     }
     
     .form-group input,
     .form-group select,
     .form-group textarea {
-        padding: 14px 16px;
-        font-size: 1rem;
+        padding: 12px 15px;
+        font-size: 0.95rem;
+        border-radius: 8px;
     }
     
-    .contact-card {
-        padding: 25px;
-        border-radius: 16px;
+    .form-group textarea {
+        min-height: 120px;
     }
     
     .simple-checkbox-label {
         font-size: 0.85rem;
         gap: 10px;
-        padding: 10px 0;
     }
     
     .simple-checkbox-label input[type="checkbox"] {
         width: 16px;
         height: 16px;
     }
+    
+    .btn {
+        width: 100%;
+        padding: 14px 20px;
+        font-size: 1rem;
+    }
+    
+    /* FAQ Section */
+    .faq-section {
+        padding: 50px 15px;
+    }
+    
+    .faq-section h2 {
+        font-size: 1.4rem;
+        margin-bottom: 25px;
+    }
+    
+    .faq-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .faq-item {
+        padding: 20px;
+    }
+    
+    .faq-item h4 {
+        font-size: 1rem;
+        margin-bottom: 10px;
+    }
+    
+    .faq-item p {
+        font-size: 0.9rem;
+        line-height: 1.6;
+    }
+    
+    /* Newsletter Section */
+    .newsletter {
+        padding: 50px 15px;
+    }
+    
+    .newsletter-content {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        text-align: center;
+    }
+    
+    .newsletter-text h2 {
+        font-size: 1.4rem;
+        margin-bottom: 12px;
+    }
+    
+    .newsletter-text p {
+        font-size: 0.9rem;
+    }
+    
+    .subscribe-form {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .subscribe-form input {
+        width: 100%;
+        padding: 12px 15px;
+        font-size: 0.95rem;
+    }
+    
+    .subscribe-form button {
+        width: 100%;
+    }
+    
+    /* Contact Info Cards */
+    .contact-info-card {
+        padding: 20px;
+        text-align: center;
+    }
+    
+    .contact-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.3rem;
+    }
+    
+    .contact-title {
+        font-size: 1rem;
+    }
+    
+    .contact-detail {
+        font-size: 0.85rem;
+    }
 }
 
 @media (max-width: 480px) {
     .contact-form {
-        padding: 25px 20px;
+        padding: 20px 15px;
+        margin: 0 10px;
+    }
+    
+    .contact-form h2 {
+        font-size: 1.2rem;
     }
     
     .form-group input,
     .form-group select,
     .form-group textarea {
-        padding: 12px 14px;
+        padding: 10px 12px;
+        font-size: 0.9rem;
     }
     
     .simple-checkbox-label {
         font-size: 0.8rem;
-        gap: 8px;
     }
     
-    .simple-checkbox-label input[type="checkbox"] {
-        width: 15px;
-        height: 15px;
+    .btn {
+        padding: 12px 18px;
+        font-size: 0.95rem;
+    }
+    
+    .faq-section,
+    .newsletter {
+        padding: 40px 10px;
     }
 }
 

@@ -27,7 +27,11 @@ class Navigation {
         
         // Close menu when clicking nav links
         this.navLinks.forEach(link => {
-            link.addEventListener('click', () => this.closeMobileMenu());
+            link.addEventListener('click', () => {
+                if (this.isMenuOpen) {
+                    this.closeMobileMenu();
+                }
+            });
         });
         
         // Close menu when clicking outside

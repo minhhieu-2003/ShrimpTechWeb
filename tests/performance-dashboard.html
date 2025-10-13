@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShrimpTech Performance Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .dashboard {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+        }
+        
+        .header-controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+        
+        .status-indicator.monitoring {
+            background: #d5f4e6;
+            color: #27ae60;
+        }
+        
+        .status-indicator.stopped {
+            background: #fadbd8;
+            color: #e74c3c;
+        }
+        
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        .status-dot.green {
+            background: #27ae60;
+        }
+        
+        .status-dot.red {
+            background: #e74c3c;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(45deg, #95a5a6, #7f8c8d);
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(149, 165, 166, 0.4);
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .metric-card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #3498db;
+        }
+        
+        .metric-card.warning {
+            border-left-color: #f39c12;
+        }
+        
+        .metric-card.error {
+            border-left-color: #e74c3c;
+        }
+        
+        .metric-card.good {
+            border-left-color: #2ecc71;
+        }
+        
+        .metric-title {
+            font-size: 0.9em;
+            color: #7f8c8d;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        
+        .metric-value {
+            font-size: 2.2em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .metric-unit {
+            font-size: 0.8em;
+            color: #95a5a6;
+        }
+        
+        .metric-trend {
+            font-size: 0.8em;
+            margin-top: 10px;
+        }
+        
+        .trend-up {
+            color: #e74c3c;
+        }
+        
+        .trend-down {
+            color: #2ecc71;
+        }
+        
+        .trend-stable {
+            color: #95a5a6;
+        }
+        
+        .charts-section {
+            margin-bottom: 30px;
+        }
+        
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+        }
+        
+        .chart-card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .chart-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .chart-container {
+            height: 200px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #95a5a6;
+            font-style: italic;
+        }
+        
+        .alerts-section {
+            margin-bottom: 30px;
+        }
+        
+        .alerts-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .alerts-header h2 {
+            color: #2c3e50;
+        }
+        
+        .alerts-counter {
+            background: #e74c3c;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        
+        .alerts-counter.zero {
+            background: #2ecc71;
+        }
+        
+        .alerts-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .alert-item {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-left: 4px solid #f39c12;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .alert-item.error {
+            border-left-color: #e74c3c;
+        }
+        
+        .alert-item.warning {
+            border-left-color: #f39c12;
+        }
+        
+        .alert-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .alert-title {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .alert-time {
+            font-size: 0.8em;
+            color: #7f8c8d;
+        }
+        
+        .alert-details {
+            font-size: 0.9em;
+            color: #7f8c8d;
+        }
+        
+        .alert-metric {
+            margin-top: 5px;
+            font-size: 0.8em;
+            background: #f8f9fa;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        
+        .no-alerts {
+            text-align: center;
+            color: #95a5a6;
+            font-style: italic;
+            padding: 40px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .stats-section {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stats-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .stat-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+        
+        .last-updated {
+            text-align: center;
+            color: #95a5a6;
+            font-size: 0.9em;
+            margin-top: 20px;
+            font-style: italic;
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard {
+                padding: 20px;
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <div class="header">
+            <h1>📊 Performance Dashboard</h1>
+            <div class="header-controls">
+                <div class="status-indicator" id="statusIndicator">
+                    <div class="status-dot red" id="statusDot"></div>
+                    <span id="statusText">Monitoring Stopped</span>
+                </div>
+                <button class="btn btn-primary" id="startBtn" onclick="startMonitoring()">
+                    🔍 Start Monitoring
+                </button>
+                <button class="btn btn-danger" id="stopBtn" onclick="stopMonitoring()" style="display: none;">
+                    🛑 Stop Monitoring
+                </button>
+                <button class="btn btn-secondary" onclick="exportData()">
+                    📄 Export Data
+                </button>
+            </div>
+        </div>
+        
+        <div class="metrics-grid" id="metricsGrid">
+            <div class="metric-card" id="pageLoadCard">
+                <div class="metric-title">Page Load Time</div>
+                <div class="metric-value" id="pageLoadValue">-</div>
+                <div class="metric-unit">milliseconds</div>
+                <div class="metric-trend" id="pageLoadTrend">No data</div>
+            </div>
+            
+            <div class="metric-card" id="fcpCard">
+                <div class="metric-title">First Contentful Paint</div>
+                <div class="metric-value" id="fcpValue">-</div>
+                <div class="metric-unit">milliseconds</div>
+                <div class="metric-trend" id="fcpTrend">No data</div>
+            </div>
+            
+            <div class="metric-card" id="lcpCard">
+                <div class="metric-title">Largest Contentful Paint</div>
+                <div class="metric-value" id="lcpValue">-</div>
+                <div class="metric-unit">milliseconds</div>
+                <div class="metric-trend" id="lcpTrend">No data</div>
+            </div>
+            
+            <div class="metric-card" id="fidCard">
+                <div class="metric-title">First Input Delay</div>
+                <div class="metric-value" id="fidValue">-</div>
+                <div class="metric-unit">milliseconds</div>
+                <div class="metric-trend" id="fidTrend">No data</div>
+            </div>
+            
+            <div class="metric-card" id="memoryCard">
+                <div class="metric-title">Memory Usage</div>
+                <div class="metric-value" id="memoryValue">-</div>
+                <div class="metric-unit">MB</div>
+                <div class="metric-trend" id="memoryTrend">No data</div>
+            </div>
+            
+            <div class="metric-card" id="errorsCard">
+                <div class="metric-title">Error Count</div>
+                <div class="metric-value" id="errorsValue">0</div>
+                <div class="metric-unit">last hour</div>
+                <div class="metric-trend" id="errorsTrend">No errors</div>
+            </div>
+        </div>
+        
+        <div class="charts-section">
+            <h2 style="color: #2c3e50; margin-bottom: 20px;">📈 Performance Trends</h2>
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <div class="chart-title">Page Load Performance</div>
+                    <div class="chart-container" id="pageLoadChart">
+                        Chart will appear here when monitoring starts
+                    </div>
+                </div>
+                
+                <div class="chart-card">
+                    <div class="chart-title">Memory Usage Over Time</div>
+                    <div class="chart-container" id="memoryChart">
+                        Chart will appear here when monitoring starts
+                    </div>
+                </div>
+                
+                <div class="chart-card">
+                    <div class="chart-title">User Interactions</div>
+                    <div class="chart-container" id="interactionsChart">
+                        Chart will appear here when monitoring starts
+                    </div>
+                </div>
+                
+                <div class="chart-card">
+                    <div class="chart-title">Error Rate</div>
+                    <div class="chart-container" id="errorChart">
+                        Chart will appear here when monitoring starts
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="alerts-section">
+            <div class="alerts-header">
+                <h2>🚨 Performance Alerts</h2>
+                <div class="alerts-counter" id="alertsCounter">0</div>
+            </div>
+            <div class="alerts-list" id="alertsList">
+                <div class="no-alerts">
+                    No alerts - Performance is good! 🎉
+                </div>
+            </div>
+        </div>
+        
+        <div class="stats-section">
+            <div class="stats-header">
+                <h2>📋 Session Statistics</h2>
+                <button class="btn btn-secondary" onclick="resetStats()">
+                    🔄 Reset Stats
+                </button>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value" id="totalPageLoads">0</div>
+                    <div class="stat-label">Page Loads</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="totalInteractions">0</div>
+                    <div class="stat-label">User Interactions</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="totalErrors">0</div>
+                    <div class="stat-label">Total Errors</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="totalAlerts">0</div>
+                    <div class="stat-label">Total Alerts</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="uptime">00:00</div>
+                    <div class="stat-label">Monitoring Time</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="overallStatus">Good</div>
+                    <div class="stat-label">Overall Status</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="last-updated" id="lastUpdated">
+            Dashboard initialized - Start monitoring to see real-time data
+        </div>
+    </div>
+
+    <script src="../tests/performance-monitor.js"></script>
+    <script>
+        let monitor = null;
+        let updateInterval = null;
+        let startTime = null;
+        let chartData = {
+            pageLoad: [],
+            memory: [],
+            interactions: [],
+            errors: []
+        };
+        
+        // Initialize monitor when page loads
+        window.addEventListener('load', () => {
+            monitor = new ShrimpTechPerformanceMonitor();
+            
+            // Register alert callback
+            monitor.onAlert((alert) => {
+                displayAlert(alert);
+                updateAlertsCounter();
+            });
+            
+            console.log('📊 Performance Dashboard initialized');
+        });
+        
+        function startMonitoring() {
+            if (!monitor) {
+                console.error('❌ Monitor not initialized');
+                return;
+            }
+            
+            monitor.startMonitoring();
+            startTime = Date.now();
+            
+            // Update UI
+            updateStatus(true);
+            
+            // Start real-time updates
+            updateInterval = setInterval(() => {
+                updateDashboard();
+            }, 2000); // Update every 2 seconds
+            
+            console.log('🔍 Monitoring started');
+        }
+        
+        function stopMonitoring() {
+            if (!monitor) return;
+            
+            monitor.stopMonitoring();
+            
+            // Update UI
+            updateStatus(false);
+            
+            // Stop real-time updates
+            if (updateInterval) {
+                clearInterval(updateInterval);
+                updateInterval = null;
+            }
+            
+            console.log('🛑 Monitoring stopped');
+        }
+        
+        function updateStatus(isMonitoring) {
+            const statusIndicator = document.getElementById('statusIndicator');
+            const statusDot = document.getElementById('statusDot');
+            const statusText = document.getElementById('statusText');
+            const startBtn = document.getElementById('startBtn');
+            const stopBtn = document.getElementById('stopBtn');
+            
+            if (isMonitoring) {
+                statusIndicator.className = 'status-indicator monitoring';
+                statusDot.className = 'status-dot green';
+                statusText.textContent = 'Monitoring Active';
+                startBtn.style.display = 'none';
+                stopBtn.style.display = 'inline-block';
+            } else {
+                statusIndicator.className = 'status-indicator stopped';
+                statusDot.className = 'status-dot red';
+                statusText.textContent = 'Monitoring Stopped';
+                startBtn.style.display = 'inline-block';
+                stopBtn.style.display = 'none';
+            }
+        }
+        
+        function updateDashboard() {
+            if (!monitor || !monitor.isMonitoring) return;
+            
+            const summary = monitor.getPerformanceSummary();
+            
+            // Update metric cards
+            updateMetricCard('pageLoad', summary.metrics.pageLoadTime, monitor.thresholds.pageLoadTime);
+            updateMetricCard('fcp', summary.metrics.firstContentfulPaint, monitor.thresholds.firstContentfulPaint);
+            updateMetricCard('lcp', summary.metrics.largestContentfulPaint, monitor.thresholds.largestContentfulPaint);
+            updateMetricCard('fid', summary.metrics.firstInputDelay, monitor.thresholds.firstInputDelay);
+            updateMetricCard('memory', summary.metrics.memoryUsage, monitor.thresholds.memoryUsage, true);
+            updateMetricCard('errors', summary.counts.errors, null, false, true);
+            
+            // Update statistics
+            updateStats(summary);
+            
+            // Update charts data
+            updateChartData(summary);
+            
+            // Update last updated time
+            document.getElementById('lastUpdated').textContent = 
+                `Last updated: ${new Date().toLocaleTimeString()}`;
+        }
+        
+        function updateMetricCard(metricName, value, threshold, isMemory = false, isCount = false) {
+            const valueElement = document.getElementById(metricName + 'Value');
+            const trendElement = document.getElementById(metricName + 'Trend');
+            const cardElement = document.getElementById(metricName + 'Card');
+            
+            if (value !== null && value !== undefined) {
+                if (isMemory) {
+                    valueElement.textContent = (value / 1024 / 1024).toFixed(1);
+                } else if (isCount) {
+                    valueElement.textContent = value;
+                } else {
+                    valueElement.textContent = Math.round(value);
+                }
+                
+                // Update card status based on threshold
+                if (!isCount && threshold) {
+                    if (value > threshold) {
+                        cardElement.className = 'metric-card error';
+                        trendElement.textContent = '⚠️ Above threshold';
+                        trendElement.className = 'metric-trend trend-up';
+                    } else if (value > threshold * 0.8) {
+                        cardElement.className = 'metric-card warning';
+                        trendElement.textContent = '⚠️ Approaching threshold';
+                        trendElement.className = 'metric-trend trend-up';
+                    } else {
+                        cardElement.className = 'metric-card good';
+                        trendElement.textContent = '✅ Within limits';
+                        trendElement.className = 'metric-trend trend-down';
+                    }
+                } else {
+                    cardElement.className = 'metric-card';
+                    if (isCount && value > 0) {
+                        trendElement.textContent = `${value} errors detected`;
+                        trendElement.className = 'metric-trend trend-up';
+                    } else if (isCount) {
+                        trendElement.textContent = 'No errors';
+                        trendElement.className = 'metric-trend trend-stable';
+                    }
+                }
+            } else {
+                valueElement.textContent = '-';
+                trendElement.textContent = 'No data';
+                trendElement.className = 'metric-trend trend-stable';
+            }
+        }
+        
+        function updateStats(summary) {
+            document.getElementById('totalPageLoads').textContent = summary.counts.pageLoads || 0;
+            document.getElementById('totalInteractions').textContent = summary.counts.userInteractions || 0;
+            document.getElementById('totalErrors').textContent = summary.counts.errors || 0;
+            document.getElementById('totalAlerts').textContent = summary.counts.alerts || 0;
+            
+            // Update uptime
+            if (startTime) {
+                const uptime = Date.now() - startTime;
+                const minutes = Math.floor(uptime / 60000);
+                const seconds = Math.floor((uptime % 60000) / 1000);
+                document.getElementById('uptime').textContent = 
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }
+            
+            // Update overall status
+            const statusElement = document.getElementById('overallStatus');
+            statusElement.textContent = summary.status.charAt(0).toUpperCase() + summary.status.slice(1);
+            statusElement.style.color = {
+                'good': '#2ecc71',
+                'warning': '#f39c12',
+                'critical': '#e74c3c'
+            }[summary.status] || '#7f8c8d';
+        }
+        
+        function updateChartData(summary) {
+            // This is where you would update actual charts
+            // For now, we'll just update the placeholder text
+            const chartContainers = document.querySelectorAll('.chart-container');
+            chartContainers.forEach(container => {
+                if (container.textContent.includes('Chart will appear')) {
+                    container.textContent = 'Chart data updating...';
+                    container.style.color = '#2c3e50';
+                }
+            });
+        }
+        
+        function displayAlert(alert) {
+            const alertsList = document.getElementById('alertsList');
+            
+            // Remove "no alerts" message if present
+            const noAlerts = alertsList.querySelector('.no-alerts');
+            if (noAlerts) {
+                noAlerts.remove();
+            }
+            
+            // Create alert element
+            const alertElement = document.createElement('div');
+            alertElement.className = `alert-item ${alert.details.severity}`;
+            alertElement.innerHTML = `
+                <div class="alert-header">
+                    <div class="alert-title">${alert.message}</div>
+                    <div class="alert-time">${new Date(alert.timestamp).toLocaleTimeString()}</div>
+                </div>
+                <div class="alert-details">
+                    Performance issue detected with ${alert.details.metric}
+                </div>
+                <div class="alert-metric">
+                    Value: ${Math.round(alert.details.value)} | Threshold: ${Math.round(alert.details.threshold)}
+                </div>
+            `;
+            
+            // Insert at the top
+            alertsList.insertBefore(alertElement, alertsList.firstChild);
+            
+            // Limit to 10 alerts
+            const alerts = alertsList.querySelectorAll('.alert-item');
+            if (alerts.length > 10) {
+                alerts[alerts.length - 1].remove();
+            }
+        }
+        
+        function updateAlertsCounter() {
+            const alerts = document.querySelectorAll('.alert-item');
+            const counter = document.getElementById('alertsCounter');
+            
+            counter.textContent = alerts.length;
+            counter.className = alerts.length === 0 ? 'alerts-counter zero' : 'alerts-counter';
+        }
+        
+        function exportData() {
+            if (!monitor) {
+                alert('Monitor not initialized');
+                return;
+            }
+            
+            const data = monitor.exportMetrics();
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `performance-data-${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            console.log('📄 Performance data exported');
+        }
+        
+        function resetStats() {
+            if (confirm('Are you sure you want to reset all statistics?')) {
+                if (monitor) {
+                    monitor.metrics = {
+                        pageLoad: [],
+                        userInteractions: [],
+                        resourceUsage: [],
+                        errors: [],
+                        alerts: []
+                    };
+                }
+                
+                startTime = Date.now();
+                
+                // Clear alerts
+                const alertsList = document.getElementById('alertsList');
+                alertsList.innerHTML = '<div class="no-alerts">No alerts - Performance is good! 🎉</div>';
+                updateAlertsCounter();
+                
+                console.log('🔄 Statistics reset');
+            }
+        }
+        
+        // Simulate some activity for demo purposes
+        setTimeout(() => {
+            // Simulate clicks for interaction tracking
+            document.addEventListener('click', () => {
+                // This will be tracked by the monitor
+            });
+        }, 1000);
+    </script>
+</body>
+</html>

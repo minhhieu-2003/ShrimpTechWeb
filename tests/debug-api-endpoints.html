@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug API Endpoints - SHRIMPTECH</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 20px;
+            background: #f8f9fa;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .endpoint {
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border-left: 4px solid #0066cc;
+        }
+        .success { border-left-color: #28a745; background: #d4edda; }
+        .error { border-left-color: #dc3545; background: #f8d7da; }
+        .warning { border-left-color: #ffc107; background: #fff3cd; }
+        button {
+            background: #0066cc;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #0052a3; }
+        button:disabled { background: #6c757d; cursor: not-allowed; }
+        pre {
+            background: #1a1a1a;
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-size: 12px;
+        }
+        .status-online { color: #28a745; }
+        .status-offline { color: #dc3545; }
+        .status-warning { color: #ffc107; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 API Endpoints Diagnostic - SHRIMPTECH</h1>
+        <p>Công cụ debug và test tất cả API endpoints của dự án</p>
+        
+        <div class="container">
+            <h3>🎛️ Controls</h3>
+            <button onclick="testAllEndpoints()">Test All Endpoints</button>
+            <button onclick="testContactForm()">Test Contact Form</button>
+            <button onclick="testCORS()">Test CORS Policy</button>
+            <button onclick="clearResults()">Clear Results</button>
+        </div>
+
+        <div class="container">
+            <h3>📊 API Endpoints Status</h3>
+            <div id="endpointStatus"></div>
+        </div>
+
+        <div class="container">
+            <h3>🧪 Test Results</h3>
+            <div id="testResults"></div>
+        </div>
+
+        <div class="container">
+            <h3>📋 Detailed Logs</h3>
+            <pre id="logs"></pre>
+        </div>
+    </div>
+
+    <!-- Load error fix first -->
+    <script src="js/fix-chrome-extension-errors.js"></script>
+    
+    <script>
+        const endpoints = [
+            { url: '/api/status', method: 'GET', name: 'Health Check (Same-origin)' },
+            { url: '/api/contact', method: 'POST', name: 'Contact Form (Same-origin)' },
+            { url: 'http://localhost:3001/api/status', method: 'GET', name: 'Local Server (3001)' },
+            { url: 'http://localhost:3002/api/status', method: 'GET', name: 'Local Email Server (3002)' },
+            { url: 'https://shrimptechshrimptech-production.up.railway.app/api/status', method: 'GET', name: 'Railway Production' },
+            { url: 'https://shrimptech-api.railway.app/api/status', method: 'GET', name: 'Railway Backup' }
+        ];
+
+        function log(message) {
+            const logDiv = document.getElementById('logs');
+            const timestamp = new Date().toLocaleTimeString();
+            logDiv.textContent += `[${timestamp}] ${message}\n`;
+            logDiv.scrollTop = logDiv.scrollHeight;
+            console.log(message);
+        }
+
+        function addResult(message, type = 'info') {
+            const resultsDiv = document.getElementById('testResults');
+            const result = document.createElement('div');
+            result.className = `endpoint ${type}`;
+            result.innerHTML = `[${new Date().toLocaleTimeString()}] ${message}`;
+            resultsDiv.appendChild(result);
+        }
+
+        function clearResults() {
+            document.getElementById('testResults').innerHTML = '';
+            document.getElementById('logs').textContent = '';
+            document.getElementById('endpointStatus').innerHTML = '';
+            log('🧹 Results cleared');
+        }
+
+        async function testEndpoint(endpoint) {
+            const { url, method, name } = endpoint;
+            
+            try {
+                log(`🌐 Testing ${name}: ${method} ${url}`);
+                
+                const options = {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
+                };
+
+                if (method === 'POST') {
+                    options.body = JSON.stringify({
+                        name: 'Test User',
+                        email: 'test@shrimptech.vn',
+                        phone: '0123456789',
+                        message: 'Debug test message',
+                        subject: 'API Debug Test'
+                    });
+                }
+
+                const startTime = Date.now();
+                const response = await fetch(url, options);
+                const endTime = Date.now();
+                const duration = endTime - startTime;
+
+                log(`📡 Response: ${response.status} ${response.statusText} (${duration}ms)`);
+
+                if (response.ok) {
+                    const result = await response.json();
+                    log(`✅ Success: ${JSON.stringify(result)}`);
+                    return { success: true, status: response.status, duration, data: result };
+                } else {
+                    const errorText = await response.text();
+                    log(`❌ Error: ${response.status} - ${errorText}`);
+                    return { success: false, status: response.status, duration, error: errorText };
+                }
+            } catch (error) {
+                log(`❌ Connection failed: ${error.message}`);
+                return { success: false, error: error.message };
+            }
+        }
+
+        async function testAllEndpoints() {
+            log('🧪 Starting comprehensive endpoint test...');
+            addResult('🧪 Starting comprehensive endpoint test...', 'warning');
+            
+            const statusDiv = document.getElementById('endpointStatus');
+            statusDiv.innerHTML = '<p>Testing endpoints...</p>';
+            
+            const results = [];
+            
+            for (const endpoint of endpoints) {
+                const result = await testEndpoint(endpoint);
+                results.push({ ...endpoint, result });
+                
+                // Update status display
+                const statusClass = result.success ? 'status-online' : 'status-offline';
+                const statusText = result.success ? 'ONLINE' : 'OFFLINE';
+                const duration = result.duration ? `(${result.duration}ms)` : '';
+                
+                statusDiv.innerHTML += `
+                    <div class="endpoint ${result.success ? 'success' : 'error'}">
+                        <strong>${endpoint.name}</strong>: 
+                        <span class="${statusClass}">${statusText}</span> ${duration}
+                        <br><small>${endpoint.url}</small>
+                        ${result.error ? `<br><small>Error: ${result.error}</small>` : ''}
+                    </div>
+                `;
+            }
+            
+            // Summary
+            const onlineCount = results.filter(r => r.result.success).length;
+            const totalCount = results.length;
+            
+            addResult(`📊 Test completed: ${onlineCount}/${totalCount} endpoints online`, 
+                     onlineCount === totalCount ? 'success' : 'warning');
+            
+            log(`📊 Final results: ${onlineCount}/${totalCount} endpoints responding`);
+        }
+
+        async function testContactForm() {
+            log('📧 Testing contact form submission...');
+            addResult('📧 Testing contact form submission...', 'warning');
+            
+            const testData = {
+                name: 'Debug Tester',
+                email: 'debug@shrimptech.vn',
+                phone: '0123456789',
+                company: 'SHRIMPTECH Debug',
+                farmType: 'pond-medium',
+                subject: 'product-info',
+                message: 'This is a debug test message from API diagnostic tool.',
+                newsletter: true
+            };
+            
+            const contactEndpoints = [
+                '/api/contact',
+                'http://localhost:3001/api/contact',
+                'http://localhost:3002/api/contact'
+            ];
+            
+            let successCount = 0;
+            
+            for (const url of contactEndpoints) {
+                try {
+                    log(`📮 Testing contact form: ${url}`);
+                    
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify(testData)
+                    });
+                    
+                    if (response.ok) {
+                        const result = await response.json();
+                        log(`✅ Contact form success: ${url} - ${result.message}`);
+                        successCount++;
+                    } else {
+                        const error = await response.text();
+                        log(`❌ Contact form error: ${url} - ${response.status}: ${error}`);
+                    }
+                } catch (error) {
+                    log(`❌ Contact form connection failed: ${url} - ${error.message}`);
+                }
+            }
+            
+            addResult(`📧 Contact form test: ${successCount}/${contactEndpoints.length} successful`, 
+                     successCount > 0 ? 'success' : 'error');
+        }
+
+        async function testCORS() {
+            log('🔒 Testing CORS policies...');
+            addResult('🔒 Testing CORS policies...', 'warning');
+            
+            const corsEndpoints = [
+                'https://shrimptechshrimptech-production.up.railway.app/api/status',
+                'https://shrimptech-api.railway.app/api/status'
+            ];
+            
+            for (const url of corsEndpoints) {
+                try {
+                    log(`🌐 Testing CORS: ${url}`);
+                    
+                    // Test OPTIONS preflight
+                    const optionsResponse = await fetch(url, {
+                        method: 'OPTIONS',
+                        headers: {
+                            'Origin': window.location.origin,
+                            'Access-Control-Request-Method': 'POST',
+                            'Access-Control-Request-Headers': 'Content-Type'
+                        }
+                    });
+                    
+                    log(`✈️ CORS Preflight: ${optionsResponse.status} ${optionsResponse.statusText}`);
+                    
+                    // Test actual request
+                    const getResponse = await fetch(url, {
+                        method: 'GET',
+                        mode: 'cors',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    
+                    if (getResponse.ok) {
+                        log(`✅ CORS test passed: ${url}`);
+                    } else {
+                        log(`⚠️ CORS test warning: ${url} - ${getResponse.status}`);
+                    }
+                } catch (error) {
+                    log(`❌ CORS test failed: ${url} - ${error.message}`);
+                    if (error.message.includes('CORS')) {
+                        log(`🔒 CORS Policy blocked this request`);
+                    }
+                }
+            }
+            
+            addResult('🔒 CORS testing completed - check logs for details', 'warning');
+        }
+
+        // Auto-run basic test on load
+        document.addEventListener('DOMContentLoaded', () => {
+            log('🚀 API Diagnostic Tool loaded');
+            log(`🌍 Current origin: ${window.location.origin}`);
+            log(`🔗 Current URL: ${window.location.href}`);
+            
+            setTimeout(() => {
+                testAllEndpoints();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
