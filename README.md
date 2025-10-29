@@ -8,8 +8,8 @@ SHRIMP TECH là dự án nghiên cứu từ sinh viên **Đại học Văn Hiế
 
 ## Tính năng chính
 
-- 🌊 **Giám sát thông số nước**: pH, nhiệt độ, độ mặn, oxy hòa tan
-- 🤖 **Tự động hóa 95%**: Điều khiển thiết bị thông minh
+- 🌊 **Giám sát thông số nước**: pH, nhiệt độ, độ mặn, oxy hòa tan,etcetc
+- 🤖 ****Tự động hóa** **: Điều khiển thiết bị thông minh
 - 📱 **Ứng dụng mobile**: Giám sát 24/7 từ xa
 - 🧠 **AI & Machine Learning**: Dự đoán và cảnh báo sớm
 - ☁️ **Cloud-based**: Lưu trữ và xử lý dữ liệu
@@ -119,7 +119,7 @@ shrimptech/
 ## Liên hệ
 
 - 📧 **Email**: shrimptech.vhu.hutech@gmail.com
-- 📱 **Hotline**: 0901 234 567
+- 📱 **Hotline**: 0835749407
 - 🏢 **Địa chỉ**: VHU & HUTECH, TP.HCM
 - ⏰ **Giờ làm việc**: T2-T6: 8:00-17:00
 
