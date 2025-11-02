@@ -364,7 +364,7 @@ var EmailService = function EmailService() {
 
   this.apiEndpoints = ['/api' // local endpoint only
   ];
-  this.projectEmail = 'shrimptech.vhu.hutech@gmail.com';
+  this.projectEmail = process.env.SMTP_USER || 'your-email@example.com';
   this.init();
 } // ...existing code...
 ;

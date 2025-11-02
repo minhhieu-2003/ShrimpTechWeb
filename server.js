@@ -174,8 +174,8 @@ const emailConfig = {
 
 // Validate required environment variables
 if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
-    console.error('❌ CRITICAL: SMTP_USER and SMTP_PASS must be set in environment variables!');
-    console.error('Please create a .env file with SMTP_USER and SMTP_PASS');
+    console.error('❌ CRITICAL: SMTP_USER and SMTP_PASS must be set in environment variables');
+    console.error('Please create a .env file with these variables');
     process.exit(1);
 }
 if (process.env.SMTP_USER && process.env.SMTP_PASS) {
