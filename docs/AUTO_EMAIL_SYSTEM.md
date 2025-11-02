@@ -38,7 +38,7 @@ Form Submission → Backend Handler → Gmail SMTP → Auto Email Service
 ```env
 # File: .env
 SMTP_USER=shrimptech.vhu.hutech@gmail.com
-SMTP_PASS=fozfanmhglzorrad
+SMTP_PASS=your_gmail_app_password_here
 ADMIN_EMAIL=shrimptech.vhu.hutech@gmail.com
 SMTP_FROM_EMAIL=shrimptech.vhu.hutech@gmail.com
 ```

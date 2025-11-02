@@ -1,7 +1,5 @@
 "use strict";
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 var express = require('express');
 
 var path = require('path');
@@ -78,7 +76,7 @@ app.use(function (req, res, next) {
   next();
 }); // --- CORS ---
 
-var allowedOrigins = ['https://shrimptech.vn', 'https://www.shrimptech.vn', 'https://shrimptech-c6e93.web.app', 'https://shrimptech-c6e93.firebaseapp.com'];
+var allowedOrigins = ['https://shrimptech.vn', 'https://www.shrimptech.vn', 'https://shrimptech-c6e93.web.app'];
 app.use(cors({
   origin: function origin(_origin, callback) {
     if (!_origin || allowedOrigins.includes(_origin)) {
@@ -156,7 +154,13 @@ var emailConfig = {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS
   }
-};
+}; // Validate required environment variables
+
+if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+  console.error('❌ CRITICAL: SMTP_USER and SMTP_PASS must be set in environment variables!');
+  console.error('Please create a .env file with SMTP_USER and SMTP_PASS');
+  process.exit(1);
+}
 
 if (process.env.SMTP_USER && process.env.SMTP_PASS) {
   transporter = nodemailer.createTransport({
@@ -354,19 +358,4 @@ process.on('unhandledRejection', function (reason) {
   console.error('Unhandled Rejection:', reason);
   shutdown('unhandledRejection');
 });
-
-var EmailService = function EmailService() {
-  _classCallCheck(this, EmailService);
-
-  // Detect environment (treat firebase/web.app/firebaseapp domains as production)
-  var host = window.location.hostname;
-  this.isProduction = host === 'shrimptech.vn' || host === 'shrimptech-web.web.app' || host === 'shrimptech-c6e93.web.app' || host === 'shrimptech-c6e93.firebaseapp.com' || window.location.protocol === 'https:'; // Chỉ sử dụng endpoint cục bộ vì các server external đã die
-
-  this.apiEndpoints = ['/api' // local endpoint only
-  ];
-  this.projectEmail = 'shrimptech.vhu.hutech@gmail.com';
-  this.init();
-} // ...existing code...
-;
-
 module.exports = app;

@@ -8,7 +8,7 @@ const transporter = nodemailer.createTransporter({
     secure: false,
     auth: {
         user: process.env.SMTP_USER || 'shrimptech.vhu.hutech@gmail.com',
-        pass: process.env.SMTP_PASS || 'fozfanmhglzorrad' // ✅ Đồng bộ
+        pass: process.env.SMTP_PASS // ✅ From environment variable
     }
 });
 
@@ -33,7 +33,6 @@ async function testEmail() {
                 <h2>🦐 SHRIMP TECH - SMTP Test Email</h2>
                 <p>✅ Email configuration is working correctly!</p>
                 <p><strong>Timestamp:</strong> ${new Date().toISOString()}</p>
-                <p><strong>Password used:</strong> fozfanmhglzorrad</p>
             `
         });
         console.log('✅ Test email sent:', info.messageId);

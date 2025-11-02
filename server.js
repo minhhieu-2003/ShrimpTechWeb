@@ -167,10 +167,17 @@ const emailConfig = {
     port: process.env.SMTP_PORT || 587,
     secure: false, // true for 465, false for other ports
     auth: {
-        user: process.env.SMTP_USER || 'shrimptech.vhu.hutech@gmail.com',
-        pass: process.env.SMTP_PASS || 'fozfanmhglzorrad'
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS
     }
 };
+
+// Validate required environment variables
+if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+    console.error('❌ CRITICAL: SMTP_USER and SMTP_PASS must be set in environment variables!');
+    console.error('Please create a .env file with SMTP_USER and SMTP_PASS');
+    process.exit(1);
+}
 if (process.env.SMTP_USER && process.env.SMTP_PASS) {
   transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST || 'smtp.gmail.com',

@@ -23,8 +23,8 @@ const emailConfig = {
     port: parseInt(process.env.SMTP_PORT) || 587,
     secure: false, // true for 465, false for other ports
     auth: {
-        user: process.env.SMTP_USER || 'shrimptech.vhu.hutech@gmail.com',
-        pass: process.env.SMTP_PASS || 'fozfanmhglzorrad' // Use App Password
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS // Use App Password from environment variable
     },
     tls: {
         rejectUnauthorized: false

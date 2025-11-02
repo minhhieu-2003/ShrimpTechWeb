@@ -41,7 +41,7 @@ const emailProviders = {
         secure: false,
         auth: {
             user: process.env.GMAIL_USER || 'shrimptech.vhu.hutech@gmail.com',
-            pass: process.env.GMAIL_APP_PASSWORD || 'fozfanmhglzorrad'
+            pass: process.env.GMAIL_APP_PASSWORD
         }
     },
     
