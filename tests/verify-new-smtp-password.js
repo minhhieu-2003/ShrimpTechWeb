@@ -9,11 +9,11 @@ console.log('\n📋 Current Configuration:');
 console.log('SMTP_HOST:', process.env.SMTP_HOST || 'smtp.gmail.com');
 console.log('SMTP_PORT:', process.env.SMTP_PORT || '587');
 console.log('SMTP_USER:', process.env.SMTP_USER);
-console.log('SMTP_PASS:', process.env.SMTP_PASS ? '✅ SET (aewb xgdn jlfv alcc)' : '❌ NOT SET');
+console.log('SMTP_PASS:', process.env.SMTP_PASS ? '✅ SET (masked for security)' : '❌ NOT SET');
 
 if (!process.env.SMTP_PASS) {
     console.error('\n❌ ERROR: SMTP_PASS not found in .env file');
-    console.log('Please add: SMTP_PASS=aewb xgdn jlfv alcc');
+    console.log('Please configure SMTP credentials in .env file');
     process.exit(1);
 }
 
@@ -37,10 +37,10 @@ transporter.verify((error, success) => {
         console.log('\n❌ SMTP Verification FAILED:');
         console.error('Error:', error.message);
         console.log('\n💡 Troubleshooting:');
-        console.log('1. Verify App Password: aewb xgdn jlfv alcc');
+        console.log('1. Verify App Password is set in .env file');
         console.log('2. Check 2FA is enabled: https://myaccount.google.com/security');
         console.log('3. Generate new App Password: https://myaccount.google.com/apppasswords');
-        console.log('4. Update .env file with new password');
+        console.log('4. Update SMTP_PASS in .env file');
         process.exit(1);
     } else {
         console.log('\n✅ SMTP Verification SUCCESSFUL!');
@@ -71,7 +71,6 @@ async function sendTestEmail() {
                         <div style="background: #e8f5e9; padding: 20px; border-radius: 8px; border-left: 4px solid #4caf50; margin: 20px 0;">
                             <p style="margin: 0;"><strong>✅ Verification Results:</strong></p>
                             <ul style="margin: 10px 0 0;">
-                                <li>New App Password: <code>aewb xgdn jlfv alcc</code></li>
                                 <li>SMTP Connection: OK</li>
                                 <li>Email Sending: OK</li>
                                 <li>Auto Mail System: OPERATIONAL</li>
@@ -83,7 +82,7 @@ async function sendTestEmail() {
                         <p><strong>Email Account:</strong> ${process.env.SMTP_USER}</p>
                         
                         <p style="color: #666; font-size: 14px; margin-top: 20px;">
-                            Hệ thống email tự động của ShrimpTech đang hoạt động bình thường với App Password mới.
+                            Email system is working correctly.
                         </p>
                     </div>
                     <div style="background: #f8f9fa; padding: 15px; text-align: center;">

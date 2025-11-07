@@ -11,11 +11,11 @@ console.log('\n📋 Current Configuration:');
 console.log('SMTP_HOST:', process.env.SMTP_HOST || 'smtp.gmail.com');
 console.log('SMTP_PORT:', process.env.SMTP_PORT || '587');
 console.log('SMTP_USER:', process.env.SMTP_USER);
-console.log('SMTP_PASS:', process.env.SMTP_PASS ? '✅ SET (aewb xgdn jlfv alcc)' : '❌ NOT SET');
+console.log('SMTP_PASS:', process.env.SMTP_PASS ? '✅ SET (masked for security)' : '❌ NOT SET');
 
 if (!process.env.SMTP_PASS) {
   console.error('\n❌ ERROR: SMTP_PASS not found in .env file');
-  console.log('Please add: SMTP_PASS=aewb xgdn jlfv alcc');
+  console.log('Please configure SMTP credentials in .env file');
   process.exit(1);
 } // Create transporter
 
@@ -37,10 +37,10 @@ transporter.verify(function (error, success) {
     console.log('\n❌ SMTP Verification FAILED:');
     console.error('Error:', error.message);
     console.log('\n💡 Troubleshooting:');
-    console.log('1. Verify App Password: aewb xgdn jlfv alcc');
+    console.log('1. Verify App Password is set in .env file');
     console.log('2. Check 2FA is enabled: https://myaccount.google.com/security');
     console.log('3. Generate new App Password: https://myaccount.google.com/apppasswords');
-    console.log('4. Update .env file with new password');
+    console.log('4. Update SMTP_PASS in .env file');
     process.exit(1);
   } else {
     console.log('\n✅ SMTP Verification SUCCESSFUL!');
@@ -63,7 +63,7 @@ function sendTestEmail() {
             from: "\"SHRIMPTECH Test\" <".concat(process.env.SMTP_USER, ">"),
             to: process.env.SMTP_USER,
             subject: '✅ SHRIMPTECH - New SMTP Password Verified',
-            html: "\n                <div style=\"font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;\">\n                    <div style=\"background: linear-gradient(135deg, #0066cc, #004499); padding: 30px; text-align: center;\">\n                        <h1 style=\"color: white; margin: 0;\">\uD83E\uDD90 SHRIMPTECH</h1>\n                        <p style=\"color: white; margin: 10px 0 0;\">SMTP Auto Mail System</p>\n                    </div>\n                    <div style=\"padding: 30px; background: white;\">\n                        <h2 style=\"color: #0066cc;\">\u2705 New App Password Verified Successfully!</h2>\n                        \n                        <div style=\"background: #e8f5e9; padding: 20px; border-radius: 8px; border-left: 4px solid #4caf50; margin: 20px 0;\">\n                            <p style=\"margin: 0;\"><strong>\u2705 Verification Results:</strong></p>\n                            <ul style=\"margin: 10px 0 0;\">\n                                <li>New App Password: <code>aewb xgdn jlfv alcc</code></li>\n                                <li>SMTP Connection: OK</li>\n                                <li>Email Sending: OK</li>\n                                <li>Auto Mail System: OPERATIONAL</li>\n                            </ul>\n                        </div>\n                        \n                        <p><strong>Test Time:</strong> ".concat(new Date().toLocaleString('vi-VN'), "</p>\n                        <p><strong>SMTP Server:</strong> ").concat(process.env.SMTP_HOST || 'smtp.gmail.com', "</p>\n                        <p><strong>Email Account:</strong> ").concat(process.env.SMTP_USER, "</p>\n                        \n                        <p style=\"color: #666; font-size: 14px; margin-top: 20px;\">\n                            H\u1EC7 th\u1ED1ng email t\u1EF1 \u0111\u1ED9ng c\u1EE7a ShrimpTech \u0111ang ho\u1EA1t \u0111\u1ED9ng b\xECnh th\u01B0\u1EDDng v\u1EDBi App Password m\u1EDBi.\n                        </p>\n                    </div>\n                    <div style=\"background: #f8f9fa; padding: 15px; text-align: center;\">\n                        <p style=\"margin: 0; font-size: 12px; color: #999;\">\n                            \xA9 2024 SHRIMPTECH - Auto Mail System v2.2\n                        </p>\n                    </div>\n                </div>\n            ")
+            html: "\n                <div style=\"font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;\">\n                    <div style=\"background: linear-gradient(135deg, #0066cc, #004499); padding: 30px; text-align: center;\">\n                        <h1 style=\"color: white; margin: 0;\">\uD83E\uDD90 SHRIMPTECH</h1>\n                        <p style=\"color: white; margin: 10px 0 0;\">SMTP Auto Mail System</p>\n                    </div>\n                    <div style=\"padding: 30px; background: white;\">\n                        <h2 style=\"color: #0066cc;\">\u2705 New App Password Verified Successfully!</h2>\n                        \n                        <div style=\"background: #e8f5e9; padding: 20px; border-radius: 8px; border-left: 4px solid #4caf50; margin: 20px 0;\">\n                            <p style=\"margin: 0;\"><strong>\u2705 Verification Results:</strong></p>\n                            <ul style=\"margin: 10px 0 0;\">\n                                <li>SMTP Connection: OK</li>\n                                <li>Email Sending: OK</li>\n                                <li>Auto Mail System: OPERATIONAL</li>\n                            </ul>\n                        </div>\n                        \n                        <p><strong>Test Time:</strong> ".concat(new Date().toLocaleString('vi-VN'), "</p>\n                        <p><strong>SMTP Server:</strong> ").concat(process.env.SMTP_HOST || 'smtp.gmail.com', "</p>\n                        <p><strong>Email Account:</strong> ").concat(process.env.SMTP_USER, "</p>\n                        \n                        <p style=\"color: #666; font-size: 14px; margin-top: 20px;\">\n                            Email system is working correctly.\n                        </p>\n                    </div>\n                    <div style=\"background: #f8f9fa; padding: 15px; text-align: center;\">\n                        <p style=\"margin: 0; font-size: 12px; color: #999;\">\n                            \xA9 2024 SHRIMPTECH - Auto Mail System v2.2\n                        </p>\n                    </div>\n                </div>\n            ")
           }));
 
         case 4:

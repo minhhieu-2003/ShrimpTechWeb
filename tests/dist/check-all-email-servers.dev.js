@@ -71,7 +71,7 @@ function testConfig(config) {
     while (1) {
       switch (_context2.prev = _context2.next) {
         case 0:
-          console.log('\n🔐 App Password: aewbxgdnjlfvalcc (no spaces)');
+          console.log('\n🔐 App Password: Configured in .env');
           console.log('📧 Email Account:', process.env.SMTP_USER);
           results = [];
           _iteratorNormalCompletion = true;

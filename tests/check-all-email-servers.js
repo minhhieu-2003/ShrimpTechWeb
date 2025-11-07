@@ -51,7 +51,7 @@ async function testConfig(config) {
 }
 
 (async () => {
-    console.log('\n🔐 App Password: aewbxgdnjlfvalcc (no spaces)');
+    console.log('\n🔐 App Password: Configured in .env');
     console.log('📧 Email Account:', process.env.SMTP_USER);
     
     const results = [];
