@@ -1,0 +1,23 @@
+{
+  "timestamp": "2025-11-07T05:04:56.302Z",
+  "deployments": {
+    "firebase": {
+      "target": "https://shrimptech2.web.app",
+      "status": "deployed"
+    },
+    "flyio": {
+      "target": "https://shrimptech-backend.fly.dev",
+      "status": "deployed"
+    }
+  },
+  "smtp": {
+    "configured": true,
+    "provider": "Gmail",
+    "host": "smtp.gmail.com"
+  },
+  "endpoints": {
+    "frontend": "https://shrimptech2.web.app",
+    "api": "https://shrimptech-backend.fly.dev/api",
+    "health": "https://shrimptech-backend.fly.dev/api/health"
+  }
+}

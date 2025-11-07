@@ -92,9 +92,16 @@ app.use((req, res, next) => {
 
 // --- CORS ---
 const allowedOrigins = [
+  'http://localhost:3000', // Add your frontend's origin
+  'http://localhost:3001',
+  'http://localhost:3002',
+  'http://127.0.0.1:3000',
+  'http://127.0.0.1:3001',
+  'http://127.0.0.1:3002',
   'https://shrimptech.vn',
   'https://www.shrimptech.vn',
   'https://shrimptech-c6e93.web.app',
+  'https://shrimptech-c6e93.firebaseapp.com'
 ];
 
 app.use(
@@ -106,8 +113,8 @@ app.use(
         callback(new Error('Not allowed by CORS'));
       }
     },
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    credentials: true
   })
 );
 
@@ -167,17 +174,15 @@ const emailConfig = {
     port: process.env.SMTP_PORT || 587,
     secure: false, // true for 465, false for other ports
     auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS
+        user: process.env.SMTP_USER || 'shrimptech.vhu.hutech@gmail.com',
+        pass: process.env.SMTP_PASS // Removed hardcoded password - must use .env
     }
 };
 
-// Validate required environment variables
-if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
-    console.error('❌ CRITICAL: SMTP_USER and SMTP_PASS must be set in environment variables');
-    console.error('Please create a .env file with these variables');
-    process.exit(1);
+if (!process.env.SMTP_PASS) {
+    console.warn('⚠️ WARNING: SMTP_PASS not set in .env file');
 }
+
 if (process.env.SMTP_USER && process.env.SMTP_PASS) {
   transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST || 'smtp.gmail.com',

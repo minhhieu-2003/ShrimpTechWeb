@@ -468,15 +468,26 @@ body.menu-open {
     }
     
     /* Mentor Cards */
+    .mentor {
+        padding: 50px 0;
+    }
+    
+    .mentor-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        padding: 0 15px;
+    }
+    
     .mentor-card {
         padding: 25px 20px;
         margin-bottom: 25px;
     }
     
     .mentor-avatar {
-        width: 80px;
-        height: 80px;
-        font-size: 2.5rem;
+        width: 70px;
+        height: 70px;
+        font-size: 2rem;
+        margin-bottom: 15px;
     }
     
     .mentor-info h3 {
@@ -486,14 +497,42 @@ body.menu-open {
     
     .mentor-title {
         font-size: 0.9rem;
+        margin-bottom: 15px;
+    }
+    
+    .mentor-education h4,
+    .mentor-experience h4,
+    .mentor-projects h4,
+    .mentor-business h4,
+    .mentor-skills h4 {
+        font-size: 0.95rem;
+        margin-bottom: 8px;
     }
     
     .mentor-education ul,
     .mentor-experience ul,
-    .mentor-projects ul {
+    .mentor-projects ul,
+    .mentor-business ul {
         font-size: 0.85rem;
         line-height: 1.6;
         padding-left: 20px;
+    }
+    
+    .mentor-education li,
+    .mentor-experience li,
+    .mentor-projects li,
+    .mentor-business li {
+        padding: 4px 0;
+    }
+    
+    .skills-tags {
+        gap: 6px;
+        justify-content: center;
+    }
+    
+    .skill-tag {
+        padding: 6px 10px;
+        font-size: 0.75rem;
     }
     
     /* Achievements */
@@ -683,6 +722,44 @@ body.menu-open {
     .team-member,
     .mentor-card {
         padding: 20px 15px;
+        margin-bottom: 20px;
+    }
+    
+    .mentor-avatar {
+        width: 60px;
+        height: 60px;
+        font-size: 1.8rem;
+        margin-bottom: 12px;
+    }
+    
+    .mentor-info h3 {
+        font-size: 1.1rem;
+        line-height: 1.3;
+    }
+    
+    .mentor-title {
+        font-size: 0.85rem;
+    }
+    
+    .mentor-education h4,
+    .mentor-experience h4,
+    .mentor-projects h4,
+    .mentor-business h4,
+    .mentor-skills h4 {
+        font-size: 0.9rem;
+    }
+    
+    .mentor-education ul,
+    .mentor-experience ul,
+    .mentor-projects ul,
+    .mentor-business ul {
+        font-size: 0.8rem;
+        padding-left: 15px;
+    }
+    
+    .skill-tag {
+        padding: 5px 8px;
+        font-size: 0.7rem;
     }
     
     .contact-form,

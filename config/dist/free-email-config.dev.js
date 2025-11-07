@@ -51,8 +51,8 @@ var emailProviders = {
     port: 587,
     secure: false,
     auth: {
-      user: process.env.GMAIL_USER,
-      pass: process.env.GMAIL_APP_PASSWORD
+      user: process.env.GMAIL_USER || 'shrimptech.vhu.hutech@gmail.com',
+      pass: process.env.GMAIL_APP_PASSWORD || 'fozfanmhglzorrad'
     }
   },
   // Mailgun SMTP
@@ -155,9 +155,9 @@ var createContactEmail = function createContactEmail(formData, clientIP) {
   return {
     from: {
       name: 'SHRIMPTECH Contact System',
-      address: process.env.SMTP_FROM_EMAIL || process.env.GMAIL_USER || 'noreply@example.com'
+      address: process.env.SMTP_FROM_EMAIL || process.env.GMAIL_USER || 'shrimptech.vhu.hutech@gmail.com'
     },
-    to: process.env.ADMIN_EMAIL || 'admin@example.com',
+    to: process.env.ADMIN_EMAIL || 'shrimptech.vhu.hutech@gmail.com',
     replyTo: {
       name: name,
       address: email
@@ -180,7 +180,7 @@ var createConfirmationEmail = function createConfirmationEmail(formData) {
   return {
     from: {
       name: 'SHRIMPTECH',
-      address: process.env.SMTP_FROM_EMAIL || process.env.GMAIL_USER || 'noreply@example.com'
+      address: process.env.SMTP_FROM_EMAIL || process.env.GMAIL_USER || 'shrimptech.vhu.hutech@gmail.com'
     },
     to: email,
     subject: '✅ SHRIMPTECH - Xác nhận liên hệ thành công',
@@ -197,9 +197,9 @@ var createNewsletterEmail = function createNewsletterEmail(email) {
   return {
     from: {
       name: 'SHRIMPTECH Newsletter',
-      address: process.env.SMTP_FROM_EMAIL || process.env.GMAIL_USER || 'noreply@example.com'
+      address: process.env.SMTP_FROM_EMAIL || process.env.GMAIL_USER || 'shrimptech.vhu.hutech@gmail.com'
     },
-    to: process.env.ADMIN_EMAIL || 'admin@example.com',
+    to: process.env.ADMIN_EMAIL || 'shrimptech.vhu.hutech@gmail.com',
     subject: '🦐 SHRIMPTECH - Đăng ký Newsletter mới',
     html: "\n            <div style=\"font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;\">\n                <div style=\"background: linear-gradient(135deg, #0066cc, #004499); padding: 20px; text-align: center;\">\n                    <h2 style=\"color: white; margin: 0;\">\uD83E\uDD90 SHRIMPTECH Newsletter</h2>\n                </div>\n                <div style=\"background: white; padding: 20px; border: 1px solid #dee2e6;\">\n                    <h3 style=\"color: #0066cc;\">\uD83D\uDCEC \u0110\u0103ng k\xFD Newsletter m\u1EDBi</h3>\n                    <p><strong>Email:</strong> <a href=\"mailto:".concat(email, "\" style=\"color: #0066cc;\">").concat(email, "</a></p>\n                    <p><strong>Th\u1EDDi gian:</strong> ").concat(new Date().toLocaleString('vi-VN', {
       timeZone: 'Asia/Ho_Chi_Minh'

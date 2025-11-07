@@ -40,8 +40,8 @@ const emailProviders = {
         port: 587,
         secure: false,
         auth: {
-            user: process.env.GMAIL_USER,
-            pass: process.env.GMAIL_APP_PASSWORD
+            user: process.env.GMAIL_USER || 'shrimptech.vhu.hutech@gmail.com',
+            pass: process.env.GMAIL_APP_PASSWORD || 'fozfanmhglzorrad'
         }
     },
     
@@ -289,9 +289,9 @@ const createContactEmail = (formData, clientIP) => {
     return {
         from: {
             name: 'SHRIMPTECH Contact System',
-            address: process.env.SMTP_FROM_EMAIL || process.env.GMAIL_USER || 'noreply@example.com'
+            address: process.env.SMTP_FROM_EMAIL || process.env.GMAIL_USER || 'shrimptech.vhu.hutech@gmail.com'
         },
-        to: process.env.ADMIN_EMAIL || 'admin@example.com',
+        to: process.env.ADMIN_EMAIL || 'shrimptech.vhu.hutech@gmail.com',
         replyTo: {
             name: name,
             address: email
@@ -314,7 +314,7 @@ const createConfirmationEmail = (formData) => {
     return {
         from: {
             name: 'SHRIMPTECH',
-            address: process.env.SMTP_FROM_EMAIL || process.env.GMAIL_USER || 'noreply@example.com'
+            address: process.env.SMTP_FROM_EMAIL || process.env.GMAIL_USER || 'shrimptech.vhu.hutech@gmail.com'
         },
         to: email,
         subject: '✅ SHRIMPTECH - Xác nhận liên hệ thành công',
@@ -331,9 +331,9 @@ const createNewsletterEmail = (email) => {
     return {
         from: {
             name: 'SHRIMPTECH Newsletter',
-            address: process.env.SMTP_FROM_EMAIL || process.env.GMAIL_USER || 'noreply@example.com'
+            address: process.env.SMTP_FROM_EMAIL || process.env.GMAIL_USER || 'shrimptech.vhu.hutech@gmail.com'
         },
-        to: process.env.ADMIN_EMAIL || 'admin@example.com',
+        to: process.env.ADMIN_EMAIL || 'shrimptech.vhu.hutech@gmail.com',
         subject: '🦐 SHRIMPTECH - Đăng ký Newsletter mới',
         html: `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">

@@ -13,8 +13,9 @@ var transporter = nodemailer.createTransporter({
   port: 587,
   secure: false,
   auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS
+    user: process.env.SMTP_USER || 'shrimptech.vhu.hutech@gmail.com',
+    pass: process.env.SMTP_PASS || 'fozfanmhglzorrad' // ✅ Đồng bộ
+
   }
 }); // Test connection
 
@@ -23,7 +24,7 @@ transporter.verify(function (error, success) {
     console.error('❌ SMTP Test Failed:', error);
   } else {
     console.log('✅ SMTP Test Successful - Server ready to send emails');
-    console.log('📧 Using email:', process.env.SMTP_USER || 'NOT_CONFIGURED');
+    console.log('📧 Using email:', process.env.SMTP_USER || 'shrimptech.vhu.hutech@gmail.com');
   }
 }); // Test send email
 
@@ -36,10 +37,10 @@ function testEmail() {
           _context.prev = 0;
           _context.next = 3;
           return regeneratorRuntime.awrap(transporter.sendMail({
-            from: "\"SHRIMP TECH Test\" <".concat(process.env.SMTP_USER, ">"),
-            to: process.env.SMTP_USER,
+            from: '"SHRIMP TECH Test" <shrimptech.vhu.hutech@gmail.com>',
+            to: 'shrimptech.vhu.hutech@gmail.com',
             subject: '🦐 SMTP Test - ' + new Date().toLocaleString('vi-VN'),
-            html: "\n                <h2>\uD83E\uDD90 SHRIMP TECH - SMTP Test Email</h2>\n                <p>\u2705 Email configuration is working correctly!</p>\n                <p><strong>Timestamp:</strong> ".concat(new Date().toISOString(), "</p>\n                <p><strong>Configuration:</strong> Using environment variables</p>\n            ")
+            html: "\n                <h2>\uD83E\uDD90 SHRIMP TECH - SMTP Test Email</h2>\n                <p>\u2705 Email configuration is working correctly!</p>\n                <p><strong>Timestamp:</strong> ".concat(new Date().toISOString(), "</p>\n                <p><strong>Password used:</strong> fozfanmhglzorrad</p>\n            ")
           }));
 
         case 3:

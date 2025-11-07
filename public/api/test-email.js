@@ -7,8 +7,8 @@ const transporter = nodemailer.createTransporter({
     port: 587,
     secure: false,
     auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS
+        user: process.env.SMTP_USER || 'shrimptech.vhu.hutech@gmail.com',
+        pass: process.env.SMTP_PASS || 'fozfanmhglzorrad' // ✅ Đồng bộ
     }
 });
 
@@ -18,7 +18,7 @@ transporter.verify((error, success) => {
         console.error('❌ SMTP Test Failed:', error);
     } else {
         console.log('✅ SMTP Test Successful - Server ready to send emails');
-        console.log('📧 Using email:', process.env.SMTP_USER || 'NOT_CONFIGURED');
+        console.log('📧 Using email:', process.env.SMTP_USER || 'shrimptech.vhu.hutech@gmail.com');
     }
 });
 
@@ -26,14 +26,14 @@ transporter.verify((error, success) => {
 async function testEmail() {
     try {
         const info = await transporter.sendMail({
-            from: `"SHRIMP TECH Test" <${process.env.SMTP_USER}>`,
-            to: process.env.SMTP_USER,
+            from: '"SHRIMP TECH Test" <shrimptech.vhu.hutech@gmail.com>',
+            to: 'shrimptech.vhu.hutech@gmail.com',
             subject: '🦐 SMTP Test - ' + new Date().toLocaleString('vi-VN'),
             html: `
                 <h2>🦐 SHRIMP TECH - SMTP Test Email</h2>
                 <p>✅ Email configuration is working correctly!</p>
                 <p><strong>Timestamp:</strong> ${new Date().toISOString()}</p>
-                <p><strong>Configuration:</strong> Using environment variables</p>
+                <p><strong>Password used:</strong> fozfanmhglzorrad</p>
             `
         });
         console.log('✅ Test email sent:', info.messageId);

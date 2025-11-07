@@ -168,8 +168,8 @@ const emailConfig = {
     port: process.env.SMTP_PORT || 587,
     secure: false, // true for 465, false for other ports
     auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS
+        user: process.env.SMTP_USER || 'shrimptech.vhu.hutech@gmail.com',
+        pass: process.env.SMTP_PASS || 'xgdn jlfv alcc'
     }
 };
 if (process.env.SMTP_USER && process.env.SMTP_PASS) {
@@ -333,7 +333,7 @@ class EmailService {
             '/api' // local endpoint only
         ];
 
-        this.projectEmail = process.env.SMTP_USER || 'your-email@example.com';
+        this.projectEmail = 'shrimptech.vhu.hutech@gmail.com';
         this.init();
     }
     // ...existing code...

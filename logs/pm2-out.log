@@ -1,0 +1,5 @@
+2025-11-05 10:38:36 +07:00: [dotenv@17.2.2] injecting env (12) from .env -- tip: 📡 version env with Radar: https://dotenvx.com/radar
+2025-11-05 10:38:36 +07:00: 📋 Production configuration loaded for shrimptech.vn
+2025-11-05 10:38:36 +07:00: 🔧 Khởi tạo ShrimpTech Server v2.2 (Bản Clean)...
+2025-11-05 10:38:36 +07:00: 🌐 SHRIMPTECH Server running on http://localhost:3001 (ENV PORT=3001)
+2025-11-05 10:38:37 +07:00: ✅ SMTP sẵn sàng: shrimptech.vhu.hutech@gmail.com

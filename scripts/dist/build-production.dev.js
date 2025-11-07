@@ -70,7 +70,7 @@ function copyStaticFiles() {
 
 function createProductionEnv() {
   console.log('⚙️  Creating production environment file...');
-  var productionEnv = "# SHRIMPTECH Production Environment\nNODE_ENV=production\nPORT=3001\n\n# SMTP Configuration\nSMTP_HOST=smtp.gmail.com\nSMTP_PORT=587\nSMTP_SECURE=false\nSMTP_USER=your-email@example.com\nSMTP_PASS=your-app-password-here\n\n# Gmail Configuration\nGMAIL_USER=your-email@example.com\nGMAIL_APP_PASSWORD=your-app-password-here\n\n# Production Domain\nPRODUCTION_DOMAIN=shrimptech.vn\nPRODUCTION_PROTOCOL=https\nAPI_BASE_URL=/api\n\n# Contact Email\nCONTACT_EMAIL=your-email@example.com\nFROM_EMAIL=your-email@example.com\n\n# CORS Origins\nCORS_ORIGIN=https://shrimptech.vn,https://www.shrimptech.vn,https://shrimptech-c6e93.web.app\n";
+  var productionEnv = "# SHRIMPTECH Production Environment\nNODE_ENV=production\nPORT=3001\n\n# SMTP Configuration\nSMTP_HOST=smtp.gmail.com\nSMTP_PORT=587\nSMTP_SECURE=false\nSMTP_USER=shrimptech.vhu.hutech@gmail.com\nSMTP_PASS=tphq qvuf jiql sada\n\n# Gmail Configuration\nGMAIL_USER=shrimptech.vhu.hutech@gmail.com\nGMAIL_APP_PASSWORD=tphq qvuf jiql sada\n\n# Production Domain\nPRODUCTION_DOMAIN=shrimptech.vn\nPRODUCTION_PROTOCOL=https\nAPI_BASE_URL=/api\n\n# Contact Email\nCONTACT_EMAIL=shrimptech.vhu.hutech@gmail.com\nFROM_EMAIL=shrimptech.vhu.hutech@gmail.com\n\n# CORS Origins\nCORS_ORIGIN=https://shrimptech.vn,https://www.shrimptech.vn,https://shrimptech-c6e93.web.app\n";
   fs.writeFileSync(path.join(BUILD_CONFIG.buildDir, '.env'), productionEnv);
   console.log('✅ Production environment file created');
 }

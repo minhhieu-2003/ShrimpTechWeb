@@ -69,12 +69,12 @@ PORT=3001
 SMTP_HOST=smtp.gmail.com
 SMTP_PORT=587
 SMTP_SECURE=false
-SMTP_USER=your-email@example.com
-SMTP_PASS=your-app-password-here
+SMTP_USER=shrimptech.vhu.hutech@gmail.com
+SMTP_PASS=tphq qvuf jiql sada
 
 # Gmail Configuration
-GMAIL_USER=your-email@example.com
-GMAIL_APP_PASSWORD=your-app-password-here
+GMAIL_USER=shrimptech.vhu.hutech@gmail.com
+GMAIL_APP_PASSWORD=tphq qvuf jiql sada
 
 # Production Domain
 PRODUCTION_DOMAIN=shrimptech.vn
@@ -82,8 +82,8 @@ PRODUCTION_PROTOCOL=https
 API_BASE_URL=/api
 
 # Contact Email
-CONTACT_EMAIL=your-email@example.com
-FROM_EMAIL=your-email@example.com
+CONTACT_EMAIL=shrimptech.vhu.hutech@gmail.com
+FROM_EMAIL=shrimptech.vhu.hutech@gmail.com
 
 # CORS Origins
 CORS_ORIGIN=https://shrimptech.vn,https://www.shrimptech.vn,https://shrimptech-c6e93.web.app

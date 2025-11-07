@@ -37,7 +37,7 @@ ShrimpTech Email System sử dụng SMTP với Gmail để gửi email và Forms
 ```javascript
 // File: .env
 SMTP_USER=shrimptech.vhu.hutech@gmail.com
-SMTP_PASS=your_gmail_app_password_here
+SMTP_PASS=fozfanmhglzorrad
 ADMIN_EMAIL=shrimptech.vhu.hutech@gmail.com
 SMTP_FROM_EMAIL=shrimptech.vhu.hutech@gmail.com
 ```

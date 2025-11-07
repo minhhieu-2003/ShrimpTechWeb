@@ -153,8 +153,8 @@ var emailConfig = {
   secure: false,
   // true for 465, false for other ports
   auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS
+    user: process.env.SMTP_USER || 'shrimptech.vhu.hutech@gmail.com',
+    pass: process.env.SMTP_PASS || 'xgdn jlfv alcc'
   }
 };
 
@@ -364,7 +364,7 @@ var EmailService = function EmailService() {
 
   this.apiEndpoints = ['/api' // local endpoint only
   ];
-  this.projectEmail = process.env.SMTP_USER || 'your-email@example.com';
+  this.projectEmail = 'shrimptech.vhu.hutech@gmail.com';
   this.init();
 } // ...existing code...
 ;

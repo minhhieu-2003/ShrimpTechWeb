@@ -18,8 +18,9 @@ var emailConfig = {
   secure: false,
   // true for 465, false for other ports
   auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS
+    user: process.env.SMTP_USER || 'shrimptech.vhu.hutech@gmail.com',
+    pass: process.env.SMTP_PASS || 'fozfanmhglzorrad' // Use App Password
+
   },
   tls: {
     rejectUnauthorized: false
