@@ -5,8 +5,8 @@
 class FormHandler {
     constructor() {
         this.init();
-        this.retryAttempts = 3;
-        this.retryDelay = 2000; // 2 seconds
+        this.retryAttempts = 2; // Reduced from 3 to 2 for faster response
+        this.retryDelay = 1000; // Reduced from 2000ms to 1000ms
     }
     
     init() {
@@ -150,9 +150,19 @@ class FormHandler {
     }
     
     async submitWithRetry(data, type) {
+        // Get submit button for progress updates
+        const form = document.querySelector(`#${type}Form`);
+        const submitBtn = form?.querySelector('button[type="submit"]');
+        
         for (let attempt = 1; attempt <= this.retryAttempts; attempt++) {
             try {
                 console.log(`📤 Attempt ${attempt}/${this.retryAttempts} for ${type} form`);
+                
+                // Update button text with progress
+                if (submitBtn) {
+                    const progressText = type === 'contact' ? 'Đang gửi' : 'Đang đăng ký';
+                    submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${progressText}... (${attempt}/${this.retryAttempts})`;
+                }
                 
                 // Detect environment and submit
                 const isProduction = window.location.hostname === 'shrimptech.vn' || 
@@ -191,29 +201,39 @@ class FormHandler {
     async submitToDeployedBackend(data, type = 'contact') {
         const endpoints = {
             contact: [
-                // Production Vercel endpoint
+                // Production Vercel endpoint (ƯU TIÊN)
                 'https://shrimp-tech2.vercel.app/api/contact',
                 // Fallback to same domain (works for both local and deployed)
-                '/api/contact',
-                // Local development
-                'http://localhost:3001/api/contact'
+                '/api/contact'
             ],
             newsletter: [
                 'https://shrimp-tech2.vercel.app/api/newsletter',
-                '/api/newsletter',
-                'http://localhost:3001/api/newsletter'
+                '/api/newsletter'
             ]
         };
         
-        const backendUrls = endpoints[type] || endpoints.contact;
-        console.log(`🌐 Trying deployed SMTP backends for ${type}...`);
+        // Detect if running on localhost
+        const isLocalhost = window.location.hostname === 'localhost' || 
+                           window.location.hostname === '127.0.0.1';
+        
+        let backendUrls = endpoints[type] || endpoints.contact;
+        
+        // Only add localhost endpoint when developing locally
+        if (isLocalhost) {
+            backendUrls = [
+                'http://localhost:3001/api/' + type,
+                ...backendUrls
+            ];
+        }
+        
+        console.log(`🌐 Trying ${backendUrls.length} SMTP backends for ${type}...`);
         
         for (const url of backendUrls) {
             try {
                 console.log(`📤 Trying SMTP backend: ${url}`);
                 
                 const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
+                const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
                 
                 const response = await fetch(url, {
                     method: 'POST',
@@ -223,7 +243,7 @@ class FormHandler {
                         'Origin': window.location.origin
                     },
                     body: JSON.stringify(data),
-                    credentials: 'omit', // Don't send cookies for CORS
+                    credentials: 'omit',
                     signal: controller.signal
                 });
 
