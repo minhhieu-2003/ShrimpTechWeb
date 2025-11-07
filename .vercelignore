@@ -1,16 +1,15 @@
 # Dependencies
 node_modules/
 
-# Environment variables
+# Environment variables (use Vercel dashboard)
 .env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
 
-# Build outputs
+# Build outputs (not dist for static files)
 dist/
-build/
 
 # IDE files
 .vscode/
@@ -22,23 +21,34 @@ Thumbs.db
 
 # Git
 .git/
+.gitignore
 
-# Firebase
-.firebaserc
-
-# Public files (not needed for backend)
-public/
+# Development files
 backup/
-docs/
 tests/
-scripts/
+scripts/setup-*.bat
+scripts/setup-*.sh
 
-# Other configs
+# Documentation (keep README)
+docs/
 *.md
-LICENSE
+!README.md
+!VERCEL_DEPLOYMENT.md
 
-# Docker files (not needed for Vercel)
+# Other platform configs
+fly.toml
+firebase.json
+.firebase/
+.firebaserc
+ecosystem.config.js
+railway.json
 Dockerfile
 .dockerignore
-fly.toml
-railway.json
+
+# Logs
+logs/
+*.log
+
+# Python
+.venv/
+__pycache__/

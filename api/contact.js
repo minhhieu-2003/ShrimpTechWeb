@@ -1,6 +1,9 @@
 const nodemailer = require('nodemailer');
 const cors = require('cors');
 
+// Load environment variables
+require('dotenv').config();
+
 // CORS configuration
 const corsOptions = {
     origin: [
@@ -17,19 +20,26 @@ const corsOptions = {
     allowedHeaders: ['Content-Type', 'Authorization']
 };
 
-// Email configuration
+// Email configuration - SECURE: No hardcoded credentials
 const emailConfig = {
     host: process.env.SMTP_HOST || 'smtp.gmail.com',
     port: parseInt(process.env.SMTP_PORT) || 587,
     secure: false, // true for 465, false for other ports
     auth: {
-        user: process.env.SMTP_USER || 'shrimptech.vhu.hutech@gmail.com',
-        pass: process.env.SMTP_PASS || 'fozfanmhglzorrad' // Use App Password
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS // MUST be set in .env file
     },
     tls: {
         rejectUnauthorized: false
     }
 };
+
+// Validate email configuration
+if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+    console.error('❌ CRITICAL: SMTP credentials not found in .env file!');
+    console.error('📝 Please set SMTP_USER and SMTP_PASS in your .env file');
+    throw new Error('Missing SMTP credentials in environment variables');
+}
 
 // Create transporter
 const transporter = nodemailer.createTransporter(emailConfig);

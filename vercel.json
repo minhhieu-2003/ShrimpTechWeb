@@ -4,17 +4,27 @@
     {
       "src": "server.js",
       "use": "@vercel/node"
+    },
+    {
+      "src": "public/**",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/server.js"
+    },
+    {
+      "src": "/(.*\\.(js|css|html|ico|png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot|webp|mp4|webm))",
+      "dest": "/public/$1"
+    },
     {
       "src": "/(.*)",
       "dest": "/server.js"
     }
   ],
   "env": {
-    "NODE_ENV": "production",
-    "PORT": "3001",
-    "DOMAIN": "shrimptech.vn"
+    "NODE_ENV": "production"
   }
 }

@@ -267,10 +267,29 @@ app.post('/api/newsletter', inputValidator.validateNewsletterMiddleware(), async
 });
 
 // --- Route chính ---
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public/index.html')));
+app.get('/', (req, res) => {
+  const indexPath = path.join(__dirname, 'public/index.html');
+  
+  // Check if file exists (for Vercel compatibility)
+  if (fs.existsSync(indexPath)) {
+    return res.sendFile(indexPath);
+  }
+  
+  // Fallback for Vercel - redirect to static file
+  return res.redirect(301, '/index.html');
+});
 
 // --- 404 ---
 app.use((req, res) => {
+  // Don't send JSON for HTML requests
+  if (req.accepts('html') && !req.path.startsWith('/api/')) {
+    const notFoundPath = path.join(__dirname, 'public/404.html');
+    if (fs.existsSync(notFoundPath)) {
+      return res.status(404).sendFile(notFoundPath);
+    }
+  }
+  
+  // API endpoints - return JSON
   res.status(404).json({
     success: false,
     message: 'API endpoint không tồn tại',
@@ -295,38 +314,42 @@ app.use((err, req, res, next) => {
 });
 
 // --- Start ---
-const PORT = process.env.PORT || 3000;
-const server = app.listen(PORT, () => {
-  console.log(`🌐 SHRIMPTECH Server running on http://localhost:${PORT} (ENV PORT=${process.env.PORT || 'not set'})`);
-});
-
-// Graceful shutdown helper
-function shutdown(signal) {
-  console.log(`🛑 Nhận ${signal}, dừng server an toàn`);
-  server.close(err => {
-    if (err) {
-      console.error('Lỗi khi đóng server:', err);
-      process.exit(1);
-    }
-    process.exit(0);
+// Only start server if not in Vercel serverless environment
+if (process.env.VERCEL !== '1' && require.main === module) {
+  const PORT = process.env.PORT || 3000;
+  const server = app.listen(PORT, () => {
+    console.log(`🌐 SHRIMPTECH Server running on http://localhost:${PORT} (ENV PORT=${process.env.PORT || 'not set'})`);
   });
-  // Force exit nếu không đóng kịp
-  setTimeout(() => {
-    console.error('⚠️ Server không đóng kịp, thoát cưỡng bức');
-    process.exit(1);
-  }, 10000);
+
+  // Graceful shutdown helper
+  function shutdown(signal) {
+    console.log(`🛑 Nhận ${signal}, dừng server an toàn`);
+    server.close(err => {
+      if (err) {
+        console.error('Lỗi khi đóng server:', err);
+        process.exit(1);
+      }
+      process.exit(0);
+    });
+    // Force exit nếu không đóng kịp
+    setTimeout(() => {
+      console.error('⚠️ Server không đóng kịp, thoát cưỡng bức');
+      process.exit(1);
+    }, 10000);
+  }
+
+  ['SIGTERM', 'SIGINT'].forEach(sig => process.on(sig, () => shutdown(sig)));
+
+  process.on('uncaughtException', (err) => {
+    console.error('Uncaught Exception:', err);
+    shutdown('uncaughtException');
+  });
+
+  process.on('unhandledRejection', (reason) => {
+    console.error('Unhandled Rejection:', reason);
+    shutdown('unhandledRejection');
+  });
 }
 
-['SIGTERM', 'SIGINT'].forEach(sig => process.on(sig, () => shutdown(sig)));
-
-process.on('uncaughtException', (err) => {
-  console.error('Uncaught Exception:', err);
-  shutdown('uncaughtException');
-});
-
-process.on('unhandledRejection', (reason) => {
-  console.error('Unhandled Rejection:', reason);
-  shutdown('unhandledRejection');
-});
-
+// Export app for Vercel serverless
 module.exports = app;

@@ -13,9 +13,12 @@
     "performance-test": "echo 'Open tests/test-performance.html in browser'",
     "performance-dashboard": "echo 'Open tests/performance-dashboard.html in browser'",
     "website-optimizer": "echo 'Open tests/test-optimizer.html in browser'",
-    "email-test": "node tests/test-email-config.js",
+    "email-test": "node tests/check-all-email-servers.js",
     "validate-email": "node tests/validate-email-system.js",
     "security-audit": "node scripts/security-audit.js",
+    "security-check": "node scripts/check-env-security.js",
+    "setup-env": "node -e \"require('child_process').execSync('scripts/setup-env.bat', {stdio: 'inherit'})\"",
+    "validate-vercel": "node scripts/validate-vercel-config.js",
     "production-setup": "node scripts/build-production.js",
     "deploy": "node scripts/deploy-production.js"
   },
