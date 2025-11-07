@@ -19,6 +19,7 @@
     "security-check": "node scripts/check-env-security.js",
     "setup-env": "node -e \"require('child_process').execSync('scripts/setup-env.bat', {stdio: 'inherit'})\"",
     "validate-vercel": "node scripts/validate-vercel-config.js",
+    "vercel-health": "node scripts/vercel-health-check.js",
     "production-setup": "node scripts/build-production.js",
     "deploy": "node scripts/deploy-production.js"
   },
@@ -36,7 +37,7 @@
     "url": "https://github.com/shrimptech/shrimptech-iot"
   },
   "engines": {
-    "node": ">=18.0.0",
+    "node": "18.x",
     "npm": ">=8.0.0"
   },
   "dependencies": {
