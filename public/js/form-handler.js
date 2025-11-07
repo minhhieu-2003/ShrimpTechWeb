@@ -191,14 +191,17 @@ class FormHandler {
     async submitToDeployedBackend(data, type = 'contact') {
         const endpoints = {
             contact: [
-                // Sử dụng local server đang chạy trên port 3001
-                'http://localhost:3001/api/contact',
-                '/api/contact'  // fallback cho cùng domain
+                // Production Vercel endpoint
+                'https://shrimp-tech2.vercel.app/api/contact',
+                // Fallback to same domain (works for both local and deployed)
+                '/api/contact',
+                // Local development
+                'http://localhost:3001/api/contact'
             ],
             newsletter: [
-                // Sử dụng local server đang chạy trên port 3001
-                'http://localhost:3001/api/newsletter',
-                '/api/newsletter'  // fallback cho cùng domain
+                'https://shrimp-tech2.vercel.app/api/newsletter',
+                '/api/newsletter',
+                'http://localhost:3001/api/newsletter'
             ]
         };
         
@@ -220,6 +223,7 @@ class FormHandler {
                         'Origin': window.location.origin
                     },
                     body: JSON.stringify(data),
+                    credentials: 'omit', // Don't send cookies for CORS
                     signal: controller.signal
                 });
 
@@ -232,6 +236,14 @@ class FormHandler {
                 } else {
                     const errorData = await response.json().catch(() => ({}));
                     console.warn(`⚠️ SMTP Backend ${url} returned ${response.status}:`, errorData.message || 'Unknown error');
+                    
+                    // If this is the last URL and server returned fallback email, use it
+                    if (url === backendUrls[backendUrls.length - 1] && errorData.fallback) {
+                        console.log('📧 Using mailto fallback:', errorData.fallback);
+                        this.openMailtoFallback(data, errorData.fallback);
+                        throw new Error('Email service unavailable, opened mailto link');
+                    }
+                    
                     throw new Error(errorData.message || `HTTP ${response.status}`);
                 }
             } catch (error) {
@@ -325,7 +337,7 @@ class FormHandler {
     }
     
     // Fallback method khi tất cả endpoints fail
-    openMailtoFallback(data) {
+    openMailtoFallback(data, fallbackEmail = 'shrimptech.vhu.hutech@gmail.com') {
         const subject = encodeURIComponent('[SHRIMPTECH] Liên hệ từ website');
         const body = encodeURIComponent(
             `Tên: ${data.name}\n` +
@@ -337,14 +349,48 @@ class FormHandler {
             `Thời gian: ${new Date().toLocaleString()}`
         );
         
-        const mailtoUrl = `mailto:shrimptech.vhu.hutech@gmail.com?subject=${subject}&body=${body}`;
+        const mailtoUrl = `mailto:${fallbackEmail}?subject=${subject}&body=${body}`;
         
         try {
-            window.open(mailtoUrl, '_self');
-            console.log('📧 Opened mailto fallback');
+            // ✅ FIX: Dùng window.location.href thay vì window.open để tránh bị Chrome block
+            window.location.href = mailtoUrl;
+            console.log('📧 Opened mailto fallback:', fallbackEmail);
+            
+            // Show confirmation message
+            this.showMessage(
+                `📧 Đã mở ứng dụng email. Nếu không tự động mở, vui lòng gửi email đến: ${fallbackEmail}`,
+                'info'
+            );
         } catch (error) {
             console.error('Failed to open mailto:', error);
+            
+            // Ultimate fallback: Copy email to clipboard
+            this.copyToClipboard(fallbackEmail);
         }
+    }
+    
+    // Helper: Copy text to clipboard
+    copyToClipboard(text) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(() => {
+                this.showMessage(
+                    `📋 Đã copy email vào clipboard: ${text}\nVui lòng dán vào ứng dụng email của bạn.`,
+                    'info'
+                );
+                console.log('✅ Email copied to clipboard:', text);
+            }).catch(err => {
+                console.error('Failed to copy to clipboard:', err);
+                this.showEmailManually(text);
+            });
+        } else {
+            // Fallback for older browsers
+            this.showEmailManually(text);
+        }
+    }
+    
+    // Show email address in alert as last resort
+    showEmailManually(email) {
+        alert(`Vui lòng gửi email đến:\n\n${email}\n\nHoặc gọi hotline: 0835 749 407`);
     }
     
     showMessage(message, type = 'info') {

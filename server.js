@@ -101,20 +101,36 @@ const allowedOrigins = [
   'https://shrimptech.vn',
   'https://www.shrimptech.vn',
   'https://shrimptech-c6e93.web.app',
-  'https://shrimptech-c6e93.firebaseapp.com'
+  'https://shrimptech-c6e93.firebaseapp.com',
+  'https://shrimp-tech2.vercel.app',
+  'https://shrimptech2.web.app',
+  'https://shrimptech2.firebaseapp.com'
 ];
 
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
+      // Allow requests with no origin (like mobile apps or curl)
+      if (!origin) {
+        return callback(null, true);
       }
+      
+      // Check if origin is in whitelist
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      
+      // Check if origin matches Vercel preview deployment pattern
+      if (origin.match(/^https:\/\/shrimp-tech2.*\.vercel\.app$/)) {
+        return callback(null, true);
+      }
+      
+      console.warn('⚠️ CORS blocked origin:', origin);
+      callback(new Error('Not allowed by CORS'));
     },
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    credentials: true
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'Origin']
   })
 );
 
@@ -181,6 +197,7 @@ const emailConfig = {
 
 if (!process.env.SMTP_PASS) {
     console.warn('⚠️ WARNING: SMTP_PASS not set in .env file');
+    console.warn('📝 Email functionality will be limited without SMTP credentials');
 }
 
 if (process.env.SMTP_USER && process.env.SMTP_PASS) {
@@ -190,7 +207,14 @@ if (process.env.SMTP_USER && process.env.SMTP_PASS) {
     secure: process.env.SMTP_SECURE === 'true',
     auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS }
   });
+  
+  console.log('📧 SMTP Configuration:');
+  console.log(`   Host: ${process.env.SMTP_HOST || 'smtp.gmail.com'}`);
+  console.log(`   Port: ${process.env.SMTP_PORT || 587}`);
+  console.log(`   User: ${process.env.SMTP_USER ? '***' + process.env.SMTP_USER.slice(-15) : 'NOT SET'}`);
+  console.log(`   Pass: ${process.env.SMTP_PASS ? '***SET***' : 'NOT SET'}`);
 }
+
 transporter.verify(err => {
   if (err) console.error('❌ SMTP lỗi:', err.message);
   else console.log('✅ SMTP sẵn sàng:', process.env.SMTP_USER);
@@ -223,6 +247,17 @@ app.get('/api/health', (req, res) => {
 app.post('/api/contact', inputValidator.validateContactMiddleware(), async (req, res) => {
   try {
     const data = req.validatedData;
+    
+    // Check if transporter is configured
+    if (!transporter) {
+      console.error('❌ SMTP transporter not configured');
+      return res.status(500).json({ 
+        success: false, 
+        message: 'Email service not configured. Please contact support directly.',
+        fallback: 'shrimptech.vhu.hutech@gmail.com'
+      });
+    }
+    
     if (transporter) {
       await transporter.sendMail({
         from: process.env.SMTP_USER,
@@ -244,7 +279,12 @@ app.post('/api/contact', inputValidator.validateContactMiddleware(), async (req,
     res.json({ success: true, message: 'Đã nhận liên hệ, vui lòng kiểm tra email.' });
   } catch (err) {
     console.error('❌ Lỗi contact:', err.message);
-    res.status(500).json({ success: false, message: 'Có lỗi xảy ra.' });
+    console.error('Stack:', err.stack);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Có lỗi xảy ra khi gửi email.',
+      error: process.env.NODE_ENV === 'development' ? err.message : undefined
+    });
   }
 });
 
